@@ -1,0 +1,30 @@
+  <%
+  def determine_adapter
+    if Gem.loaded_specs.key?("mysql2")
+      "mysql2"
+    else
+      "mysql"
+    end
+  rescue
+    "mysql"
+  end
+  %>
+
+default: &default
+  adapter: <%= determine_adapter %>
+  encoding: utf8
+  pool: 5
+  username: root
+  password: root 
+
+development:
+  <<: *default
+  database: sp_dev
+
+test:
+  <<: *default  
+  database: sp_test
+
+production:
+  <<: *default
+  database: sp_prod
