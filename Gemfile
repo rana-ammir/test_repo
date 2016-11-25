@@ -5,7 +5,7 @@ gem 'rails', '4.2.3'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails', '4.3.0.0'
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.13'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
