@@ -1,11 +1,16 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.6'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails', '4.3.0.0'
 
 gem 'mysql2', '~> 0.3.13'
+gem 'mysql'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+gem 'jquery-rails'
+gem 'pry-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
