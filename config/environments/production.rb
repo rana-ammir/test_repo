@@ -73,7 +73,24 @@ Myapp::Application.configure do
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false
+  
+  config.action_mailer.default_url_options = { :host => 'staging-s90.herokuapp.com' }
+  config.i18n.fallbacks = true
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.gmail.com',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['GMAIL_USERNAME'],
+    :password       => ENV['GMAIL_PASSWORD'],
+    :domain         => 'gmail.com',
+    :enable_starttls_auto => true
+  }
 
+  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 end

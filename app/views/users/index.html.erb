@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9a-z]/i, '') %></td>
+        <td><%= link_to 'Edit', edit_member_path(id: user.id) %></td>
+        <td><%= link_to 'Destroy', member_path(id: user.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_member_path %>

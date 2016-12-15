@@ -54,8 +54,8 @@
             <li class="<%= is_active_controller('admins') %>">
                 <a href=""><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.admin">Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('admins') %>">
-                    <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Organization Setup" %></li>
-                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Users/Members"%></li>
+                    <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Organization Setup" , divisions_path(id: current_user.organization.id) %></li>
+                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Users/Members", members_path%></li>
                     <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Teams" %></li>
                     <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Areas" %></li>
                     <li>

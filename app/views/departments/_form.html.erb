@@ -1,0 +1,13 @@
+<%= form_for @department, html: {class: "form-horizontal"} do |f| %>
+  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+    <div class="col-lg-10">
+      <%= f.text_field :name , placeholder: "Enter name", class: "form-control" %>
+      <%= f.hidden_field :division_id, value: current_user.organization.id%>
+    </div>
+  </div>  
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -10,7 +10,6 @@ gem 'mysql'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'jquery-rails'
-gem 'pry-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
@@ -37,6 +36,11 @@ end
 
 group :production do
   gem 'pg'
+end
+
+group :development do
+	gem "letter_opener"
+	gem 'pry-rails'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

@@ -55,6 +55,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (6.0.3)
@@ -114,6 +116,10 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -139,6 +145,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    public_suffix (2.0.4)
     rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -218,6 +225,7 @@ DEPENDENCIES
   font-awesome-rails (= 4.3.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  letter_opener
   mysql
   mysql2 (~> 0.3.13)
   pg
