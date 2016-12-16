@@ -1,26 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Divisions </h5>
+                <div class="ibox-tools">
+                    <%= link_to 'New Division', new_division_path, class: "btn btn-sm btn-white", style: "color:grey;"%>
+                </div>
+            </div>
+            <div class="ibox-content">
 
-<h1>Listing Divisions</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @divisions.each do |division| %>
-      <tr>
-        <td><%= division.name %></td>
-        <td><%= link_to 'Show', departments_path(id: division.id)   %></td>
-        <td><%= link_to 'Edit', edit_division_path(division) %></td>
-        <td><%= link_to 'Destroy', division_path(id: division.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Division', new_division_path %>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Department List</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @divisions.each do |division| %>
+                        <tr>
+                          <td><%= division.id%></td>
+                          <td><span class="line"><%= division.name %></span></td>
+                          <td><%= link_to 'Departments', departments_path(division) %> </td>
+                          <td><%= link_to edit_division_path(division) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to division_path(division), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <%end%> </td>
+                        </tr>
+                      <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -33,10 +33,16 @@ class UsersController < ApplicationController
 	end
 
 	def update
+		@user = User.find(params[:id])
 		@user.update(user_params)
 		redirect_to members_path
 	end
 
+	def destroy
+		@user = User.find(params[:id])
+		@user.destroy
+		redirect_to members_path
+	end
 	def get_selected_division
 		@division = Division.find(params[:division_id])
 		@departments = @division.departments

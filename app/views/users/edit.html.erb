@@ -1,38 +1,54 @@
-<%= form_for @user, url: member_path, method: "put" do |f| %>
-  <div class="form-group">
-      <%= f.email_field :email, autofocus: true, placeholder: "Email",class: "form-control" %>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+  <div class="col-lg-1">
   </div>
-  <div class="form-group">
-      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password (6 characters minimum)" %>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Members Edit</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                  <%= form_for @user, url: member_path, method: "put" do |f| %>
+                    <div class="form-group">
+                        <%= f.email_field :email, autofocus: true, placeholder: "Email",class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password (6 characters minimum)" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation" %>
+                        <%= f.hidden_field :role_id, value: 5%>
+                    </div>
+                    <div class="form-group">
+                        <%= f.text_field :username, placeholder: "Username",class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.text_field :first_name, placeholder: "First name",class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.text_field :last_name, placeholder: "Last name",class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.text_field :job_title, placeholder: "Job title",class: "form-control" %>
+                    </div>
+                    <select class="form-control m-b" name="user[role_id]" id= user_role_id>
+                      <option value="<%=@user.role_id%>"><%= User::Role::DISPLAY_NAMES.values_at(@user.role_id).to_s.gsub(/[^0-9 a-z]/i, '')%></option>
+                      <option value="1">Member</option>
+                      <option value="2">Department Head</option>
+                      <option value="3">Division Head</option>
+                      <option value="4">Organization Head</option>
+                    </select>
+                    <%= f.collection_select :division_id, Division.all, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
+                    <div class= "department-select"></div>
+                    <%= f.hidden_field :organization_id, value: current_user.organization.id%>
+                    <div class="form-group">
+                      <%= f.submit class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
+                    </div>
+                  <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-  <div class="form-group">
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Password Confirmation" %>
-      <%= f.hidden_field :role_id, value: 5%>
-  </div>
-  <div class="form-group">
-      <%= f.text_field :username, placeholder: "Username",class: "form-control" %>
-  </div>
-  <div class="form-group">
-      <%= f.text_field :first_name, placeholder: "First name",class: "form-control" %>
-  </div>
-  <div class="form-group">
-      <%= f.text_field :last_name, placeholder: "Last name",class: "form-control" %>
-  </div>
-  <div class="form-group">
-      <%= f.text_field :job_title, placeholder: "Job title",class: "form-control" %>
-  </div>
-  <select class="form-control m-b" name="user[role_id]" id= user_role_id>
-    <option value="<%=@user.role_id%>"><%= User::Role::DISPLAY_NAMES.values_at(@user.role_id).to_s.gsub(/[^0-9a-z]/i, '')%></option>
-    <option value="1">Member</option>
-    <option value="2">Department Head</option>
-    <option value="3">Division Head</option>
-    <option value="4">Organization Head</option>
-  </select>
-  <%= f.collection_select :division_id, Division.all, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
-  <div class= "department-select"></div>
-  <%= f.hidden_field :organization_id, value: current_user.organization.id%>
-  <div class="form-group">
-    <%= f.submit class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
-  </div>
-<% end %>
-
+</div>

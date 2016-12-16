@@ -4,7 +4,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="<%= image_url 'profile_small.jpg' %>"/>
+                        <img alt="image" class="img-circle" src="<%= image_url 'default_person.png' %>"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
@@ -51,11 +51,11 @@
                     <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours" %></li>
                 </ul>
             </li>
-            <li class="<%= is_active_controller('admins') %>">
+            <li class="<%= is_active_controller('divisions') or is_active_controller('users') %>">
                 <a href=""><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.admin">Admin</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse <%= is_active_controller('admins') %>">
-                    <li class="<%= is_active_action('dashboard_1') %>"><%= link_to "Organization Setup" , divisions_path(id: current_user.organization.id) %></li>
-                    <li class="<%= is_active_action('dashboard_2') %>"><%= link_to "Users/Members", members_path%></li>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('divisions') %>">
+                    <li class="<%= is_active_controller_action('divisions','index') %>"><%= link_to "Organization Setup" , divisions_path(id: current_user.organization.id) %></li>
+                    <li class="<%= is_active_controller_action('users','index') %>"><%= link_to "Users/Members", members_path%></li>
                     <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Teams" %></li>
                     <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Areas" %></li>
                     <li>
@@ -68,6 +68,11 @@
                     </li>
                 </ul>
             </li>
+
+
+
+<!-- ##################################################################################################### -->
+            <%if false%>
             <li class="<%= is_active_controller('dashboards') %>">
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Dashboards</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('dashboards') %>">
@@ -281,6 +286,7 @@
                 <i class="fa fa-star"></i> <span class="nav-label" data-i18n="nav.landing">Landing page </span>
                 <% end %>
             </li>
+            <%end%>
         </ul>
 
     </div>

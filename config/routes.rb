@@ -2,6 +2,7 @@ Myapp::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   devise_for :users, :controllers => {:registrations => "registrations"} 
   resources :organizations do
      member do
@@ -12,16 +13,18 @@ Myapp::Application.routes.draw do
        end
      end
    end 
+
    resources :members, controller: "users" do
      collection do
        get "get_selected_division", to: "users#get_selected_division", as: :get_selected_division
      end
    end
+
    scope :users do
      get "forgot_password", to: "users#forgot_password", as: :forgot_password 
      post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email
    end
-
+   
    root to: 'dashboards#dashboard_1'
 
    # All routes

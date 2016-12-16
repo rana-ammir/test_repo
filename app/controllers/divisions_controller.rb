@@ -4,7 +4,7 @@ class DivisionsController < ApplicationController
   # GET /divisions
   # GET /divisions.json
   def index
-    @divisions = Division.all
+    @divisions = current_user.organization.divisions
   end
 
   # GET /divisions/1
@@ -34,7 +34,7 @@ class DivisionsController < ApplicationController
   def update
     respond_to do |format|
       if @division.update(division_params)
-        format.html { redirect_to @division, notice: 'Division was successfully updated.' }
+        format.html { redirect_to divisions_path, notice: 'Division was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
