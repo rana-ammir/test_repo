@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@users = User.organization_administrator!
+		@users = current_user.organization.users.organization_administrator!
 	end
 
 	def new
