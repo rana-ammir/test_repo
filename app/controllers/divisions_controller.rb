@@ -26,7 +26,7 @@ class DivisionsController < ApplicationController
   def create
     @organization = current_user.organization
     @division = Division.create(division_params)
-    redirect_to divisions_path(id: @organization.id)
+    redirect_to organization_divisions_path
   end
 
   # PATCH/PUT /divisions/1
@@ -34,7 +34,7 @@ class DivisionsController < ApplicationController
   def update
     respond_to do |format|
       if @division.update(division_params)
-        format.html { redirect_to divisions_path, notice: 'Division was successfully updated.' }
+        format.html { redirect_to organization_divisions_path, notice: 'Division was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -48,7 +48,7 @@ class DivisionsController < ApplicationController
   def destroy
     @division.destroy
     respond_to do |format|
-      format.html { redirect_to divisions_url }
+      format.html { redirect_to organization_divisions_path }
       format.json { head :no_content }
     end
   end

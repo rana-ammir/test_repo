@@ -1,4 +1,4 @@
-<%= form_for @division, html: {class: "form-horizontal"} do |f| %>
+<%= form_for @division, url: organization_divisions_path, method: "post", html: {class: "form-horizontal"} do |f| %>
   <div class="form-group"><label class="col-lg-2 control-label">Name</label>
     <div class="col-lg-10">
       <%= f.text_field :name , placeholder: "Enter name", class: "form-control" %>

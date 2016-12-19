@@ -5,12 +5,8 @@ Myapp::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations"} 
   resources :organizations do
-     member do
-       resources :divisions do
-         member do
-           resources :departments        
-         end
-       end
+    resources :divisions do
+      resources :departments        
      end
    end 
 

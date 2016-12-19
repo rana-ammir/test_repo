@@ -2,7 +2,7 @@ class DepartmentsController < ApplicationController
   # before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   def index
-    @division = Division.find(params[:id])
+    @division = Division.find(params[:division_id])
     @departments = @division.departments
   end
 
@@ -10,22 +10,25 @@ class DepartmentsController < ApplicationController
   end
 
   def new
+    @division = Division.find(params[:division_id])
     @department = Department.new
   end
 
   def edit
+    @division = Division.find(params[:division_id])
+    @department = Department.find(params[:id])
   end
 
   def create
     @department = Department.create(department_params)
-    redirect_to  departments_path
+    redirect_to  organization_division_departments_path
   end
 
   def update
     @department = Department.find(params[:id])
     respond_to do |format|
       if @department.update(department_params)
-        format.html { redirect_to @department, notice: 'Department was successfully updated.' }
+        format.html { redirect_to organization_division_departments_path, notice: 'Department was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -39,7 +42,7 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
     @department.destroy
     respond_to do |format|
-      format.html { redirect_to divisions_path }
+      format.html { redirect_to organization_division_departments_path }
       format.json { head :no_content }
     end
   end

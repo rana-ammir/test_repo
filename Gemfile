@@ -10,6 +10,7 @@ gem 'mysql'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'jquery-rails'
+gem 'rails4-autocomplete'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'

@@ -6,7 +6,7 @@
             <div class="ibox-title">
                 <h5>Departments</h5>
                 <div class="ibox-tools">
-                    <%= link_to 'New Department', new_department_path, class: "btn btn-sm btn-white", style: "color:grey;"%>
+                    <%= link_to 'New Department', new_organization_division_department_path, class: "btn btn-sm btn-white", style: "color:grey;"%>
                 </div>
             </div>
             <div class="ibox-content">
@@ -24,7 +24,7 @@
                         <tr>
                           <td><%= department.id%></td>
                           <td><span class="line"><%= department.name %></span></td>
-                          <td><%= link_to edit_department_path(department) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to department_path(department), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <td><%= link_to edit_organization_division_department_path(id: department.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to organization_division_department_path(id: department.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                           <%end%> </td>
                         </tr>
                       <%end%>
