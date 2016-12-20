@@ -1,3 +1,24 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%= current_user.organization_name%></h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+        </li>
+        <li>
+            <%= link_to "Organization Setup", organization_divisions_path %>
+        </li>
+        <li class="active">
+            <strong>
+              <%= link_to "#{current_user.organization_name}", organization_divisions_path %>
+            </strong>
+        </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
 <div class="wrapper wrapper-content animated fadeInRight">
 <div class="row">
     <div class="col-lg-1"></div>
@@ -14,16 +35,14 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Department List</th>
+                        <th>Division</th>
+                        <th></th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                       <% @divisions.each do |division| %>
                         <tr>
-                          <td><%= division.id%></td>
                           <td><span class="line"><%= division.name %></span></td>
                           <td><%= link_to 'Departments', organization_division_departments_path(division_id: division.id)%> </td>
                           <td><%= link_to edit_organization_division_path(id: division.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to organization_division_path(id:division.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 

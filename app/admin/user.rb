@@ -4,11 +4,11 @@ ActiveAdmin.register User do
   
   collection_action :autocomplete_organization_name, method: :get do
     @organizations = Organization.where("name LIKE ?", "%#{params[:term]}%")
-    render json: @organizations 
+    render json: @organizations.map{|f| {"value" => f.name , "key" => f.id} }.to_json
   end
   
   controller do
-    autocomplete :user, :organization_id
+    autocomplete :user, :organization
     skip_before_filter :authenticate_user!
   end
   
@@ -67,7 +67,8 @@ ActiveAdmin.register User do
       f.input :last_name
       f.input :job_title
       f.input :role_id , as: :select, collection: User::Role::DISPLAY_NAMES.values, prompt: "Select role type"
-      f.input :organization_id, as: :autocomplete, url: autocomplete_organization_name_admin_users_path  
+      f.input :organization, as: :autocomplete, url: autocomplete_organization_name_admin_users_path
+      f.hidden_field :organization_id, id: "organization_id" 
       f.input :division_id, as: :select, collection: Division.all, prompt: "Select division"
       f.input :department_id, as: :select, collection: Department.where(division_id: user.division_id)
     end

@@ -1,3 +1,24 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%= current_user.organization_name%> : <%= @division.name.titleize%></h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+        </li>
+        <li>
+            <%= link_to "#{current_user.organization_name}", organization_divisions_path %>
+        </li>
+        <li class="active">
+            <strong>
+              <%= link_to "#{@division.name.titleize}", organization_division_departments_path  %>
+            </strong>
+        </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
 <div class="wrapper wrapper-content animated fadeInRight">
 <div class="row">
     <div class="col-lg-2"></div>
@@ -14,7 +35,6 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>Name</th>
                         <th>Actions</th>
                     </tr>
@@ -22,7 +42,6 @@
                     <tbody>
                       <% @departments.each do |department| %>
                         <tr>
-                          <td><%= department.id%></td>
                           <td><span class="line"><%= department.name %></span></td>
                           <td><%= link_to edit_organization_division_department_path(id: department.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to organization_division_department_path(id: department.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                           <%end%> </td>

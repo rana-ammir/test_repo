@@ -17,3 +17,8 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
 
+$('document').ready(function() {
+  setTimeout((function() {
+    $('.alert').slideUp();
+  }), 5000);
+});

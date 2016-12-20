@@ -1,20 +1,6 @@
 class UsersController < ApplicationController
 	skip_before_action :authenticate_user!, :only => [:forgot_password, :generate_new_password_email]
 
-	def forgot_password
-		user = User.find_by_email(params[:email])
-	end
-
-	def generate_new_password_email 
-		user = User.find_by_email(params[:email])
-		if user
-			user.send_reset_password_instructions 
-			redirect_to root_path 
-		else
-			render action: 'forgot_password'
-		end
-	end
-
 	def index
 		@users = current_user.organization.users.organization_administrator!
 	end
@@ -43,11 +29,27 @@ class UsersController < ApplicationController
 		@user.destroy
 		redirect_to members_path
 	end
+
 	def get_selected_division
 		@division = Division.find(params[:division_id])
 		@departments = @division.departments
 		respond_to do |format|
 			format.js
+		end
+	end
+
+	def forgot_password
+		user = User.find_by_email(params[:email])
+	end
+
+	def generate_new_password_email 
+		user = User.find_by_email(params[:email])
+		if user
+			user.send_reset_password_instructions 
+			redirect_to root_path 
+		else
+			redirect_to action: 'forgot_password'
+			flash[:alert] = "We could not find the Email you entered. Please try again."
 		end
 	end
 

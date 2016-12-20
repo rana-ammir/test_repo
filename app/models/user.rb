@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}".titleize
   end
 
+  def organization_name
+    "#{self.organization.name.titleize}"
+  end
+  
   def member?
     self.role_id == User::Role::Member
   end
