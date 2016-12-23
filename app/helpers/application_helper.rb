@@ -10,4 +10,8 @@ module ApplicationHelper
   def is_active_controller_action(controller_name, action_name)
   	params[:action] == action_name and params[:controller] == controller_name ? "active" : nil
   end
+
+  def role_name
+  	User::Role::DISPLAY_NAMES
+  end
 end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	skip_before_action :authenticate_user!, :only => [:forgot_password, :generate_new_password_email]
+	skip_before_action :authenticate_user!, :only => [:forgot_password, :generate_new_password_email, :get_selected_division]
 
 	def index
 		@users = current_user.organization.users.organization_administrator!
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 	end
 
 	def edit
+		@array_of_roles = User::Role::DISPLAY_NAMES.to_a
 		@user = User.find(params[:id])
 	end
 
@@ -55,6 +56,6 @@ class UsersController < ApplicationController
 
 	private
 		def user_params
-      params.require(:user).permit(:role_id, :username, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation)
+      params.require(:user).permit(:role_id, :username, :current_password, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation)
     end
 end

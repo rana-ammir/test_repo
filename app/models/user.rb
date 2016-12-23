@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  ROLES = {
+    member: {id: 1, name: 'Member'},
+    department_head: { id: 2, name: 'Department Head'}
+  }
+
   class Role
     Member  			 = 1
     Department_Head		= 2

@@ -66,11 +66,13 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :job_title
-      f.input :role_id , as: :select, collection: User::Role::DISPLAY_NAMES.values, prompt: "Select role type"
-      f.input :organization, as: :autocomplete, url: autocomplete_organization_name_admin_users_path
+      f.input :role_id , as: :select, collection: User::Role::DISPLAY_NAMES.to_a.map{ |u| [u.second, u.first] }, prompt: "Select role type"
+      f.fields_for :organization, f.object.organization do |ii|
+        ii.input :name, label: 'Organization', as: :autocomplete, url: autocomplete_organization_name_admin_users_path
+      end
       f.hidden_field :organization_id, id: "organization_id" 
-      f.input :division_id, as: :select, collection: Division.all, prompt: "Select division"
-      f.input :department_id, as: :select, collection: Department.where(division_id: user.division_id)
+      f.input :division_id, as: :select, collection: Division.all, prompt: "Select division", :input_html => { :class => "division-select" }
+      f.input :department_id, as: :select, collection: Department.all, prompt: "Select department"
     end
     f.actions
   end

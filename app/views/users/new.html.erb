@@ -61,8 +61,10 @@
                         <option value="3">Division Head</option>
                         <option value="4">Organization Head</option>
                       </select>
-                      <%= f.collection_select :division_id, Division.all, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
-                      <div class= "department-select"></div>
+                      <%= f.collection_select :division_id, current_user.organization.divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
+                      <div class= "department-select">
+                        <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: 'Select department' }, { class: "form-control m-b edit-department" } %>
+                      </div>
                       <%= f.hidden_field :organization_id, value: current_user.organization.id%>
                       <div class="form-group">
                         <%= f.submit "Create user",class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
