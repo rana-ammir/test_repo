@@ -1,0 +1,18 @@
+<%= form_for @team, html: {class: "form-horizontal"} do |f| %>
+  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+    <div class="col-lg-10">
+      <%= f.text_field :name , placeholder: "Enter name", class: "form-control" %>
+      <%= f.hidden_field :organization_id, value: current_user.organization.id%>
+            <% if @team.errors.any? %>
+        <% @team.errors.full_messages.each do |message| %>
+          <%= message %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>  
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+<% end %>

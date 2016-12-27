@@ -7,9 +7,14 @@ Myapp::Application.routes.draw do
   resources :organizations do
     resources :divisions do
       resources :departments        
-     end
-   end 
-
+    end
+  end
+  resources :teams do
+    collection do
+      post "assign_member", to: "teams#assign_member", as: :assign_member
+      delete "remove_assigned_member/:id", to: "teams#remove_assigned_member", as: :remove_assigned_member
+    end 
+  end
    resources :members, controller: "users" do
      collection do
        get "get_selected_division", to: "users#get_selected_division", as: :get_selected_division

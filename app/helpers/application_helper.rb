@@ -14,4 +14,9 @@ module ApplicationHelper
   def role_name
   	User::Role::DISPLAY_NAMES
   end
+
+  def unassigned_users
+    current_user.organization.users.includes(:teams).where("teams.id IS NULL and users.role_id != 5").references(:teams)
+
+  end
 end

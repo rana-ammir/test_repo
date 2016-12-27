@@ -1,0 +1,82 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%= @team.name.titleize %> Setup</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+        </li>
+        <li>
+            <%= link_to "Teams", teams_path %>
+        </li>
+        <li class="active">
+            <strong>
+                <%= link_to "#{@team.name.titleize}"%>
+            </strong>
+        </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-1">
+</div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Team members</h5>
+                <div class="ibox-tools">
+                    <%= link_to teams_path, style: "color:grey;" do %><i class="fa fa-remove"></i> 
+                    <%end%>
+                </div>
+            </div>
+            <div class="ibox-content">
+			  <div class="row">
+              	<%= form_for @team_user, url: assign_member_teams_path, method: "post" do |f| %>
+              		<%= f.collection_select :user_id, unassigned_users, :id, :lname_fname, { prompt: 'Select user' }, { class: "form-control m-b" } %>
+                    <%= f.hidden_field :team_id, value: @team.id%>
+                    <div class="form-group">
+                      <%= f.submit "Assign user", class: "btn btn-sm btn-primary pull-right m-t-n-xs" %>
+                    </div>
+                  <% end %>
+              </div>            	
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="col-lg-1">
+</div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Team members</h5>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @team_users.each do |user| %>
+                        <tr>
+                          <td><span class="line"><%= user.fullname %></span></td>
+                          <td>
+                          <%= link_to remove_assigned_member_teams_path(user_id: user.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <%end%> </td>
+                        </tr>
+                      <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

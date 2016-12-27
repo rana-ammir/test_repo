@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	skip_before_action :authenticate_user!, :only => [:forgot_password, :generate_new_password_email, :get_selected_division]
 
 	def index
-		@users = current_user.organization.users.organization_administrator!
+		@users = current_user.organization.users.not_organization_administrator
 	end
 
 	def new

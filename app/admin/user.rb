@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :role_id, :username, :first_name, :last_name,
-    :organization_id, :division_id, :department_id, :job_title
+    :organization_id, :division_id, :department_id, :job_title, :active
   
   collection_action :autocomplete_organization_name, method: :get do
     @organizations = Organization.where("name LIKE ?", "%#{params[:term]}%")
@@ -10,6 +10,9 @@ ActiveAdmin.register User do
   controller do
     autocomplete :user, :organization
     skip_before_filter :authenticate_user!
+    def scoped_collection
+      User.unscoped
+    end
   end
   
   index do
@@ -26,6 +29,7 @@ ActiveAdmin.register User do
     column :role_id do |user|
       User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9 a-z]/i, '')
     end
+    column :active
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -45,6 +49,7 @@ ActiveAdmin.register User do
       row :role_id do |user|
         User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9 a-z]/i, '')
       end
+      row :active
       row :current_sign_in_at
       row :sign_in_count
       row :created_at
@@ -56,7 +61,8 @@ ActiveAdmin.register User do
   filter :first_name
   filter :last_name
   filter :created_at
-
+  filter :active
+  
   form do |f|
     f.inputs "Admin Details" do
       f.input :email
@@ -73,6 +79,7 @@ ActiveAdmin.register User do
       f.hidden_field :organization_id, id: "organization_id" 
       f.input :division_id, as: :select, collection: Division.all, prompt: "Select division", :input_html => { :class => "division-select" }
       f.input :department_id, as: :select, collection: Department.all, prompt: "Select department"
+      f.input :active
     end
     f.actions
   end

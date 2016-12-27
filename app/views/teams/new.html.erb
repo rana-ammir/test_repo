@@ -1,0 +1,40 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>New</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+        </li>
+        <li>
+            <%= link_to "Teams", teams_path %>
+        </li>
+        <li class="active">
+            <strong>
+                <a>New</a>
+            </strong>
+        </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+
+</div>
+        </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-1">
+</div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>New team</h5>
+                <div class="ibox-tools">
+                    <%= link_to teams_path, style: "color:grey;" do %><i class="fa fa-remove"></i> 
+                    <%end%>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <%= render 'form' %>
+            </div>
+        </div>
+    </div>
+</div>

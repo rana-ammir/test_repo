@@ -16,17 +16,6 @@
                             </span>
                         </span>
                     </a>
-                    <!-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="">Profile</a>
-                        </li>
-                        <li><a href="">Contacts</a>
-                        </li>
-                        <li><a href="">Mailbox</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="">Logout</a>
-                        </li>
-                    </ul> -->
                 </div>
                 <div class="logo-element">
                     S90
@@ -54,12 +43,12 @@
                     <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours" %></li>
                 </ul>
             </li>
-            <li class="<%= is_active_controller('divisions') or is_active_controller('users') %>">
+            <li class="<%= is_active_controller('divisions') or is_active_controller('users') or is_active_controller('teams') %>">
                 <a href=""><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.admin">Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('divisions') %>">
                     <li class="<%= is_active_controller_action('divisions','index') %>"><%= link_to "Organization Setup" , organization_divisions_path(organization_id: current_user.organization.id) %></li>
-                    <li class="<%= is_active_controller_action('users','index') %>"><%= link_to "Users", members_path%></li>
-                    <li class="<%= is_active_action('dashboard_3') %>"><%= link_to "Teams" %></li>
+                    <li class="<%= is_active_controller_action('users','index') or is_active_controller_action('users','new') or is_active_controller_action('users','edit') %>"><%= link_to "Users", members_path%></li>
+                    <li class="<%= is_active_controller_action('teams','index') or is_active_controller_action('teams','show') or is_active_controller_action('teams','new') %>"><%= link_to "Teams", teams_path %></li>
                     <li class="<%= is_active_action('dashboard_4_1') %>"><%= link_to "Areas" %></li>
                     <li>
                         <a href="#">Utilities <span class="fa arrow"></span></a>
