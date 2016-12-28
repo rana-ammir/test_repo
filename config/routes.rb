@@ -9,6 +9,11 @@ Myapp::Application.routes.draw do
       resources :departments        
     end
   end
+  resources :areas do 
+    collection do
+      get "get_selected_division", to: "areas#get_selected_division", as: :get_selected_division
+    end
+  end
   resources :teams do
     collection do
       post "assign_member", to: "teams#assign_member", as: :assign_member

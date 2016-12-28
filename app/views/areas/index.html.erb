@@ -1,16 +1,13 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>New</h2>
+        <h2>Areas</h2>
         <ol class="breadcrumb">
-            <li>
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-        </li>
         <li>
-            <%= link_to "#{current_user.organization_name}", organization_divisions_path %>
+          <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
         </li>
         <li class="active">
             <strong>
-                <a>New</a>
+                <%= link_to "Areas", areas_path %>
             </strong>
         </li>
     </ol>
@@ -26,16 +23,24 @@
     <div class="col-lg-10">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>New Division</h5>
+                <h5>Areas</h5>
                 <div class="ibox-tools">
-                    <%= link_to organization_divisions_path,style: "color:grey;" do %><i class="fa fa-remove"></i> 
-                    <%end%>
                 </div>
             </div>
             <div class="ibox-content">
-                <%= render 'form' %>
+              <div class="row">
+                <%= form_for areas_path, method: "get" do |f| %>
+                  <%= f.collection_select :division_id, current_user.organization_divisions, :id, :name, { prompt: 'Select Division' }, { class: "form-control m-b area-division" } %>
+                  <% end %>
+              </div>              
             </div>
         </div>
     </div>
 </div>
+
+<%= render partial: 'new_area' %>
+
+<div class="row area-list-table">
+</div>
+
 </div>

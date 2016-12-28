@@ -1,0 +1,21 @@
+<%= form_for @area, html: {class: "form-horizontal"} do |f| %>
+  <div class="form-group">
+  <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <%= f.number_field :number , placeholder: "Enter number", class: "form-control" %>
+      <%= f.text_field :description , placeholder: "Enter description", class: "form-control" %>
+      <% if @area.errors.any? %>
+        <% @area.errors.full_messages.each do |message| %>
+          <%= message %><br>
+          <% end %>
+      <% end %>
+      <%= f.hidden_field :division_id, class: "area-division-id" %>
+    </div>
+  </div>  
+  <div class="form-group">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+    </div>
+  </div>
+<% end %>
