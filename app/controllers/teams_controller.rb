@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teams = Team.where(active: true)
+    @teams = current_user.teams.where(active: true)
   end
 
   def show
