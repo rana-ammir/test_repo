@@ -16,7 +16,6 @@ module ApplicationHelper
   end
 
   def unassigned_users
-    current_user.organization.users.includes(:teams).where("teams.id IS NULL and users.role_id != 5").references(:teams)
-
+    users = current_user.organization.users.not_organization_administrator
   end
 end

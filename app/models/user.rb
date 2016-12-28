@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   belongs_to :division
   belongs_to :department
   has_many :team_users
-  has_many :teams, through: :team_users
+  has_many :teams, -> { uniq }, through: :team_users
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

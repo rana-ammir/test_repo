@@ -52,7 +52,8 @@ class TeamsController < ApplicationController
   end
 
   def assign_member
-    @team_user = TeamUser.create(team_user_params)
+    @team_user = TeamUser.where(user_id: params[:team_user][:user_id],
+      team_id: params[:team_user][:team_id]).first_or_create(team_user_params)
     redirect_to team_path(id: params[:team_user][:team_id])
   end
   
