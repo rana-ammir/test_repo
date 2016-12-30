@@ -16,9 +16,18 @@
 //= require peity/jquery.peity.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
+//= require datapicker/bootstrap-datepicker.js
+//= require bootstrap-datepicker
 
 $('document').ready(function() {
   setTimeout((function() {
     $('.alert').slideUp();
   }), 5000);
+});
+
+$(document).ready(function() {
+  $('.datepicker').datepicker({
+  	todayHighlight: true,
+  	format: 'mm/dd/yyyy'
+  });
 });

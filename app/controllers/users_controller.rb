@@ -21,7 +21,11 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		@user.update(user_params)
+		if params["/members"].present?
+			@user.update(user_params.merge(department_id: params["/members"]["department_id"]))
+		else
+			@user.update(user_params)
+		end
 		redirect_to members_path
 	end
 

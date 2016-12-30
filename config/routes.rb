@@ -1,5 +1,6 @@
 Myapp::Application.routes.draw do
 
+  resources :plans
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -9,6 +10,9 @@ Myapp::Application.routes.draw do
       resources :departments        
     end
   end
+  
+  resources :goals
+  
   resources :areas do 
     collection do
       get "get_selected_division", to: "areas#get_selected_division", as: :get_selected_division
