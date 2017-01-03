@@ -1,0 +1,32 @@
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Goals</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% goals.each do |goal| %>
+                        <tr>
+                          <td><span class="line"><%= goal.number %></span></td>
+                          <td><%= goal.description %></td>
+                          <td><%= link_to edit_goal_path(id: goal.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to goal_path(id: goal.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <%end%> </td>
+                        </tr>
+                      <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

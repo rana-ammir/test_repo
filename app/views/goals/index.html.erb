@@ -1,25 +1,57 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Goals</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @goals.each do |goal| %>
-      <tr>
-        <td><%= link_to 'Show', goal %></td>
-        <td><%= link_to 'Edit', edit_goal_path(goal) %></td>
-        <td><%= link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Goal', new_goal_path %>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Goals</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+          </li>
+          <li class="active">
+            <strong>
+              <%= link_to "Goals", goals_path %>
+            </strong>
+          </li>
+        </ol>
+    </div>
+<div class="col-lg-2">
+</div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+  <div class="col-lg-1">
+  </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Goal Management</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <div class="row">
+                  <%= form_for goals_path, method: "get", html: {class: "form-horizontal"} do |f| %>
+                    <div class="form-group">
+                      <label class="col-lg-2 control-label">Strategic Plan</label>
+                      <div class="col-lg-9">
+                        <%= f.select :strategic_plan, options_for_select([["Unassigned","unassigned"]] + @strategy_plans_list.map{ |plan| [plan.name, plan.id] }), { prompt: 'Select plan' }, { class: "form-control m-b" } %>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-lg-2 control-label">Division</label>
+                      <div class="col-lg-9">
+                        <%= f.collection_select :division_id, current_user.organization_divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b goal-division" } %> 
+                      </div>
+                    </div>
+                    <div class="form-group goal-area-select">
+                      </div>
+                  <% end %>
+                </div>              
+              </div>
+          </div>
+      </div>
+  </div>
+<div class="row new-goal-area-field">
+  <%= render 'form' %>
+</div>
+<div class="row goals-table">
+</div>
+</div>

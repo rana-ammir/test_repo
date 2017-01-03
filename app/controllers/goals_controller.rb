@@ -1,34 +1,26 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
-
-  # GET /goals
-  # GET /goals.json
+  before_filter :load_strategic_plans_list, only: :index
   def index
     @goals = Goal.all
   end
 
-  # GET /goals/1
-  # GET /goals/1.json
   def show
   end
 
-  # GET /goals/new
   def new
     @goal = Goal.new
   end
 
-  # GET /goals/1/edit
   def edit
   end
 
-  # POST /goals
-  # POST /goals.json
   def create
     @goal = Goal.new(goal_params)
 
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
+        format.html { redirect_to goals_path, notice: 'Goal was successfully created.' }
         format.json { render action: 'show', status: :created, location: @goal }
       else
         format.html { render action: 'new' }
@@ -37,12 +29,10 @@ class GoalsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /goals/1
-  # PATCH/PUT /goals/1.json
   def update
     respond_to do |format|
-      if @goal.update(goal_params)
-        format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
+      if @goal.update(goal_update_params)
+        format.html { redirect_to goals_path, notice: 'Goal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -51,8 +41,6 @@ class GoalsController < ApplicationController
     end
   end
 
-  # DELETE /goals/1
-  # DELETE /goals/1.json
   def destroy
     @goal.destroy
     respond_to do |format|
@@ -61,14 +49,31 @@ class GoalsController < ApplicationController
     end
   end
 
+  def get_selected_division
+    @division = Division.find(params[:division_id])
+    @areas = @division.areas
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_selected_area_goals
+    @area = Area.find(params[:area_id])
+    @goals = @area.goals
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_goal
       @goal = Goal.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params[:goal]
+      params.require("/goals").permit(:description, :number, :area_id, :department_id)
+    end
+    def goal_update_params
+      params.require(:goal).permit(:description, :number, :area_id, :department_id)
     end
 end

@@ -1,17 +1,35 @@
-<%= form_for(@goal) do |f| %>
-  <% if @goal.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@goal.errors.count, "error") %> prohibited this goal from being saved:</h2>
-
-      <ul>
-      <% @goal.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="col-lg-1">
+</div>
+<div class="col-lg-10">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>New Goal</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row">
+            <%= form_for goals_path, method: "post", html: {class: "form-horizontal"} do |f| %>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Number</label>
+                <div class="col-lg-9">
+                  <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0 %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-9">
+                  <%= f.text_field :description, class: "form-control", placeholder: "Enter description" %> 
+                </div>
+              </div>
+                <%= f.hidden_field :area_id, class: "area-division-id" %>
+                <div class="form-group">
+                  <div class="col-lg-offset-2 col-lg-10">
+                    <%= f.submit "Create Goal" ,class: "btn btn-sm btn-primary" %>
+                  </div>
+                </div>
+            <% end %>
+          </div>              
+        </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

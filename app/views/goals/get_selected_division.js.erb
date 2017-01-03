@@ -1,0 +1,3 @@
+'<%= form_for goals_path do |f| %>'
+		$(".goal-area-select").html("<%= escape_javascript (render partial: 'areas_list', locals: { areas: @areas, f: f }) %>");
+'<% end %>'

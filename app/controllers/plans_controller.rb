@@ -26,9 +26,7 @@ class PlansController < ApplicationController
   def create
     begin_on = Date.strptime(params[:plan][:begin_on], "%m/%d/%Y")
     end_on = Date.strptime(params[:plan][:end_on], "%m/%d/%Y")
-    
     @plan = Plan.new(plan_params.merge(begin_on: begin_on, end_on: end_on))
-
     respond_to do |format|
       if @plan.save
         format.html { redirect_to plans_path, notice: 'Plan was successfully created.' }

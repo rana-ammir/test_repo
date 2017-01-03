@@ -1,6 +1,57 @@
-<h1>Editing Goal</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @goal %> |
-<%= link_to 'Back', goals_path %>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Goals</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+          </li>
+          <li class="active">
+            <strong>
+              <%= link_to "Goals", goals_path %>
+            </strong>
+          </li>
+        </ol>
+    </div>
+<div class="col-lg-2">
+</div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-1">
+</div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Edit Goal</h5>
+                <div class="ibox-tools">
+                    <%= link_to goals_path, style: "color:grey;" do %><i class="fa fa-remove"></i> 
+                    <%end%>
+                </div>
+            </div>
+            <div class="ibox-content">
+              <div class="row">
+		            <%= form_for @goal, url: goal_path, method: "put", html: {class: "form-horizontal"} do |f| %>
+		              <div class="form-group">
+		                <label class="col-lg-2 control-label">Number</label>
+		                <div class="col-lg-9">
+		                  <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0 %>
+		                </div>
+		              </div>
+		              <div class="form-group">
+		                <label class="col-lg-2 control-label">Description</label>
+		                <div class="col-lg-9">
+		                  <%= f.text_field :description, class: "form-control", placeholder: "Enter description" %> 
+		                </div>
+		              </div>
+		                <%= f.hidden_field :area_id, class: "area-division-id" %>
+		                <div class="form-group">
+		                  <div class="col-lg-offset-2 col-lg-10">
+		                    <%= f.submit "Create Goal" ,class: "btn btn-sm btn-primary" %>
+		                  </div>
+		                </div>
+		            <% end %>
+		          </div>  
+            </div>
+        </div>
+    </div>
+</div>
