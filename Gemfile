@@ -12,7 +12,7 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'rails4-autocomplete'
 gem 'bootstrap-datepicker-rails'
-
+gem 'exception_notification'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 
