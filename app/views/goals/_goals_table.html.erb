@@ -1,32 +1,48 @@
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Goals</h5>
-                <div class="ibox-tools">
-                </div>
+<div class="col-lg-1"></div>
+<div class="col-lg-10">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Goals</h5>
+            <div class="ibox-tools">
             </div>
-            <div class="ibox-content">
+        </div>
+        <div class="ibox-content">
 
-                <table class="table table-striped">
-                    <thead>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% goals.each do |goal| %>
                     <tr>
-                        <th>Number</th>
-                        <th>Description</th>
-                        <th>Actions</th>
+                      <td><span class="line"><%= goal.number %></span></td>
+                      <td><%= goal.description %></td>
+                      <td><a data-toggle="modal" data-goal-id="<%= goal.id%>" href="#modal-form" class="asset-goal-link"><i class="fa fa-paperclip" aria-hidden="true"></i></a>  &nbsp&nbsp <%= link_to edit_goal_path(id: goal.id) do %><i class="fa fa-pencil-square-o"></i> <%end%>  &nbsp&nbsp <%= link_to goal_path(id: goal.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                      <%end%> </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                      <% goals.each do |goal| %>
-                        <tr>
-                          <td><span class="line"><%= goal.number %></span></td>
-                          <td><%= goal.description %></td>
-                          <td><%= link_to edit_goal_path(id: goal.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to goal_path(id: goal.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
-                          <%end%> </td>
-                        </tr>
-                      <%end%>
-                    </tbody>
-                </table>
+                  <%end%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="m-t-none m-b">Goal Files</h3>
+
+                    </div>
+                </div>
+                <div class="row modal-goal-form"> 
+                </div>              
             </div>
         </div>
     </div>
+</div>

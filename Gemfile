@@ -12,6 +12,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'rails4-autocomplete'
 gem 'bootstrap-datepicker-rails'
+gem "paperclip", "~> 5.0.0"
+gem "cocoon"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'

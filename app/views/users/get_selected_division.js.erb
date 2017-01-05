@@ -3,7 +3,7 @@
 			$("#user_department_id").html("<%= escape_javascript (render partial: 'department_autofilled_field', locals: { departments: @departments, f: f }) %>");
 		'<% end %>'		
 <% else %>
-	'<%= form_for members_path do |f| %>'
+	'<%= form_for @user, url: members_path do |f| %>'
 		$(".department-select").html("<%= escape_javascript (render partial: 'department_autofilled_field', locals: { departments: @departments, f: f }) %>");
 	'<% end %>'
 <% end %>

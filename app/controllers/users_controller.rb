@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 	end
 
 	def create
-		@user = User.create(user_params.merge(department_id: params["/members"]["department_id"]))
+		@user = User.create(user_params)
 		redirect_to members_path
 	end
 
@@ -21,11 +21,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		if params["/members"].present?
-			@user.update(user_params.merge(department_id: params["/members"]["department_id"]))
-		else
-			@user.update(user_params)
-		end
+		@user.update(user_params)
 		redirect_to members_path
 	end
 
@@ -38,6 +34,7 @@ class UsersController < ApplicationController
 	def get_selected_division
 		@division = Division.find(params[:division_id])
 		@departments = @division.departments
+		@user = User.new
 		respond_to do |format|
 			format.js
 		end

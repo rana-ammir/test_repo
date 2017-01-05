@@ -32,3 +32,11 @@ $ ->
 			type: "GET"
 			url: "goals/get_selected_area_goals"
 			data: {area_id: area_id}
+
+	$(document).on 'click',".asset-goal-link", (e) ->
+		e.preventDefault()
+		goal_id = $(this).data("goalId")
+		$.ajax
+			type: "GET"
+			url: "/goals/new_goal_attachment/"+goal_id
+			data: {goal_id: goal_id}

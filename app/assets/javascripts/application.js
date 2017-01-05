@@ -16,6 +16,7 @@
 //= require peity/jquery.peity.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
+//= require cocoon
 //= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datepicker
 

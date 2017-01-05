@@ -1,0 +1,15 @@
+<div class="nested-fields">
+	<div class="form-group field">
+	  <label class="col-lg-2 control-label">Title</label>
+	  <div class="col-lg-9">
+	    <%= f.text_field :title, class: "form-control", placeholder: "Enter title" %>
+	  </div>
+	</div>
+	<div class="form-group field">
+	  <label class="col-lg-2 control-label">File</label>
+	  <div class="col-lg-9">
+	    <%= f.file_field :asset, class: "form-control btn btn-white" %> 
+	  </div>
+	  <%= link_to_remove_association "", f, class: "fa fa-remove", style: "color: grey; padding-top: 10px;" %>
+	</div>
+</div>

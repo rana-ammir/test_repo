@@ -3,6 +3,7 @@ class GoalsController < ApplicationController
   before_filter :load_strategic_plans_list, only: :index
   def index
     @goals = Goal.all
+    @goal = Goal.new
   end
 
   def show
@@ -31,7 +32,7 @@ class GoalsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @goal.update(goal_update_params)
+      if @goal.update(goal_params)
         format.html { redirect_to goals_path, notice: 'Goal was successfully updated.' }
         format.json { head :no_content }
       else
@@ -65,15 +66,20 @@ class GoalsController < ApplicationController
     end
   end
 
+  def new_goal_attachment
+    @goal = Goal.find(params[:goal_id])
+    @asset = @goal.assets.build
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_goal
       @goal = Goal.find(params[:id])
     end
 
     def goal_params
-      params.require("/goals").permit(:description, :number, :area_id, :department_id)
-    end
-    def goal_update_params
-      params.require(:goal).permit(:description, :number, :area_id, :department_id)
+      params.require(:goal).permit(:description, :number, :area_id, :department_id, assets_attributes: [:id, :title, :asset, :_destroy])
     end
 end

@@ -11,11 +11,12 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
-  
+  resources :assets  
   resources :goals do
     collection do
       get "get_selected_division", to: "goals#get_selected_division", as: :get_selected_division
       get "get_selected_area_goals", to:"goals#get_selected_area_goals", as: :get_selected_area_goals
+      get "new_goal_attachment/:goal_id", to: "goals#new_goal_attachment", as: :new_goal_attachment
     end
   end
   resources :areas do 
