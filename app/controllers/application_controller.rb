@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
-
+  before_filter :prepare_exception_notifier
   def load_strategic_plans_list
     @strategy_plans_list = Plan.organization_plans_list(current_user.organization.id) unless ( current_user.blank? and current_user.organization.id.blank? )
   end
@@ -14,5 +14,12 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
   	devise_parameter_sanitizer.permit(:sign_up, keys: [:role_id, :username, :first_name, :last_name, :address, :organization_name, :organization_id])
   	devise_parameter_sanitizer.permit(:account_update, keys: [:role_id, :username, :first_name, :last_name,:organization_id, :division_id, :department_id, :email, :password, :password_confirmation, :current_password, :job_title])
+  end
+
+  private
+  def prepare_exception_notifier
+    request.env["exception_notifier.exception_data"] = {
+      :current_user => current_user
+    }
   end
 end

@@ -89,8 +89,16 @@ Myapp::Application.configure do
   ActionMailer::Base.delivery_method = :smtp
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :deliver_with => :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
+    :email_prefix => "[PREFIX] ",
+    :sender_address => %{"notifier" <ammar.nadeem@pikessoft.com>},
+    :exception_recipients => %w{ammar.nadeem@pikessoft.com}
+  }
 end
