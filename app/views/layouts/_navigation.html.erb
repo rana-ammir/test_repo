@@ -43,13 +43,15 @@
                     <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours" %></li>
                 </ul>
             </li>
-            <li class="<%= is_active_controller('divisions') or is_active_controller('users') or is_active_controller('teams') or is_active_controller('areas') %>">
+            <li class="<%= is_active_controller('divisions') or is_active_controller('users') or is_active_controller('teams') or is_active_controller('areas') or is_active_controller('goals') %>">
                 <a href=""><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.admin">Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('divisions') %>">
                     <li class="<%= is_active_controller_action('divisions','index') %>"><%= link_to "Organization Setup" , organization_divisions_path(organization_id: current_user.organization.id) %></li>
                     <li class="<%= is_active_controller_action('users','index') or is_active_controller_action('users','new') or is_active_controller_action('users','edit') %>"><%= link_to "Users", members_path%></li>
                     <li class="<%= is_active_controller_action('teams','index') or is_active_controller_action('teams','show') or is_active_controller_action('teams','new') %>"><%= link_to "Teams", teams_path %></li>
                     <li class="<%= is_active_controller_action('areas','index') or is_active_controller_action('areas','edit') %>"><%= link_to "Areas", areas_path %></li>
+                    <li>
+                    <li class="<%= is_active_controller_action('goals','index') or is_active_controller_action('goals','edit') %>"><%= link_to "Goals", goals_path %></li>
                     <li>
                         <a href="#">Utilities <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">

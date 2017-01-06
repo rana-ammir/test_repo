@@ -37,21 +37,32 @@
 		              <div class="form-group">
 		                <label class="col-lg-2 control-label">Number</label>
 		                <div class="col-lg-9">
-		                  <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0 %>
+		                  <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0, max: "9999999999" %>
 		                </div>
 		              </div>
 		              <div class="form-group">
 		                <label class="col-lg-2 control-label">Description</label>
 		                <div class="col-lg-9">
-		                  <%= f.text_field :description, class: "form-control", placeholder: "Enter description" %> 
+		                  <%= f.text_field :description, class: "form-control", placeholder: "Enter description"%> 
 		                </div>
 		              </div>
-		                <%= f.hidden_field :area_id, class: "area-division-id" %>
-                    <div class="form-group">
-		                  <div class="col-lg-offset-2 col-lg-10">
-		                    <%= f.submit "Update Goal" ,class: "btn btn-sm btn-primary" %>
-		                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Division</label>
+                    <div class="col-lg-9">
+                      <%= f.collection_select :area_id, @divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b goal-edit-division" } %>
+                    </div>
+                  </div>
+                  <div class="form-group goal-edit-division-field">
+                    <label class="col-lg-2 control-label">Area</label>
+                    <div class="col-lg-9">
+		                  <%= f.collection_select :area_id, @areas, :id, :description, { prompt: 'Select area' }, { class: "form-control m-b" } %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+		                <div class="col-lg-offset-2 col-lg-10">
+		                  <%= f.submit "Update Goal" ,class: "btn btn-sm btn-primary" %>
 		                </div>
+		              </div>
 		            <% end %>
 		          </div>  
             </div>

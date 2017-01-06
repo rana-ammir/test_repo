@@ -3,13 +3,13 @@
     <%= f.fields_for :assets do |ff| %>
       <%= render partial: 'asset_fields', locals: { f: ff } %>
     <% end %>
-    <div class='col-lg-offset-2 links'>
+    <div class='col-lg-offset-2'>
       <%= link_to_add_association ' Add Fields ', f, :assets, class: "fa fa-plus", style: "color: grey;" %>
   	</div>
   </div>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit "Upload Asset",class: "btn btn-sm btn-primary" %>
+      <%= f.submit "Submit Asset",class: "btn btn-sm btn-primary" %>
     </div>
   </div>                        
 <% end %>

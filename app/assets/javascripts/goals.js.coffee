@@ -40,3 +40,11 @@ $ ->
 			type: "GET"
 			url: "/goals/new_goal_attachment/"+goal_id
 			data: {goal_id: goal_id}
+
+	$(document).on  'change',".goal-edit-division", (e) ->
+		e.preventDefault()
+		division_id = $(this).val()
+		$.ajax
+			type: "GET"
+			url: "/goals/get_selected_division"
+			data: {division_id: division_id, request: "edit_goal" }

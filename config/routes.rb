@@ -11,7 +11,12 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
-  resources :assets  
+  resources :assets do
+    collection do
+      get "download_asset", to: "assets#download_asset", as: :download_asset
+    end
+  end
+
   resources :goals do
     collection do
       get "get_selected_division", to: "goals#get_selected_division", as: :get_selected_division

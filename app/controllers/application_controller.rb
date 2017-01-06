@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :prepare_exception_notifier
+  
   def load_strategic_plans_list
     @strategy_plans_list = Plan.organization_plans_list(current_user.organization.id) unless ( current_user.blank? and current_user.organization.id.blank? )
   end

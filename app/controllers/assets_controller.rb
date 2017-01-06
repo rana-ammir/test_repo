@@ -49,6 +49,10 @@ class AssetsController < ApplicationController
     end
   end
 
+  def download_asset
+    send_file(Asset.find(params[:id]).asset.path)
+  end
+
   private
     def set_asset
       @asset = Asset.find(params[:id])

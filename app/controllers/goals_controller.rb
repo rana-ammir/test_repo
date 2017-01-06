@@ -14,6 +14,9 @@ class GoalsController < ApplicationController
   end
 
   def edit
+    @divisions = current_user.organization.divisions
+    @division = @goal.area.division
+    @areas = @division.areas
   end
 
   def create

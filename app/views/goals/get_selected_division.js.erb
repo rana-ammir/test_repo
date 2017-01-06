@@ -1,3 +1,9 @@
-'<%= form_for goals_path do |f| %>'
-		$(".goal-area-select").html("<%= escape_javascript (render partial: 'areas_list', locals: { areas: @areas, f: f }) %>");
-'<% end %>'
+<% if params[:request] == "edit_goal" %>
+	'<%= form_for Goal.new, url: goals_path do |f| %>'
+			$(".goal-edit-division-field").html("<%= escape_javascript (render partial: 'areas_list', locals: { areas: @areas, f: f }) %>");
+	'<% end %>'
+<% else %>
+	'<%= form_for goals_path do |f| %>'
+			$(".goal-area-select").html("<%= escape_javascript (render partial: 'areas_list', locals: { areas: @areas, f: f }) %>");
+	'<% end %>'
+<%end%>
