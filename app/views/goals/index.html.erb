@@ -30,12 +30,6 @@
                 <div class="row">
                   <%= form_for goals_path, method: "get", html: {class: "form-horizontal"} do |f| %>
                     <div class="form-group">
-                      <label class="col-lg-2 control-label">Strategic Plan</label>
-                      <div class="col-lg-9">
-                        <%= f.select :strategic_plan, options_for_select([["Unassigned","unassigned"]] + @strategy_plans_list.map{ |plan| [plan.name, plan.id] }), { prompt: 'Select plan' }, { class: "form-control m-b" } %>
-                      </div>
-                    </div>
-                    <div class="form-group">
                       <label class="col-lg-2 control-label">Division</label>
                       <div class="col-lg-9">
                         <%= f.collection_select :division_id, current_user.organization_divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b goal-division" } %> 

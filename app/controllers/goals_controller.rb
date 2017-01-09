@@ -83,6 +83,6 @@ class GoalsController < ApplicationController
     end
 
     def goal_params
-      params.require(:goal).permit(:description, :number, :area_id, :department_id, assets_attributes: [:id, :title, :asset, :_destroy])
+      params.require(:goal).permit(:description, :number, :area_id, :department_id, :active, assets_attributes: [:id, :title, :asset, :_destroy])
     end
 end
