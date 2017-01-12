@@ -20,7 +20,7 @@
                   <% goals.each do |goal| %>
                     <tr>
                       <td><span class="line"><%= goal.number %></span></td>
-                      <td><%= goal.description %></td>
+                      <td><%=link_to "#{goal.description}", goal_objectives_path(goal_id: goal.id) %></td>
                       <td><a data-toggle="modal" data-goal-id="<%= goal.id%>" href="#modal-form" class="asset-goal-link"><i class="fa fa-paperclip" aria-hidden="true"></i></a>  &nbsp&nbsp <%= link_to edit_goal_path(id: goal.id) do %><i class="fa fa-pencil-square-o"></i> <%end%>  &nbsp&nbsp <%= link_to goal_path(id: goal.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                       <%end%> </td>
                     </tr>

@@ -23,6 +23,7 @@ Myapp::Application.routes.draw do
       get "get_selected_area_goals", to:"goals#get_selected_area_goals", as: :get_selected_area_goals
       get "new_goal_attachment/:goal_id", to: "goals#new_goal_attachment", as: :new_goal_attachment
     end
+    resources :objectives
   end
   resources :areas do 
     collection do

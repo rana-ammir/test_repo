@@ -2,7 +2,7 @@
   <div class="form-group">
   <div class="col-lg-1"></div>
     <div class="col-lg-10">
-      <%= f.number_field :number , placeholder: "Enter number", class: "form-control", min: 0 %>
+      <%= f.number_field :number , placeholder: "Enter number", class: "form-control", min: 0, max: "9999999999" %>
       <%= f.text_field :description , placeholder: "Enter description", class: "form-control" %>
       <% if @area.errors.any? %>
         <% @area.errors.full_messages.each do |message| %>

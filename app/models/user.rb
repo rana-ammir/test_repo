@@ -2,8 +2,12 @@ class User < ActiveRecord::Base
   belongs_to :organization
   belongs_to :division
   belongs_to :department
+  
   has_many :team_users
   has_many :teams, -> { uniq }, through: :team_users
+  has_many :user_objectives
+  has_many :objectives, through: :user_objectives
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109115021) do
+ActiveRecord::Schema.define(version: 20170110111206) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -90,11 +90,36 @@ ActiveRecord::Schema.define(version: 20170109115021) do
     t.boolean  "active",                      default: true
   end
 
+  create_table "objectives", force: :cascade do |t|
+    t.text     "description",            limit: 65535
+    t.string   "status",                 limit: 255
+    t.date     "begin_on"
+    t.date     "end_on"
+    t.integer  "goal_id",                limit: 4
+    t.integer  "number",                 limit: 4
+    t.decimal  "totalhours",                           precision: 5,  scale: 2, default: 0.0
+    t.decimal  "percent_complete",                     precision: 10, scale: 2, default: 0.0
+    t.integer  "strategies_count",       limit: 4,                              default: 0
+    t.date     "requested_by_date"
+    t.integer  "on_going_carry_forward", limit: 2,                              default: 0
+    t.decimal  "budgeted_dollars",                     precision: 15, scale: 2
+    t.decimal  "actual_hours",                         precision: 5,  scale: 2, default: 0.0
+    t.datetime "created_at",                                                                  null: false
+    t.datetime "updated_at",                                                                  null: false
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "address",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "plan_objectives", force: :cascade do |t|
+    t.integer  "plan_id",      limit: 4
+    t.integer  "objective_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -107,6 +132,13 @@ ActiveRecord::Schema.define(version: 20170109115021) do
     t.integer  "organization_id", limit: 4
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "team_objectives", force: :cascade do |t|
+    t.integer  "team_id",      limit: 4
+    t.integer  "objective_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "team_users", force: :cascade do |t|
@@ -122,6 +154,13 @@ ActiveRecord::Schema.define(version: 20170109115021) do
     t.integer  "organization_id", limit: 4
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+  end
+
+  create_table "user_objectives", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.integer  "objective_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

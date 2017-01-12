@@ -1,0 +1,67 @@
+<div class="col-lg-1">
+</div>
+<div class="col-lg-10">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>New Objective</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row">
+            <%= form_for @objective, url: goal_objectives_path(goal_id: @goal.id), method: "post", html: {class: "form-horizontal"} do |f| %>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Strategic Plan</label>
+                <div class="col-lg-9">
+                  <span class="form-control">Example</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Division</label>
+                <div class="col-lg-9">
+                  <span class="form-control"><%= "#{@goal.area.division.name}"%></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Area</label>
+                <div class="col-lg-9">
+                  <span class="form-control"><%= "#{@goal.area.description}"%></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Number</label>
+                <div class="col-lg-9">
+                  <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0, max: "9999999999" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Description</label>
+                <div class="col-lg-9">
+                  <%= f.text_area :description, class: "form-control", placeholder: "Enter description" %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Requested By Date</label>
+                <div class="col-lg-9">
+                  <div class="input-group m-b"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span> 
+                    <%= f.text_field :requested_by_date, autocomplete: :off, class: "datepicker form-control", placeholder: "Choose date", value: f.object.requested_by_date ? f.object.requested_by_date.strftime("%m/%d/%Y") : nil %>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Budgeted Dollars</label>
+                <div class="col-lg-9">
+                  <%= f.number_field :budgeted_dollars, step: "0.01", class: "form-control", placeholder: "Enter budgeted dollars", min: 0 %>
+                </div>
+              </div>
+              <%= f.hidden_field :goal_id, value: @goal.id %>
+              <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                  <%= f.submit "Create Objective" , class: "btn btn-sm btn-primary" %>
+                </div>
+              </div>
+            <% end %>
+          </div>              
+        </div>
+    </div>
+</div>

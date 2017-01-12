@@ -1,6 +1,7 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
   before_filter :load_strategic_plans_list, only: :index
+  
   def index
     @goals = Goal.all
     @goal = Goal.new
