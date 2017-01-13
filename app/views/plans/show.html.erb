@@ -1,4 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%= @plan.name.titleize %></h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+          </li>
+          <li>
+            <%= link_to "Strategic Plan", strategic_plan_path %>
+          </li>
+          <li class="active">
+            <strong>
+              <%= link_to "#{@plan.name.titleize}"%>
+            </strong>
+          </li>
+        </ol>
+    </div>
+<div class="col-lg-2">
+</div>
+</div>
 
-<%= link_to 'Edit', edit_plan_path(@plan) %> |
-<%= link_to 'Back', plans_path %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+  <div class="col-lg-1">
+  </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Select Division</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <div class="row">
+                  <%= form_for plans_path, method: "get", html: {class: "form-horizontal"} do |f| %>
+                    <div class="form-group">
+                      <label class="col-lg-2 control-label">Division</label>
+                      <div class="col-lg-9">
+                        <%= f.collection_select :division_id, current_user.organization_divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select-field" } %> 
+                      </div>
+                    </div>
+                    <%= f.hidden_field :plan_id, value: @plan.id, class: "plan-hf-in-plan-show"%>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-10">
+                        <%= link_to "Select division", '#', class: "btn btn-sm btn-primary select-division-link" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>              
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

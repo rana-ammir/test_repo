@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  # before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   def index
     @division = Division.find(params[:division_id])
@@ -7,6 +7,8 @@ class DepartmentsController < ApplicationController
   end
 
   def show
+    @plan = Plan.find(params[:plan_id])
+    @division = Division.find(params[:division_id])
   end
 
   def new

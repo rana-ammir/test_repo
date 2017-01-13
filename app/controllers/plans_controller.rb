@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
-
+  before_filter :load_strategic_plans_list, only: :strategic_plan
   def index
     @plans = Plan.all
   end
@@ -50,6 +50,8 @@ class PlansController < ApplicationController
       format.html { redirect_to plans_url }
       format.json { head :no_content }
     end
+  end
+  def strategic_plan
   end
 
   private

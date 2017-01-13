@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     self.organization.divisions  
   end
 
+  def organization_plans
+    self.organization.plans  
+  end
+
   def member?
     self.role_id == User::Role::Member
   end

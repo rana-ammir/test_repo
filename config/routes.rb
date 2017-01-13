@@ -23,7 +23,6 @@ Myapp::Application.routes.draw do
       get "get_selected_area_goals", to:"goals#get_selected_area_goals", as: :get_selected_area_goals
       get "new_goal_attachment/:goal_id", to: "goals#new_goal_attachment", as: :new_goal_attachment
     end
-    resources :objectives
   end
   resources :areas do 
     collection do
@@ -36,17 +35,32 @@ Myapp::Application.routes.draw do
       delete "remove_assigned_member/:id", to: "teams#remove_assigned_member", as: :remove_assigned_member
     end 
   end
-   resources :members, controller: "users" do
-     collection do
-       get "get_selected_division", to: "users#get_selected_division", as: :get_selected_division
-     end
-   end
+  resources :members, controller: "users" do
+    collection do
+      get "get_selected_division", to: "users#get_selected_division", as: :get_selected_division
+    end
+  end
 
-   scope :users do
-     get "forgot_password", to: "users#forgot_password", as: :forgot_password 
-     post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email
-   end
-   
+  scope :users do
+    get "forgot_password", to: "users#forgot_password", as: :forgot_password 
+    post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email
+  end
+
+  get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan
+  scope :strategic_plan do
+    resources :plans, only: [:show] do
+      resources :divisions, only: [:show] do
+        resources :departments, only: [:show] do
+          resources :areas, only: [:show] do
+            resources :goals do 
+              resources :objectives
+            end
+          end
+        end
+      end
+    end 
+  end
+
    root to: 'dashboards#dashboard_1'
 
    # All routes

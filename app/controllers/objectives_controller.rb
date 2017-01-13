@@ -2,8 +2,12 @@ class ObjectivesController < ApplicationController
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
 
   def index
-    @objectives = Objective.all
+    @area = Area.find(params[:area_id]) 
+    @plan = Plan.find(params[:plan_id])
+    @division = Division.find(params[:division_id])
+    @department = Department.find(params[:department_id])
     @goal = Goal.find(params[:goal_id])
+    @objectives = Objective.all
     @objective = @goal.objectives.new
   end
 

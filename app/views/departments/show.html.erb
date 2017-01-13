@@ -1,4 +1,62 @@
-<p id="notice"><%= notice %></p>
-<%= @department.name %>
-<%= link_to 'Edit', edit_department_path(@department) %> |
-<%= link_to 'Back', departments_path %>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%= @department.name.titleize %></h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+          </li>
+          <li>
+            <%= link_to "Strategic Plan", strategic_plan_path %>
+          </li>
+          <li>
+            <a href="/strategic_plan/plans/<%=@plan.id%>"><%= @plan.name.titleize %></a>
+          </li>
+          <li>
+            <%= link_to "#{@division.name.titleize}", plan_division_path(plan_id: @plan.id, id: @division.id)%>
+          </li>
+          <li class="active">
+            <strong>
+              <%= link_to "#{@department.name.titleize}" %>
+            </strong>
+          </li>
+        </ol>
+    </div>
+<div class="col-lg-2">
+</div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+  <div class="col-lg-1">
+  </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Select Area</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <div class="row">
+                  <%= form_for plans_path, method: "get", html: {class: "form-horizontal"} do |f| %>
+                    <div class="form-group">
+                      <label class="col-lg-2 control-label">Area</label>
+                      <div class="col-lg-9">
+                        <%= f.collection_select :area_id, @division.areas, :id, :description, { prompt: 'Select area' }, { class: "form-control m-b area-select-field" } %> 
+                      </div>
+                    </div>
+                    <%= f.hidden_field :plan_id, value: @plan.id, class: "plan-hf-in-department-show"%>
+                    <%= f.hidden_field :division_id, value: @division.id, class: "division-hf-in-department-show"%>
+                    <%= f.hidden_field :department_id, value: @department.id, class: "department-hf-in-department-show"%>
+                    <div class="form-group">
+                      <div class="col-lg-offset-2 col-lg-10">
+                        <%= link_to "Select area", '#', class: "btn btn-sm btn-primary select-area-link" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>              
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ class DivisionsController < ApplicationController
   end
 
   def show
+    @plan = Plan.find(params[:plan_id])
   end
 
   def new
