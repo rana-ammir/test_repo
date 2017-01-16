@@ -16,8 +16,10 @@ class PlansController < ApplicationController
   end
 
   def create
-    begin_on = Date.strptime(params[:plan][:begin_on], "%m/%d/%Y")
-    end_on = Date.strptime(params[:plan][:end_on], "%m/%d/%Y")
+    params[:plan][:begin_on].length == 0 ? begin_on = params[:plan][:begin_on] = nil : 
+      begin_on = Date.strptime(params[:plan][:begin_on], "%m/%d/%Y")
+    params[:plan][:end_on].length == 0 ? end_on = params[:plan][:end_on] = nil : 
+      end_on = Date.strptime(params[:plan][:end_on], "%m/%d/%Y")
     @plan = Plan.new(plan_params.merge(begin_on: begin_on, end_on: end_on))
     respond_to do |format|
       if @plan.save
@@ -31,8 +33,10 @@ class PlansController < ApplicationController
   end
 
   def update
-    begin_on = Date.strptime(params[:plan][:begin_on], "%m/%d/%Y")
-    end_on = Date.strptime(params[:plan][:end_on], "%m/%d/%Y")
+    params[:plan][:begin_on].length == 0 ? begin_on = params[:plan][:begin_on] = nil : 
+      begin_on = Date.strptime(params[:plan][:begin_on], "%m/%d/%Y")
+    params[:plan][:end_on].length == 0 ? end_on = params[:plan][:end_on] = nil : 
+      end_on = Date.strptime(params[:plan][:end_on], "%m/%d/%Y")
     respond_to do |format|
       if @plan.update(plan_params.merge(begin_on: begin_on, end_on: end_on))
         format.html { redirect_to plans_path, notice: 'Plan was successfully updated.' }

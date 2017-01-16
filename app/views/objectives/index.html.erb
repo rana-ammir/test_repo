@@ -36,6 +36,88 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
-    <%= render 'form' %>
+    <div class="col-lg-1">
+    </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Selected Goal</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <label>Goal: </label> <%= @goal.description.titleize %>
+              </div>
+          </div>
+      </div>
   </div>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Objectives </h5>
+                <div class="ibox-tools">
+                    <a data-toggle="modal" class="btn btn-sm btn-white" style="color:grey;" href="#modal-form">New Objective</a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Description</th>
+                      <th>Requested By Date</th>
+                      <th>Target Date</th>
+                      <th>Actual Hours</th>
+                      <th>Budgeted Hours</th>
+                      <th>Budgeted Dollars</th>
+                      <th>% Complete</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @objectives.each do |objective| %>
+                        <tr>
+                          <td><span class="line"><%= objective.number %></span></td>
+                          <td><%= objective.description %></td>
+                          <td><%= objective.requested_by_date ? objective.requested_by_date.strftime("%m-%d-%Y") : "" %></td>
+                          <td><%= objective.end_on ? objective.end_on.strftime("%m-%d-%Y") : "" %></td>
+                          <td><%= objective.actual_hours%></td>
+                          <td><%= objective.totalhours%></td>
+                          <td><%= objective.budgeted_dollars%></td>
+                          <td><%= objective.percent_complete%></td>
+                          <td><a data-toggle="modal" href="#edit-modal-form"><i class="fa fa-pencil-square-o"></i> </a> &nbsp&nbsp <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <%end%> </td>
+                        </tr>                    
+                        <!-- Edit objective pop up -->
+                        <div id="edit-modal-form" class="modal fade" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                      <%= render partial: 'edit_form', locals: { objective: objective } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end pop up -->
+                      <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- New objective pop up -->
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <%= render 'form' %>
+            </div>
+        </div>
+    </div>
 </div>

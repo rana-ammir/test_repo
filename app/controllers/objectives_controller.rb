@@ -7,8 +7,8 @@ class ObjectivesController < ApplicationController
     @division = Division.find(params[:division_id])
     @department = Department.find(params[:department_id])
     @goal = Goal.find(params[:goal_id])
-    @objectives = Objective.all
-    @objective = @goal.objectives.new
+    @objectives = @goal.objectives
+    @objective = Objective.new
   end
 
   def show
@@ -22,42 +22,33 @@ class ObjectivesController < ApplicationController
   end
 
   def create
-    @goal = Goal.find(params[:goal_id])
-    @objective = Objective.new(objective_params)
-    respond_to do |format|
-      if @objective.save
-        format.html { redirect_to goal_objectives_path(goal_id: @goal.id), notice: 'Objective was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @objective }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @objective.errors, status: :unprocessable_entity }
-      end
-    end
+    params[:objective][:requested_by_date].length == 0 ? requested_by_date = params[:objective][:requested_by_date] = nil : 
+      requested_by_date = Date.strptime(params[:objective][:requested_by_date], "%m/%d/%Y")
+    @objective = Objective.create(objective_params.merge(requested_by_date: requested_by_date))
+    objectives_redirect_path
   end
 
   def update
-    respond_to do |format|
-      if @objective.update(objective_params)
-        format.html { redirect_to @objective, notice: 'Objective was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @objective.errors, status: :unprocessable_entity }
-      end
-    end
+    params[:objective][:requested_by_date].length == 0 ? requested_by_date = params[:objective][:requested_by_date] = nil : 
+      requested_by_date = Date.strptime(params[:objective][:requested_by_date], "%m/%d/%Y")
+    @objective.update(objective_params.merge(requested_by_date: requested_by_date))
+    objectives_redirect_path
   end
 
   def destroy
     @objective.destroy
-    respond_to do |format|
-      format.html { redirect_to objectives_url }
-      format.json { head :no_content }
-    end
+    objectives_redirect_path  
   end
 
   private
     def set_objective
       @objective = Objective.find(params[:id])
+    end
+    
+    def objectives_redirect_path
+      redirect_to plan_division_department_area_goal_objectives_path(plan_id: params[:plan_id],
+          goal_id: params[:goal_id], division_id: params[:division_id],
+          department_id: params[:department_id], area_id: params[:area_id])
     end
 
     def objective_params

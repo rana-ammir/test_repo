@@ -1,12 +1,12 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>New Objective</h5>
+        <h5>Edit Objective</h5>
         <div class="ibox-tools">
         </div>
     </div>
     <div class="ibox-content">
       <div class="row">
-        <%= form_for @objective, url: plan_division_department_area_goal_objectives_path(plan_id: @plan.id,goal_id: @goal.id), method: "post", html: {class: "form-horizontal"} do |f| %>
+        <%= form_for objective, url: plan_division_department_area_goal_objective_path(plan_id: @plan.id,goal_id: @goal.id, id: objective.id), method: "put", html: {class: "form-horizontal"} do |f| %>
           <div class="form-group">
             <label class="col-lg-2 control-label">Number</label>
             <div class="col-lg-9">
@@ -36,7 +36,7 @@
           <%= f.hidden_field :goal_id, value: @goal.id %>
           <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-              <%= f.submit "Create Objective" , class: "btn btn-sm btn-primary" %>
+              <%= f.submit "Update Objective" , class: "btn btn-sm btn-primary" %>
             </div>
           </div>
         <% end %>
