@@ -22,7 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
-    @organization= Organization.create(name: params[:user][:organization][:name], address: params[:user][:organization][:address])
+    @organization= Organization.create(name: params[:user][:organization][:name], address: params[:user][:organization][:address], hours_in_day: params[:user][:organization][:hours_in_day])
   	resource.update_attributes(organization_id: @organization.id)	
   end
 
