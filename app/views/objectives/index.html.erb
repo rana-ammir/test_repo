@@ -18,10 +18,10 @@
             <%= link_to "#{@department.name.titleize}", plan_division_department_path(plan_id: @plan.id, division_id: @division.id, id: @department.id)%>
           </li>
           <li>
-            <%= link_to "#{@area.description.titleize}", plan_division_department_area_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, id: @area.id) %>
+            <%= link_to "#{@area.description.titleize.truncate(25)}", plan_division_department_area_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, id: @area.id) %>
           </li>
           <li>
-              <a href="/strategic_plan/plans/<%=@plan.id%>/divisions/<%=@division.id%>/departments/<%=@department.id%>/areas/<%=@area.id%>"><%= @goal.description.titleize %></a>
+              <a href="/strategic_plan/plans/<%=@plan.id%>/divisions/<%=@division.id%>/departments/<%=@department.id%>/areas/<%=@area.id%>"><%= @goal.description.titleize.truncate(25) %></a>
           </li>
           <li class="active">
             <strong>
@@ -74,6 +74,7 @@
                       <th>Budgeted Hours</th>
                       <th>Budgeted Dollars</th>
                       <th>% Complete</th>
+                      <th>Assigned To</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
@@ -88,7 +89,8 @@
                           <td><%= objective.totalhours%></td>
                           <td><%= objective.budgeted_dollars%></td>
                           <td><%= objective.percent_complete%></td>
-                          <td><a data-toggle="modal" href="#edit-modal-form"><i class="fa fa-pencil-square-o"></i> </a> &nbsp&nbsp <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                          <td><a data-toggle="modal" href="#user-assign-modal-form"><i class="fa fa-user"></i> </a> &nbsp&nbsp<a data-toggle="modal" href="#team-assign-modal-form"><i class="fa fa-users"></i> </a></td>
+                          <td><a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#obj-attachment-modal-form" class="asset-obj-link"><i class="fa fa-paperclip" aria-hidden="true"></i></a> <a data-toggle="modal" href="#edit-modal-form"><i class="fa fa-pencil-square-o"></i> </a> <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                           <%end%> </td>
                         </tr>                    
                         <!-- Edit objective pop up -->
@@ -121,3 +123,43 @@
         </div>
     </div>
 </div>
+<!-- end -->
+
+<!-- Objective assets pop up -->
+<div id="obj-attachment-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Objective Files</h3>
+                </div>
+              </div>
+              <div class="row modal-obj-attach-form"> 
+              </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
+
+<!-- user assign pop up -->
+<div id="user-assign-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>  
+<!-- end -->
+
+<!-- team assign pop up -->
+<div id="team-assign-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->

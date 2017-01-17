@@ -46,7 +46,9 @@ Myapp::Application.routes.draw do
     post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email
   end
 
+  get "/objectives/new_objective_attachment/:objective_id", to: "objectives#new_objective_attachment", as: :new_objective_attachment
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan
+  
   scope :strategic_plan do
     resources :plans, only: [:show] do
       resources :divisions, only: [:show] do
