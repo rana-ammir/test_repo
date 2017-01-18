@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 	skip_before_action :authenticate_user!, :only => [:forgot_password, :generate_new_password_email, :get_selected_division]
-
+	autocomplete :user, :first_name
+	
 	def index
 		@users = current_user.organization.users.not_organization_administrator
 	end
@@ -53,6 +54,11 @@ class UsersController < ApplicationController
 			redirect_to action: 'forgot_password'
 			flash[:alert] = "We could not find the Email you entered. Please try again."
 		end
+	end
+
+	def autocomplete_user_name
+		@users = User.where("first_name LIKE ?", "%#{params[:term]}%").not_organization_administrator.where(organization_id: current_user.organization_id)
+		render json: @users.map{|f| {"value" => "#{f.first_name} #{f.last_name}" , "key" => f.id} }.to_json
 	end
 
 	private

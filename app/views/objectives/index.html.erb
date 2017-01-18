@@ -89,9 +89,25 @@
                           <td><%= objective.totalhours%></td>
                           <td><%= objective.budgeted_dollars%></td>
                           <td><%= objective.percent_complete%></td>
-                          <td><a data-toggle="modal" href="#user-assign-modal-form"><i class="fa fa-user"></i> </a> &nbsp&nbsp<a data-toggle="modal" href="#team-assign-modal-form"><i class="fa fa-users"></i> </a></td>
-                          <td><a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#obj-attachment-modal-form" class="asset-obj-link"><i class="fa fa-paperclip" aria-hidden="true"></i></a> <a data-toggle="modal" href="#edit-modal-form"><i class="fa fa-pencil-square-o"></i> </a> <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
-                          <%end%> </td>
+                          <td>
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#user-assign-modal-form" class="user-assign-link">
+                              <i class="fa fa-user"></i>
+                            </a> &nbsp&nbsp
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#team-assign-modal-form" class="team-assign-link">
+                              <i class="fa fa-users"></i>
+                            </a>
+                          </td>
+                          <td>
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#obj-attachment-modal-form" class="asset-obj-link">
+                              <i class="fa fa-paperclip" aria-hidden="true"></i>
+                            </a> 
+                            <a data-toggle="modal" href="#edit-modal-form">
+                              <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
+                              <i class="fa fa-remove"></i> 
+                            <%end%>
+                          </td>
                         </tr>                    
                         <!-- Edit objective pop up -->
                         <div id="edit-modal-form" class="modal fade" aria-hidden="true">
@@ -147,6 +163,35 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Member</h3>
+                </div>
+              </div>
+              <div class="row">
+                 <%= form_tag create_user_objective_path, remote: true, class: "form-horizontal" do %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_user_name_path }, id: "user-name-autocomplete", class: "form-control" %>
+                    </div>
+                  </div> 
+                  <%= hidden_field_tag :objective_id, nil ,class: "objective-hf" %>
+                  <%= hidden_field_tag :user_id, nil ,class: "user-hf" %>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <%= submit_tag "Assign User", class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h3>Members</h3>
+                  </div>
+                  <div class="ibox-content users-table-assign">
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>
@@ -158,6 +203,35 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Team</h3>
+                </div>
+              </div>
+              <div class="row">
+                 <%= form_tag create_team_objective_path, remote: true, class: "form-horizontal" do %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_team_name_teams_path  }, id: "team-name-autocomplete", class: "form-control" %>
+                    </div>
+                  </div> 
+                  <%= hidden_field_tag :objective_id, nil ,class: "obj-hf" %>
+                  <%= hidden_field_tag :team_id, nil ,class: "team-hf" %>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <%= submit_tag "Assign Team", class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h3>Teams</h3>
+                  </div>
+                  <div class="ibox-content teams-table-assign">
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>

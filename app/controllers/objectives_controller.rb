@@ -47,6 +47,40 @@ class ObjectivesController < ApplicationController
     end
   end
 
+  def create_user_objective
+    @user_objectve = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
+    @objective = Objective.find(params[:objective_id])
+    @users = @objective.users
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_objective_users
+    @objective = Objective.find(params[:objective_id])
+    @users = @objective.users
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_team_objective
+    @team_objectve = TeamObjective.where(team_id: params[:team_id], objective_id: params[:objective_id]).first_or_create(team_id: params[:team_id], objective_id: params[:objective_id])
+    @objective = Objective.find(params[:objective_id])
+    @teams = @objective.teams
+    respond_to do |format|
+      format.js
+    end   
+  end
+
+  def get_objective_teams
+    @objective = Objective.find(params[:objective_id])
+    @teams = @objective.teams
+    respond_to do |format|
+      format.js
+    end
+  end 
+    
   private
     def set_objective
       @objective = Objective.find(params[:id])

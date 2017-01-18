@@ -31,6 +31,7 @@ Myapp::Application.routes.draw do
   end
   resources :teams do
     collection do
+      get "autocomplete_team_name", to: "teams#autocomplete_team_name", as: :autocomplete_team_name
       post "assign_member", to: "teams#assign_member", as: :assign_member
       delete "remove_assigned_member/:id", to: "teams#remove_assigned_member", as: :remove_assigned_member
     end 
@@ -42,11 +43,19 @@ Myapp::Application.routes.draw do
   end
 
   scope :users do
+    get "autocomplete_user_name", to: "users#autocomplete_user_name", as: :autocomplete_user_name
     get "forgot_password", to: "users#forgot_password", as: :forgot_password 
     post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email
   end
 
-  get "/objectives/new_objective_attachment/:objective_id", to: "objectives#new_objective_attachment", as: :new_objective_attachment
+  scope :objectives do
+    get "new_objective_attachment/:objective_id", to: "objectives#new_objective_attachment", as: :new_objective_attachment  
+    get "get_objective_users", to: "objectives#get_objective_users", as: :get_objective_users
+    post "create_user_objective", to: "objectives#create_user_objective", as: :create_user_objective
+    get "get_objective_teams", to: "objectives#get_objective_teams", as: :get_objective_teams
+    post "create_team_objective", to: "objectives#create_team_objective", as: :create_team_objective
+  end
+
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan
   
   scope :strategic_plan do

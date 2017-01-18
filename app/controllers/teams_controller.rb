@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-
+  autocomplete :team, :name
+  
   def index
     @teams = current_user.teams.where(active: true)
   end
@@ -63,6 +64,13 @@ class TeamsController < ApplicationController
     redirect_to team_path(id: params[:id])
   end
 
+  def autocomplete_team_name
+    @organization = current_user.organization
+    @organization_teams = @organization.teams
+    @teams = @organization_teams.where("name LIKE ?", "%#{params[:term]}%")
+    render json: @teams.map{|f| {"value" => f.name , "key" => f.id} }.to_json
+  end
+  
   private
     def set_team
       @team = Team.find(params[:id])

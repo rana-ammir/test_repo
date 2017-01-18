@@ -17,8 +17,18 @@
  */
 
 .fa-remove:hover {
-    color: red;
+  color: red;
 }
+
 .fa-pencil-square-o:hover {
-    color: #18A689;
+  color: #18A689;
+}
+
+.ui-autocomplete {
+	position: absolute;
+	z-index:2147483647;
+	list-style: none;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px; 
 }
