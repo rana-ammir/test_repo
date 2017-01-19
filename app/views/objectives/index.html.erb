@@ -67,6 +67,7 @@
                     <thead>
                     <tr>
                       <th>#</th>
+                      <th>Status</th>
                       <th>Description</th>
                       <th>Requested By Date</th>
                       <th>Target Date</th>
@@ -82,6 +83,11 @@
                       <% @objectives.each do |objective| %>
                         <tr>
                           <td><span class="line"><%= objective.number %></span></td>
+                          <td>
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#objective-status-modal" class="obj-status-modal">
+                              <i class="fa <%= on_going_carry_forward_icons(objective.on_going_carry_forward) %>"></i>
+                            </a>
+                          </td>
                           <td><%= objective.description %></td>
                           <td><%= objective.requested_by_date ? objective.requested_by_date.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= objective.end_on ? objective.end_on.strftime("%m-%d-%Y") : "" %></td>
@@ -101,7 +107,7 @@
                             <a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#obj-attachment-modal-form" class="asset-obj-link">
                               <i class="fa fa-paperclip" aria-hidden="true"></i>
                             </a> 
-                            <a data-toggle="modal" href="#edit-modal-form">
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-objective-link">
                               <i class="fa fa-pencil-square-o"></i>
                             </a>
                             <%= link_to plan_division_department_area_goal_objective_path(id: objective.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
@@ -109,17 +115,6 @@
                             <%end%>
                           </td>
                         </tr>                    
-                        <!-- Edit objective pop up -->
-                        <div id="edit-modal-form" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                      <%= render partial: 'edit_form', locals: { objective: objective } %>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- end pop up -->
                       <%end%>
                     </tbody>
                 </table>
@@ -235,5 +230,30 @@
             </div>
         </div>
     </div>
+</div>
+<!-- end -->
+
+<!-- Edit objective pop up -->
+<div id="edit-modal-form" class="modal fade" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-body">
+            <div class="row edit-form-view">
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end pop up -->
+<!-- Objective status pop up -->
+<div id="objective-status-modal" class="modal fade" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-body">
+            <div class="row objective-status-edit-view">
+            </div>             
+          </div>
+      </div>
+  </div>
 </div>
 <!-- end -->

@@ -1,0 +1,5 @@
+<%if params[:request] == "edit_objective_status" %>
+	$(".objective-status-edit-view").html("<%= escape_javascript (render partial: 'edit_objective_status', locals: { objective: @objective, area: @area, plan: @plan, division: @division, department: @department, goal: @goal }) %>");
+<%else%>
+		$(".edit-form-view").html("<%= escape_javascript (render partial: 'edit_form', locals: { objective: @objective, area: @area, plan: @plan, division: @division, department: @department, goal: @goal }) %>");
+<%end%>

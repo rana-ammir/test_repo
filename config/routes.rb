@@ -54,6 +54,8 @@ Myapp::Application.routes.draw do
     post "create_user_objective", to: "objectives#create_user_objective", as: :create_user_objective
     get "get_objective_teams", to: "objectives#get_objective_teams", as: :get_objective_teams
     post "create_team_objective", to: "objectives#create_team_objective", as: :create_team_objective
+    get "destroy_user_objective", to: "objectives#destroy_user_objective", as: :destroy_user_objective
+    get "destroy_team_objective", to: "objectives#destroy_team_objective", as: :destroy_team_objective
   end
 
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan

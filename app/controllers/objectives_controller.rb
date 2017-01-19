@@ -1,6 +1,6 @@
 class ObjectivesController < ApplicationController
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
-  before_action :set_objective_params, only: [:index, :new_objective_attachment] 
+  before_action :set_objective_params, only: [:index, :new_objective_attachment, :edit] 
   def index
     @objectives = @goal.objectives
     @objective = Objective.new
@@ -14,6 +14,9 @@ class ObjectivesController < ApplicationController
   end
 
   def edit
+    respond_to do |format|
+      format.js
+    end
   end
 
   def create
@@ -48,7 +51,7 @@ class ObjectivesController < ApplicationController
   end
 
   def create_user_objective
-    @user_objectve = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
+    @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
     @objective = Objective.find(params[:objective_id])
     @users = @objective.users
     respond_to do |format|
@@ -65,7 +68,7 @@ class ObjectivesController < ApplicationController
   end
 
   def create_team_objective
-    @team_objectve = TeamObjective.where(team_id: params[:team_id], objective_id: params[:objective_id]).first_or_create(team_id: params[:team_id], objective_id: params[:objective_id])
+    @team_objective = TeamObjective.where(team_id: params[:team_id], objective_id: params[:objective_id]).first_or_create(team_id: params[:team_id], objective_id: params[:objective_id])
     @objective = Objective.find(params[:objective_id])
     @teams = @objective.teams
     respond_to do |format|
@@ -80,7 +83,27 @@ class ObjectivesController < ApplicationController
       format.js
     end
   end 
-    
+
+  def destroy_user_objective
+    @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first
+    @user_objective.destroy
+    @objective = Objective.find(params[:objective_id])
+    @users = @objective.users
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_team_objective
+    @team_objective = TeamObjective.where(team_id: params[:team_id], objective_id: params[:objective_id]).first
+    @team_objective.destroy
+    @objective = Objective.find(params[:objective_id])
+    @teams = @objective.teams
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_objective
       @objective = Objective.find(params[:id])

@@ -1,0 +1,40 @@
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+      <h5>Objective Status</h5>
+  </div>
+  <div class="ibox-content">
+    <div class="row">
+      <%= form_for objective, url: plan_division_department_area_goal_objective_path(plan_id: @plan.id,goal_id: @goal.id, id: objective.id), method: "put", html: {class: "form-inline"} do |f| %>
+        <div class="form-group">
+          <label class="control-label">On Going
+            <i class="fa fa-circle-o" aria-hidden="true"></i>
+          </label>
+          <div class="col-lg-9">
+            <%= f.radio_button("on_going_carry_forward", "1", class: "obj-status-radio")%>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Carry Forward 
+            <span class="fa fa-check-circle"></span>
+          </label>  
+          <div class="col-lg-9">
+            <%= f.radio_button("on_going_carry_forward", "2", class: "obj-status-radio")%>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Single Year
+            <span class="fa fa-check-circle-o"></span>
+          </label>  
+          <div class="col-lg-9">
+          <%= f.radio_button("on_going_carry_forward", "0", class: "obj-status-radio")%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-2 col-lg-10">
+            <%= f.submit "Update Objective" , class: "btn btn-sm btn-primary" %>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div> 

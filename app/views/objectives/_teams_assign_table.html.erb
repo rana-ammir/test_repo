@@ -9,8 +9,11 @@
   	<% teams.each do |team| %>
   		<tr>
 			  <td><%= team.name %></td>
-			  <td><%#= link_to goal_path(id: goal.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
-			  <%#end%> </td>
+			  <td>
+          <%= link_to "#", data: { objective_id: params[:objective_id], team_id: team.id}, class: "delete-assigned-team" do %>
+            <i class="fa fa-remove" aria-hidden="true"></i> 
+          <%end%>  
+        </td>
 			</tr>
   	<%end%>
   </tbody>

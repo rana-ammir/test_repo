@@ -12,5 +12,10 @@ class Objective < ActiveRecord::Base
   accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
   
   validates_presence_of :description, :number, :requested_by_date, :budgeted_dollars
-  
+	
+	OBJECTIVE_STATUS = {
+		single_year: {id: 0, name: 'Single Year'},
+    on_going: {id: 1, name: 'On Going'},
+    carry_forward: {id: 2, name: 'Carry Forward'}
+  }
 end

@@ -18,4 +18,15 @@ module ApplicationHelper
   def unassigned_users
     users = current_user.organization.users.not_organization_administrator
   end
+
+  def on_going_carry_forward_icons(value)
+    if value == 0
+      "fa-check-circle-o"
+    elsif value == 1
+      "fa-circle-o"
+    else
+      "fa-check-circle"
+    end
+  end
+  
 end
