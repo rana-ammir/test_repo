@@ -23,6 +23,7 @@ class ObjectivesController < ApplicationController
     params[:objective][:requested_by_date].length == 0 ? requested_by_date = params[:objective][:requested_by_date] = nil : 
       requested_by_date = Date.strptime(params[:objective][:requested_by_date], "%m/%d/%Y")
     @objective = Objective.create(objective_params.merge(requested_by_date: requested_by_date))
+    @plan_objective = PlanObjective.create(plan_id: params[:plan_id], objective_id: @objective.id)
     objectives_redirect_path
   end
 
