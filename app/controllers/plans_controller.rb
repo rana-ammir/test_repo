@@ -2,7 +2,8 @@ class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
   before_filter :load_strategic_plans_list, only: :strategic_plan
   def index
-    @plans = Plan.all
+    @organization = current_user.organization
+    @plans = @organization.plans
   end
 
   def show
