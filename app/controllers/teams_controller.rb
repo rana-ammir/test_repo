@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
   autocomplete :team, :name
   
   def index
-    @teams = current_user.teams.where(active: true)
+    @teams = current_user.organization.teams.where(active: true)
   end
 
   def show
