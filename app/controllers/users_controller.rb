@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 	end
 
 	def autocomplete_user_name
-		@users = User.where("first_name LIKE ?", "%#{params[:term].downcase}%").not_organization_administrator.where(organization_id: current_user.organization_id)
+		@users = User.where("LOWER(first_name) LIKE ?", "%#{params[:term].downcase}%").not_organization_administrator.where(organization_id: current_user.organization_id)
 		render json: @users.map{|f| {"value" => "#{f.first_name} #{f.last_name}" , "key" => f.id} }.to_json
 	end
 

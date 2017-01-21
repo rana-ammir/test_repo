@@ -67,7 +67,7 @@ class TeamsController < ApplicationController
   def autocomplete_team_name
     @organization = current_user.organization
     @organization_teams = @organization.teams
-    @teams = @organization_teams.where("name LIKE ?", "%#{params[:term].downcase}%")
+    @teams = @organization_teams.where("LOWER(name) LIKE ?", "%#{params[:term].downcase}%")
     render json: @teams.map{|f| {"value" => f.name , "key" => f.id} }.to_json
   end
   
