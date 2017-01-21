@@ -3,7 +3,7 @@ ActiveAdmin.register User do
     :organization_id, :division_id, :department_id, :job_title, :active
   
   collection_action :autocomplete_organization_name, method: :get do
-    @organizations = Organization.where("name LIKE ?", "%#{params[:term]}%")
+    @organizations = Organization.where("name LIKE ?", "%#{params[:term].downcase}%")
     render json: @organizations.map{|f| {"value" => f.name , "key" => f.id} }.to_json
   end
   
