@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   has_many :teams, -> { uniq }, through: :team_users
   has_many :user_objectives
   has_many :objectives, through: :user_objectives
-  
+  has_many :user_strategies
+  has_many :strategies, through: :user_strategies
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
