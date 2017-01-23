@@ -9,7 +9,7 @@ class Strategy < ActiveRecord::Base
   
   accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
 
-  validates_presence_of :description
+  validates_presence_of :description, :number, :end_on
   validates_numericality_of :totalhours, greater_than_or_equal_to: 0,  allow_nil: true
   validates_numericality_of :percent_complete, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
 end

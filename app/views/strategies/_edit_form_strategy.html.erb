@@ -1,12 +1,12 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>New Strategy</h5>
+        <h5>Edit Strategy</h5>
         <div class="ibox-tools">
         </div>
     </div>
     <div class="ibox-content">
       <div class="row">
-        <%= form_for @strategy, url: plan_division_department_area_goal_objective_strategies_path(plan_id: @plan.id, objective_id: @objective.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id), method: "post", html: {class: "form-horizontal"} do |f| %>
+        <%= form_for strategy, url: plan_division_department_area_goal_objective_strategy_path(plan_id: plan.id,goal_id: goal.id, objective_id: objective.id, id: strategy.id ), method: "put", html: {class: "form-horizontal"} do |f| %>
           <div class="form-group">
             <label class="col-lg-2 control-label">Number</label>
             <div class="col-lg-9">
@@ -30,7 +30,7 @@
           <%= f.hidden_field :objective_id, value: @objective.id %>
           <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-              <%= f.submit "Create Strategy" , class: "btn btn-sm btn-primary" %>
+              <%= f.submit "Update Strategy" , class: "btn btn-sm btn-primary" %>
             </div>
           </div>
         <% end %>

@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  	<% users.each do |user| %>
+  		<tr>
+			  <td><%= user.email %></td>
+			  <td><%= user.first_name %></td>
+			  <td><%= user.last_name%></td>
+			  <td>
+          <%= link_to "#", data: { strategy_id: params[:strategy_id], user_id: user.id}, class: "delete-assigned-user" do %>
+            <i class="fa fa-remove" aria-hidden="true"></i> 
+			    <%end%>
+        </td>
+			</tr>
+  	<%end%>
+  </tbody>
+</table>

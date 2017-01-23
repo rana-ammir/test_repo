@@ -58,6 +58,16 @@ Myapp::Application.routes.draw do
     get "destroy_team_objective", to: "objectives#destroy_team_objective", as: :destroy_team_objective
   end
 
+  scope :strategies do
+    get "new_strategy_attachment/:strategy_id", to: "strategies#new_strategy_attachment", as: :new_strategy_attachment
+    get "get_strategy_users", to: "strategies#get_strategy_users", as: :get_strategy_users
+    post "create_user_strategy", to: "strategies#create_user_strategy", as: :create_user_strategy
+    get "get_strategy_teams", to: "strategies#get_strategy_teams", as: :get_strategy_teams
+    post "create_team_strategy", to: "strategies#create_team_strategy", as: :create_team_strategy
+    get "destroy_user_strategy", to: "strategies#destroy_user_strategy", as: :destroy_user_strategy
+    get "destroy_team_strategy", to: "strategies#destroy_team_strategy", as: :destroy_team_strategy
+  end
+
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan
   
   scope :strategic_plan do
@@ -66,7 +76,9 @@ Myapp::Application.routes.draw do
         resources :departments, only: [:show] do
           resources :areas, only: [:show] do
             resources :goals do 
-              resources :objectives
+              resources :objectives do
+                resources :strategies
+              end
             end
           end
         end

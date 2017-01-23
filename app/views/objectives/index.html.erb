@@ -88,7 +88,7 @@
                               <i class="fa <%= on_going_carry_forward_icons(objective.on_going_carry_forward) %>"></i>
                             </a>
                           </td>
-                          <td><%= objective.description %></td>
+                          <td><%= link_to "#{objective.description}", plan_division_department_area_goal_objective_strategies_path(objective_id: objective.id, goal_id: @goal.id, area_id: @area.id, department_id: @department.id, division_id: @division.id, plan_id: @plan.id) %></td>
                           <td><%= objective.requested_by_date ? objective.requested_by_date.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= objective.end_on ? objective.end_on.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= objective.actual_hours%></td>

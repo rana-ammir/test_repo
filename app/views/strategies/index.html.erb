@@ -1,25 +1,253 @@
-<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Strategies</h2>
+        <ol class="breadcrumb">
+          <li>
+            <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+          </li>
+          <li>
+            <%= link_to "Strategic Plan", strategic_plan_path %>
+          </li>
+          <li>
+            <a href="/strategic_plan/plans/<%=@plan.id%>"><%= @plan.name.titleize %></a>
+          </li>
+          <li>
+            <%= link_to "#{@division.name.titleize}", plan_division_path(plan_id: @plan.id, id: @division.id)%>
+          </li>
+          <li>
+            <%= link_to "#{@department.name.titleize}", plan_division_department_path(plan_id: @plan.id, division_id: @division.id, id: @department.id)%>
+          </li>
+          <li>
+            <%= link_to "#{@area.description.titleize.truncate(25)}", plan_division_department_area_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, id: @area.id) %>
+          </li>
+          <li>
+              <a href="/strategic_plan/plans/<%=@plan.id%>/divisions/<%=@division.id%>/departments/<%=@department.id%>/areas/<%=@area.id%>"><%= @goal.description.titleize.truncate(25) %></a>
+          </li>
+          <li>
+            <%= link_to "Objectives", plan_division_department_area_goal_objectives_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id) %>
+          </li>
+          <li class="active">
+            <strong>
+              <%= link_to "Strategies", plan_division_department_area_goal_objective_strategies_path %>
+            </strong>
+          </li>
+        </ol>
+    </div>
+</div>
 
-<h1>Listing Strategies</h1>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Selected Goal</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <label>Goal: </label> <%= @goal.description.titleize %>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1">
+    </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Selected Objective</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <label>Objective: </label> <%= @objective.description.titleize %>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Strategies </h5>
+                <div class="ibox-tools">
+                    <a data-toggle="modal" class="btn btn-sm btn-white" style="color:grey;" href="#modal-form">New Strategy</a>
+                </div>
+            </div>
+            <div class="ibox-content">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Description</th>
+                      <th>Target Date</th>
+                      <th>Actual Hours</th>
+                      <th>Budgeted Hours</th>
+                      <th>% Complete</th>
+                      <th>Assigned To</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @strategies.each do |strategy| %>
+                        <tr>
+                          <td><%= strategy.number %></td>
+                          <td><%= strategy.description %></td>
+                          <td><%= strategy.end_on ? strategy.end_on.strftime("%m-%d-%Y") : "" %></td>
+                          <td><%= strategy.totalhours%></td>
+                          <td><%= strategy.totalhours%></td>
+                          <td><%= strategy.percent_complete%></td>
+                          <td>
+                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" href="#user-assign-modal-form" class="user-assign-link">
+                              <i class="fa fa-user"></i>
+                            </a> &nbsp&nbsp
+                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" href="#team-assign-modal-form" class="team-assign-link">
+                              <i class="fa fa-users"></i>
+                            </a>
+                          </td>
+                          <td>
+                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#strategy-attachment-modal-form" class="asset-strategy-link">
+                              <i class="fa fa-paperclip" aria-hidden="true"></i>
+                            </a> 
+                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-strategy-link">
+                              <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <%= link_to plan_division_department_area_goal_objective_strategy_path(id: strategy.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
+                              <i class="fa fa-remove"></i> 
+                            <%end%>
+                          </td>
+                        </tr>                    
+                      <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @strategies.each do |strategy| %>
-      <tr>
-        <td><%= link_to 'Show', strategy %></td>
-        <td><%= link_to 'Edit', edit_strategy_path(strategy) %></td>
-        <td><%= link_to 'Destroy', strategy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<!-- New strategy pop up -->
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <%= render 'form' %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
 
-<br>
+<!-- Edit objective pop up -->
+<div id="edit-modal-form" class="modal fade" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-body">
+            <div class="row edit-form-view">
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end pop up -->
 
-<%= link_to 'New Strategy', new_strategy_path %>
+<!-- Objective assets pop up -->
+<div id="strategy-attachment-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Strategy Files</h3>
+                </div>
+              </div>
+              <div class="row modal-strategy-attach-form"> 
+              </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
+
+<!-- user assign pop up -->
+<div id="user-assign-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Member</h3>
+                </div>
+              </div>
+              <div class="row">
+                 <%= form_tag create_user_strategy_path, remote: true, class: "form-horizontal" do %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_user_name_path }, id: "user-name-autocomplete", class: "form-control" %>
+                    </div>
+                  </div> 
+                  <%= hidden_field_tag :strategy_id, nil ,class: "strategy-hf" %>
+                  <%= hidden_field_tag :user_id, nil ,class: "user-hf" %>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <%= submit_tag "Assign User", class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h3>Members</h3>
+                  </div>
+                  <div class="ibox-content users-table-assign">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>  
+<!-- end -->
+<!-- team assign pop up -->
+<div id="team-assign-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Team</h3>
+                </div>
+              </div>
+              <div class="row">
+                 <%= form_tag create_team_strategy_path, remote: true, class: "form-horizontal" do %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                      <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_team_name_teams_path  }, id: "team-name-autocomplete", class: "form-control" %>
+                    </div>
+                  </div> 
+                  <%= hidden_field_tag :strategy_id, nil ,class: "strategy-hf" %>
+                  <%= hidden_field_tag :team_id, nil ,class: "team-hf" %>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <%= submit_tag "Assign Team", class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="row">
+                <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h3>Teams</h3>
+                  </div>
+                  <div class="ibox-content teams-table-assign">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
