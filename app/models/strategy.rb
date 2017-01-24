@@ -1,6 +1,7 @@
 class Strategy < ActiveRecord::Base
 	belongs_to :objective
-
+	
+	has_many :tactics,  dependent: :destroy
 	has_many :team_strategies
 	has_many :teams, -> { uniq }, through: :team_strategies
 	has_many :user_strategies

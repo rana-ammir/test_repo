@@ -69,7 +69,7 @@ class StrategiesController < ApplicationController
   end
 
   def create_team_strategy
-    @team_objective = TeamStrategy.where(team_id: params[:team_id], strategy_id: params[:strategy_id]).first_or_create(team_id: params[:team_id], strategy_id: params[:strategy_id])
+    @team_strategy = TeamStrategy.where(team_id: params[:team_id], strategy_id: params[:strategy_id]).first_or_create(team_id: params[:team_id], strategy_id: params[:strategy_id])
     @teams = @strategy.teams
     respond_to do |format|
       format.js

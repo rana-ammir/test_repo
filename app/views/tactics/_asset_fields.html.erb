@@ -1,0 +1,31 @@
+<div class="nested-fields">
+	<div class="form-group field">
+	  <label class="col-lg-2 control-label">Title</label>
+	  <div class="col-lg-9">
+	    <%= f.text_field :title, class: "form-control", placeholder: "Enter title" %>
+	  </div>
+	</div>
+		<% if f.object.asset.url != "/assets/original/missing.png" %>
+			<div class="form-group field">
+			  <label class="col-lg-2 control-label">Upload</label>
+			  <div class="col-lg-9">
+			    <%= f.file_field :asset, class: "form-control btn btn-white" %> 
+			  </div>
+			</div>
+			<div class="form-group field">
+			  <label class="col-lg-2 control-label">Download</label>
+			  <div class="col-lg-9">
+			    <%= link_to "#{f.object.asset_file_name}", download_asset_assets_path(id: f.object.id), class: "form-control"	%>
+			  </div>
+				  <%= link_to_remove_association "", f, data: {confirm: "are you sure?"}, class: "fa fa-remove", style: "color: grey; padding-top: 10px;" %>
+			</div>
+		<%else%>
+			<div class="form-group field">
+			  <label class="col-lg-2 control-label">Upload</label>
+			  <div class="col-lg-9">
+			    <%= f.file_field :asset, class: "form-control btn btn-white" %> 
+			  </div>
+			    <%= link_to_remove_association "", f, class: "fa fa-remove", style: "color: grey; padding-top: 10px;" %>
+			</div>
+		<% end %>
+</div>

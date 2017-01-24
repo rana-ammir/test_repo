@@ -1,0 +1,69 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Edit Tactic</h5>
+        <div class="ibox-tools">
+        </div>
+    </div>
+    <div class="ibox-content">
+      <div class="row">
+        <%= form_for tactic, url: plan_division_department_area_goal_objective_strategy_tactic_path(plan_id: plan.id,goal_id: goal.id, objective_id: objective.id, strategic_id: strategy.id, id: tactic.id ), method: "put", html: {class: "form-horizontal"} do |f| %>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Number</label>
+            <div class="col-lg-9">
+              <%= f.number_field :number, class: "form-control", placeholder: "Enter number", min: 0, max: "9999999999" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Description</label>
+            <div class="col-lg-9">
+              <%= f.text_area :description, class: "form-control", placeholder: "Enter description" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Target Date</label>
+            <div class="col-lg-9">
+              <div class="input-group m-b"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span> 
+                <%= f.text_field :end_on, autocomplete: :off, class: "datepicker form-control", placeholder: "Choose date", value: f.object.end_on ? f.object.end_on.strftime("%m/%d/%Y") : nil %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Actual Days</label>
+            <div class="col-lg-9">
+              <%= f.number_field :actual_days, class: "form-control", placeholder: "Enter actual days", min: 0, max: "999.99", step: 0.01 %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Actual Hours</label>
+            <div class="col-lg-9">
+              <%= f.number_field :actual_hours, class: "form-control", placeholder: "Enter actual hours", min: 0, max: "999.99", step: 0.01 %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Budgeted Days</label>
+            <div class="col-lg-9">
+              <%= f.number_field :days, class: "form-control", placeholder: "Enter budgeted days", min: 0, max: "99999999.99", step: 0.01 %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Budgeted Hours</label>
+            <div class="col-lg-9">
+              <%= f.number_field :hours, class: "form-control", placeholder: "Enter budgeted hours", min: 0, max: "99999999.99", step: 0.01 %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">% Complete</label>
+            <div class="col-lg-9">
+              <%= f.number_field :percent_of_strategy, class: "form-control", placeholder: "Enter percent of strategy", min: 0, max: 100, step: 0.01 %>
+            </div>
+          </div>
+          <%= f.hidden_field :strategy_id, value: @strategy.id %>
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <%= f.submit "Update Tactic" , class: "btn btn-sm btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div>              
+    </div>
+</div>

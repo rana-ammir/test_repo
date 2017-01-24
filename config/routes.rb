@@ -68,6 +68,16 @@ Myapp::Application.routes.draw do
     get "destroy_team_strategy", to: "strategies#destroy_team_strategy", as: :destroy_team_strategy
   end
 
+  scope :tactics do
+    get "new_tactic_attachment/:tactic_id", to: "tactics#new_tactic_attachment", as: :new_tactic_attachment
+    get "get_tactic_users", to: "tactics#get_tactic_users", as: :get_tactic_users
+    post "create_user_tactic", to: "tactics#create_user_tactic", as: :create_user_tactic
+    get "get_tactic_teams", to: "tactics#get_tactic_teams", as: :get_tactic_teams
+    post "create_team_tactic", to: "tactics#create_team_tactic", as: :create_team_tactic
+    get "destroy_user_tactic", to: "tactics#destroy_user_tactic", as: :destroy_user_tactic
+    get "destroy_team_tactic", to: "tactics#destroy_team_tactic", as: :destroy_team_tactic
+  end
+  
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan
   
   scope :strategic_plan do
@@ -77,7 +87,9 @@ Myapp::Application.routes.draw do
           resources :areas, only: [:show] do
             resources :goals do 
               resources :objectives do
-                resources :strategies
+                resources :strategies do
+                  resources :tactics
+                end
               end
             end
           end

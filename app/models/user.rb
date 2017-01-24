@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :objectives, through: :user_objectives
   has_many :user_strategies
   has_many :strategies, through: :user_strategies
+  has_many :user_tactics
+  has_many :tactics, through: :user_tactics
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

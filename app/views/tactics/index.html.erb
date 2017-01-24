@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Strategies</h2>
+        <h2>Tactics</h2>
         <ol class="breadcrumb">
           <li>
             <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
@@ -26,9 +26,12 @@
           <li>
             <%= link_to "Objectives", plan_division_department_area_goal_objectives_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id) %>
           </li>
+          <li>
+            <%= link_to "Strategies", plan_division_department_area_goal_objective_strategies_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id, objective_id: @objective.id) %>
+          </li>
           <li class="active">
             <strong>
-              <%= link_to "Strategies", plan_division_department_area_goal_objective_strategies_path %>
+              <%= link_to "Tactics", plan_division_department_area_goal_objective_strategy_tactics_path %>
             </strong>
           </li>
         </ol>
@@ -69,24 +72,41 @@
       </div>
   </div>
   <div class="row">
+    <div class="col-lg-1">
+    </div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Selected Strategy</h5>
+                  <div class="ibox-tools">
+                  </div>
+              </div>
+              <div class="ibox-content">
+                <label>Strategy: </label> <%= @strategy.description.titleize %>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
     <div class="col-lg-1"></div>
     <div class="col-lg-10">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Strategies </h5>
+                <h5>Tactics</h5>
                 <div class="ibox-tools">
-                    <a data-toggle="modal" class="btn btn-sm btn-white" style="color:grey;" href="#modal-form">New Strategy</a>
+                    <a data-toggle="modal" class="btn btn-sm btn-white" style="color:grey;" href="#modal-form">New Tactic</a>
                 </div>
             </div>
             <div class="ibox-content">
-
                 <table class="table table-striped">
                     <thead>
                     <tr>
                       <th>#</th>
                       <th>Description</th>
                       <th>Target Date</th>
+                      <th>Actual Days</th>
                       <th>Actual Hours</th>
+                      <th>Budgeted Days</th>
                       <th>Budgeted Hours</th>
                       <th>% Complete</th>
                       <th>Assigned To</th>
@@ -94,30 +114,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                      <% @strategies.each do |strategy| %>
+                      <% @tactics.each do |tactic| %>
                         <tr>
-                          <td><%= strategy.number %></td>
-                          <td><%= link_to "#{strategy.description}", plan_division_department_area_goal_objective_strategy_tactics_path(strategy_id: strategy.id)%></td>
-                          <td><%= strategy.end_on ? strategy.end_on.strftime("%m-%d-%Y") : "" %></td>
-                          <td><%= strategy.totalhours%></td>
-                          <td><%= strategy.totalhours%></td>
-                          <td><%= strategy.percent_complete%></td>
+                          <td><%= tactic.number %></td>
+                          <td><%= tactic.description %></td>
+                          <td><%= tactic.end_on ? tactic.end_on.strftime("%m-%d-%Y") : "" %></td>
+                          <td><%= tactic.actual_days %></td>
+                          <td><%= tactic.actual_hours%></td>
+                          <td><%= tactic.days %></td>
+                          <td><%= tactic.hours %></td>
+                          <td><%= tactic.percent_of_strategy%></td>
                           <td>
-                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" href="#user-assign-modal-form" class="user-assign-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" href="#user-assign-modal-form" class="user-assign-link">
                               <i class="fa fa-user"></i>
                             </a> &nbsp&nbsp
-                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" href="#team-assign-modal-form" class="team-assign-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" href="#team-assign-modal-form" class="team-assign-link">
                               <i class="fa fa-users"></i>
                             </a>
                           </td>
                           <td>
-                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#strategy-attachment-modal-form" class="asset-strategy-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#tactic-attachment-modal-form" class="asset-tactic-link">
                               <i class="fa fa-paperclip" aria-hidden="true"></i>
                             </a> 
-                            <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-strategy-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-tactic-link">
                               <i class="fa fa-pencil-square-o"></i>
                             </a>
-                            <%= link_to plan_division_department_area_goal_objective_strategy_path(id: strategy.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
+                            <%= link_to plan_division_department_area_goal_objective_strategy_tactic_path(id: tactic.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
                               <i class="fa fa-remove"></i> 
                             <%end%>
                           </td>
@@ -156,23 +178,22 @@
 </div>
 <!-- end pop up -->
 
-<!-- strategy assets pop up -->
-<div id="strategy-attachment-modal-form" class="modal fade" aria-hidden="true">
+<!-- tactic assets pop up -->
+<div id="tactic-attachment-modal-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
               <div class="row">
-                <div class="col-sm-6"><h3 class="m-t-none m-b">Strategy Files</h3>
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Tactic Files</h3>
                 </div>
               </div>
-              <div class="row modal-strategy-attach-form"> 
+              <div class="row modal-tactic-attach-form"> 
               </div>              
             </div>
         </div>
     </div>
 </div>
 <!-- end -->
-
 <!-- user assign pop up -->
 <div id="user-assign-modal-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
@@ -183,13 +204,13 @@
                 </div>
               </div>
               <div class="row">
-                 <%= form_tag create_user_strategy_path, remote: true, class: "form-horizontal" do %>
+                 <%= form_tag create_user_tactic_path, remote: true, class: "form-horizontal" do %>
                   <div class="form-group"><label class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-10">
                       <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_user_name_path }, id: "user-name-autocomplete", class: "form-control" %>
                     </div>
                   </div> 
-                  <%= hidden_field_tag :strategy_id, nil ,class: "strategy-hf" %>
+                  <%= hidden_field_tag :tactic_id, nil ,class: "tactic-hf" %>
                   <%= hidden_field_tag :user_id, nil ,class: "user-hf" %>
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
@@ -222,13 +243,13 @@
                 </div>
               </div>
               <div class="row">
-                 <%= form_tag create_team_strategy_path, remote: true, class: "form-horizontal" do %>
+                 <%= form_tag create_team_tactic_path, remote: true, class: "form-horizontal" do %>
                   <div class="form-group"><label class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-10">
                       <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_team_name_teams_path  }, id: "team-name-autocomplete", class: "form-control" %>
                     </div>
                   </div> 
-                  <%= hidden_field_tag :strategy_id, nil ,class: "strategy-hf" %>
+                  <%= hidden_field_tag :tactic_id, nil ,class: "tactic-hf" %>
                   <%= hidden_field_tag :team_id, nil ,class: "team-hf" %>
                   <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">

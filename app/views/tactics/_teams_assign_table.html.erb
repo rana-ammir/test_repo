@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+      <th>Name</th>
+      <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  	<% teams.each do |team| %>
+  		<tr>
+			  <td><%= team.name %></td>
+			  <td>
+          <%= link_to "#", data: { tactic_id: params[:tactic_id], team_id: team.id}, class: "delete-assigned-team" do %>
+            <i class="fa fa-remove" aria-hidden="true"></i> 
+          <%end%>  
+        </td>
+			</tr>
+  	<%end%>
+  </tbody>
+</table>
