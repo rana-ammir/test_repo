@@ -27,6 +27,15 @@ class User < ActiveRecord::Base
   scope :not_organization_administrator, -> { where.not(role_id: 5) }
   default_scope  { where(active: true) }
 
+  class << self
+   def current_user=(user)
+     Thread.current[:current_user] = user
+   end
+
+   def current_user
+     Thread.current[:current_user]
+   end
+  end
   def fullname
     "#{first_name} #{last_name}".titleize
   end

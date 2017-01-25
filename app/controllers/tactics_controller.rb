@@ -27,6 +27,7 @@ class TacticsController < ApplicationController
       end_on = Date.strptime(params[:tactic][:end_on], "%m/%d/%Y")
     @tactic = Tactic.create(tactic_params.merge(end_on: end_on))
     tactics_redirect_path
+    tactic_strategy
   end
 
   def update
@@ -38,11 +39,30 @@ class TacticsController < ApplicationController
       @tactic.update(tactic_params)
     end
     tactics_redirect_path
+    tactic_strategy
   end
 
   def destroy
     @tactic.destroy
     tactics_redirect_path
+    tactic_strategy
+  end
+
+  def tactic_strategy
+    @strategy = Strategy.find(params[:strategy_id])
+    @totalhours = @strategy.tactics.pluck(:totalhours).sum
+    @total_actual_hours = @strategy.tactics.pluck(:total_actual_hours).sum
+    @end_on_date = @strategy.tactics.pluck(:end_on).max
+    @strategy.update_attributes(totalhours: @totalhours, actual_hours: @total_actual_hours, end_on: @end_on_date)
+    tactic_strategy_objective
+  end
+
+  def tactic_strategy_objective
+    @objective = Objective.find(params[:objective_id])
+    @totalhours = @objective.strategies.pluck(:totalhours).sum
+    @actual_hours = @objective.strategies.pluck(:actual_hours).sum
+    @end_on_date = @objective.strategies.pluck(:end_on).max
+    @objective.update_attributes(totalhours: @totalhours, actual_hours: @actual_hours, end_on: @end_on_date)
   end
 
   def new_tactic_attachment
