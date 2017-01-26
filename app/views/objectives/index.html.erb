@@ -94,7 +94,25 @@
                           <td><%= objective.actual_hours%></td>
                           <td><%= objective.totalhours%></td>
                           <td><%= objective.budgeted_dollars%></td>
-                          <td><%= objective.percent_complete%></td>
+                          <% overdue_passed = objective.tactics.where("tactics.end_on < (?) AND tactics.percent_of_strategy < (?)", Date.today, 100) %> 
+                          <td>
+                            <%if overdue_passed.count > 0 %>
+                            <div class="progress">
+                              <div class="progress-bar bg-success" role="progressbar" style="width: <%=objective.percent_complete.to_i%>%" aria-valuenow="<%= objective.percent_complete%>" aria-valuemin="0" aria-valuemax="100">
+                                <%= objective.percent_complete.to_i%>%
+                              </div>
+                              <%remaining_percent = 100 - objective.percent_complete.to_i %>
+                              <div class="progress-bar bg-warning" role="progressbar" style="width: <%= remaining_percent%>%" aria-valuenow="<%= remaining_percent%>" aria-valuemin="0" aria-valuemax="100">
+                              </div>
+                            </div>
+                            <%else%>
+                              <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= objective.percent_complete.to_i%>%" aria-valuenow="<%= objective.percent_complete %>" aria-valuemin="0" aria-valuemax="100">
+                                  <%= objective.percent_complete.to_i%>%
+                                </div>
+                              </div>
+                            <%end%>
+                          </td>
                           <td>
                             <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#user-assign-modal-form" class="user-assign-link">
                               <i class="fa fa-user"></i>

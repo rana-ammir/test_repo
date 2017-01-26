@@ -8,6 +8,7 @@ class Objective < ActiveRecord::Base
 	has_many :user_objectives
 	has_many :users, -> { uniq }, through: :user_objectives
 	has_many :strategies,  dependent: :destroy
+	has_many :tactics, through: :strategies
 	has_many :assets, as: :assetable, dependent: :destroy
   
   accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
