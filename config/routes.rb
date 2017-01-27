@@ -43,6 +43,7 @@ Myapp::Application.routes.draw do
   end
 
   scope :users do
+    get "profile", to: "users#profile", as: :profile
     get "autocomplete_user_name", to: "users#autocomplete_user_name", as: :autocomplete_user_name
     get "forgot_password", to: "users#forgot_password", as: :forgot_password 
     post 'generate_new_password_email', to: "users#generate_new_password_email", as: :generate_new_password_email

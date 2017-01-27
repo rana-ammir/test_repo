@@ -61,8 +61,13 @@ class UsersController < ApplicationController
 		render json: @users.map{|f| {"value" => "#{f.first_name} #{f.last_name}" , "key" => f.id} }.to_json
 	end
 
+	def profile
+		@user = current_user
+		@teams = @user.teams
+	end
+
 	private
 		def user_params
-      params.require(:user).permit(:role_id, :username, :current_password, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation)
+      params.require(:user).permit(:role_id, :username, :current_password, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation, :avatar)
     end
 end

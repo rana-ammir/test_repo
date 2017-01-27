@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ActionController::Base.helpers.asset_path('default_person.png')
+    validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  
   ROLES = {
     member: {id: 1, name: 'Member'},
     department_head: {id: 2, name: 'Department Head'},
