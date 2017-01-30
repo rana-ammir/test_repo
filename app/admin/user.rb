@@ -10,9 +10,25 @@ ActiveAdmin.register User do
   controller do
     autocomplete :user, :organization
     skip_before_filter :authenticate_user!
+    
     def scoped_collection
-      User.unscoped
+      User.unscoped.includes :organization
     end
+
+    def update
+      @user = User.find(params[:id])
+      if params[:user][:password].blank?
+        @user.update_without_password(permitted_params[:user])
+      else
+        @user.update_attributes(permitted_params[:user])
+      end
+      if @user.errors.blank?
+        redirect_to admin_users_path, :notice => "User updated successfully."
+      else
+        render :edit
+      end
+    end
+
   end
   
   index do
@@ -22,7 +38,7 @@ ActiveAdmin.register User do
     column :username
     column :first_name
     column :last_name
-    column :organization_id
+    column :organization, sortable: "organizations.name"
     column :division_id
     column :department_id
     column :job_title
