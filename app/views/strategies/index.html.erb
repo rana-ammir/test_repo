@@ -1,3 +1,9 @@
+<% if flash[:notice] %>
+          <div class="alert alert-success"><%= flash[:notice] %></div>
+<% end %>
+  <% if flash[:alert] %>
+          <div class="alert alert-danger"><%= flash[:alert] %></div>
+<% end %>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Strategies</h2>
@@ -154,6 +160,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <%= render 'form' %>
             </div>
         </div>
@@ -166,6 +173,7 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <div class="row edit-form-view">
             </div>
       </div>
@@ -179,6 +187,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <div class="row">
                 <div class="col-sm-6"><h3 class="m-t-none m-b">Strategy Files</h3>
                 </div>
@@ -196,6 +205,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <div class="row">
                 <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Member</h3>
                 </div>
@@ -235,6 +245,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <div class="row">
                 <div class="col-sm-6"><h3 class="m-t-none m-b">Assign Team</h3>
                 </div>

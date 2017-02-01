@@ -29,6 +29,7 @@ $('document').ready(function() {
 $(document).ready(function() {
   $('.datepicker').datepicker({
   	todayHighlight: true,
-  	format: 'mm/dd/yyyy'
+  	format: 'mm/dd/yyyy',
+  	autoclose: true
   });
 });

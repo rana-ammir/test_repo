@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
   
   def load_strategic_plans_list
-    @strategy_plans_list = Plan.organization_plans_list(current_user.organization.id) unless ( current_user.blank? and current_user.organization.id.blank? )
+    @strategy_plans_list = Plan.organization_plans_list(current_user.organization.id).active_plans.sort_asc_plans unless ( current_user.blank? and current_user.organization.id.blank? )
   end
 
   protected

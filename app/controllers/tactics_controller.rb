@@ -25,7 +25,11 @@ class TacticsController < ApplicationController
   def create
     params[:tactic][:end_on].length == 0 ? end_on = params[:tactic][:end_on] = nil : 
       end_on = Date.strptime(params[:tactic][:end_on], "%m/%d/%Y")
-    @tactic = Tactic.create(tactic_params.merge(end_on: end_on))
+    @tactic = Tactic.new(tactic_params.merge(end_on: end_on))
+    if @tactic.save
+    else
+      flash[:alert] = "Tactic can not be created."
+    end
     tactics_redirect_path
     tactic_strategy
   end
