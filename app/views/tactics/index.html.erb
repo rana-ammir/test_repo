@@ -132,14 +132,14 @@
                           <td>
                             <%if tactic.end_on > Date.today%>
                               <div class="progress">
+                                <span class="progress-bar-text-tactic"><%= tactic.percent_of_strategy.to_i%>%</span>
                                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= tactic.percent_of_strategy.to_i%>%" aria-valuenow="<%= tactic.percent_of_strategy%>" aria-valuemin="0" aria-valuemax="100">
-                                  <%= tactic.percent_of_strategy.to_i%>%
                                 </div>
                               </div>
                             <%elsif tactic.end_on < Date.today and tactic.percent_of_strategy < 100 %>
                               <div class="progress">
+                                <span class="progress-bar-text-tactic"><%= tactic.percent_of_strategy.to_i%>%</span>
                                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= tactic.percent_of_strategy.to_i%>%" aria-valuenow="<%= tactic.percent_of_strategy%>" aria-valuemin="0" aria-valuemax="100">
-                                  <%= tactic.percent_of_strategy.to_i%>%
                                 </div>
                                 <%remaining_percent = 100 - tactic.percent_of_strategy.to_i %>
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: <%= remaining_percent%>%" aria-valuenow="<%= remaining_percent%>" aria-valuemin="0" aria-valuemax="100">
@@ -147,8 +147,8 @@
                               </div>
                             <%elsif tactic.end_on < Date.today and tactic.percent_of_strategy = 100 %>
                               <div class="progress">
+                                <span class="progress-bar-text-tactic"><%= tactic.percent_of_strategy.to_i%>%</span>
                                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= tactic.percent_of_strategy.to_i%>%" aria-valuenow="<%= tactic.percent_of_strategy%>" aria-valuemin="0" aria-valuemax="100">
-                                  <%= tactic.percent_of_strategy.to_i%>%
                                 </div>
                               </div>
                             <%end%>

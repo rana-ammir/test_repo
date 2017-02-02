@@ -111,17 +111,17 @@
                           <td>
                             <%if overdue_passed.count > 0 %>
                             <div class="progress">
+                              <div class="progress-bar-text-strategy"> <%= strategy.percent_complete.to_i%>%</div>
                               <div class="progress-bar bg-success" role="progressbar" style="width: <%= strategy.percent_complete.to_i%>%" aria-valuenow="<%= strategy.percent_complete%>" aria-valuemin="0" aria-valuemax="100">
-                                <%= strategy.percent_complete.to_i%>%
                               </div>
                               <%remaining_percent = 100 - strategy.percent_complete.to_i %>
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: <%= remaining_percent%>%" aria-valuenow="<%= remaining_percent%>" aria-valuemin="0" aria-valuemax="100">
+                              <div class="progress-bar bg-yellow" role="progressbar" style="width: <%= remaining_percent%>%" aria-valuenow="<%= remaining_percent%>" aria-valuemin="0" aria-valuemax="100">
                               </div>
                             </div>
                             <%else%>
                               <div class="progress">
+                                <div class="progress-bar-text-strategy"> <%= strategy.percent_complete.to_i%>%</div>
                                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= strategy.percent_complete.to_i%>%" aria-valuenow="<%= strategy.percent_complete %>" aria-valuemin="0" aria-valuemax="100">
-                                  <%= strategy.percent_complete.to_i%>%
                                 </div>
                               </div>
                             <%end%>
