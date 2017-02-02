@@ -171,6 +171,9 @@
                             <%= link_to plan_division_department_area_goal_objective_strategy_tactic_path(id: tactic.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
                               <i class="fa fa-remove"></i> 
                             <%end%>
+                            <%#= link_to "#", class: "publish-tactic-link", data: {tactic_id: tactic.id} do %>
+                              <!-- <i class="fa fa-globe" aria-hidden="true"></i>  -->
+                            <%#end%>
                           </td>
                         </tr>                    
                       <%end%>

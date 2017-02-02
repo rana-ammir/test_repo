@@ -24,11 +24,13 @@ Myapp::Application.routes.draw do
       get "new_goal_attachment/:goal_id", to: "goals#new_goal_attachment", as: :new_goal_attachment
     end
   end
+
   resources :areas do 
     collection do
       get "get_selected_division", to: "areas#get_selected_division", as: :get_selected_division
     end
   end
+
   resources :teams do
     collection do
       get "autocomplete_team_name", to: "teams#autocomplete_team_name", as: :autocomplete_team_name
@@ -36,9 +38,16 @@ Myapp::Application.routes.draw do
       delete "remove_assigned_member/:id", to: "teams#remove_assigned_member", as: :remove_assigned_member
     end 
   end
+
   resources :members, controller: "users" do
     collection do
       get "get_selected_division", to: "users#get_selected_division", as: :get_selected_division
+    end
+  end
+
+  resources :tasks do
+    collection do
+      post "publish_tactic_task", to: "tasks#publish_tactic_task", as: :publish_tactic_task
     end
   end
 
@@ -57,6 +66,7 @@ Myapp::Application.routes.draw do
     post "create_team_objective", to: "objectives#create_team_objective", as: :create_team_objective
     get "destroy_user_objective", to: "objectives#destroy_user_objective", as: :destroy_user_objective
     get "destroy_team_objective", to: "objectives#destroy_team_objective", as: :destroy_team_objective
+    put "update_objective_user", to: "objectives#update_objective_user", as: :update_objective_user
   end
 
   scope :strategies do

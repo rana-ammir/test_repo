@@ -20,6 +20,9 @@ $ ->
 			type: "GET"
 			url: "/objectives/get_objective_users"
 			data: {objective_id: objective_id}
+			success: (data) ->
+				$(".user-objective-chkbox").bootstrapSwitch(
+					size: "mini")
 
 	$('#user-name-autocomplete').bind 'railsAutocomplete.select', (event, data) ->
 		$('.user-hf').val(data.item.key)
@@ -44,7 +47,10 @@ $ ->
 			type: "GET"
 			url: "/objectives/destroy_user_objective"
 			data: {objective_id: objective_id, user_id: user_id}
-
+			success: (data) ->
+				$(".user-objective-chkbox").bootstrapSwitch(
+					size: "mini")
+				
 	$(document).on 'click',".delete-assigned-team", (e) ->
 		e.preventDefault()
 		objective_id = $(this).data("objectiveId")
@@ -84,3 +90,24 @@ $ ->
 			type: "GET"
 			url: "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/departments/"+department_id+"/areas/"+area_id+"/goals/"+goal_id+"/objectives/"+objective_id+"/edit"
 			data: {request: "edit_objective_status", objective_id: objective_id, plan_id: plan_id, division_id: division_id, department_id: department_id, goal_id: goal_id, area_id: area_id}
+
+	$(document).on 'shown.bs.modal',"#user-assign-modal-form", (e) ->
+	  $(".user-objective-chkbox").bootstrapSwitch(size: "mini")
+
+	$(document).on 'switchChange.bootstrapSwitch',".user-objective-chkbox", (event, state) ->  
+	  owner_status = state
+	  user_objective_id = $(this).data("userObjectiveId")
+	  $.ajax
+	  	type: "PUT"
+	  	url: "/objectives/update_objective_user"
+	  	data: {owner: owner_status, user_objective_id: user_objective_id}	
+	  	success: (data) ->
+	  		$(".user-objective-chkbox").bootstrapSwitch(
+	  			size: "mini")
+
+	$(document).on 'hide.bs.modal',"#user-assign-modal-form", (e) ->
+	  if $(".user-objective-chkbox:not(:checked)").length > 1
+	  	e.preventDefault()
+	  	alert("Please make atleast one owner.")
+	  else
+	  	$(this).hide()	

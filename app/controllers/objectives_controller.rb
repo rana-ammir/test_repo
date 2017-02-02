@@ -56,8 +56,12 @@ class ObjectivesController < ApplicationController
   end
 
   def create_user_objective
-    @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
     @objective = Objective.find(params[:objective_id])
+    if @objective.users.present?
+      @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
+    else
+        @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id], owner: true)
+    end
     @users = @objective.users
     respond_to do |format|
       format.js
@@ -88,6 +92,17 @@ class ObjectivesController < ApplicationController
       format.js
     end
   end 
+
+  def update_objective_user
+    @user_objective = UserObjective.find(params[:user_objective_id])
+    @user_objectives = UserObjective.where(objective_id: @user_objective.objective_id)
+    @user_objectives.each do |user_objective|
+      user_objective.update(owner: false)
+    end  
+    @user_objective.update(owner: params[:owner])
+    @objective = @user_objective.objective
+    @users = @objective.users 
+  end
 
   def destroy_user_objective
     @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first

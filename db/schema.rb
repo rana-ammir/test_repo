@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127121441) do
+ActiveRecord::Schema.define(version: 20170202112233) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -175,6 +175,21 @@ ActiveRecord::Schema.define(version: 20170127121441) do
     t.datetime "updated_at",                                                               null: false
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "tactic_id",       limit: 4
+    t.string   "type",            limit: 255
+    t.string   "description",     limit: 255
+    t.string   "status",          limit: 255
+    t.date     "due_date"
+    t.integer  "requestor_id",    limit: 4
+    t.integer  "assigned_to_id",  limit: 4
+    t.decimal  "actual_hours",                precision: 5, scale: 2, default: 0.0
+    t.date     "completion_date"
+    t.decimal  "progress",                    precision: 5, scale: 2, default: 0.0
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
+  end
+
   create_table "team_objectives", force: :cascade do |t|
     t.integer  "team_id",      limit: 4
     t.integer  "objective_id", limit: 4
@@ -214,8 +229,9 @@ ActiveRecord::Schema.define(version: 20170127121441) do
   create_table "user_objectives", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.integer  "objective_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "owner",                  default: false
   end
 
   create_table "user_strategies", force: :cascade do |t|

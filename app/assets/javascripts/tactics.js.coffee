@@ -75,3 +75,11 @@ $ ->
 			type: "GET"
 			url: "/tactics/destroy_team_tactic"
 			data: {tactic_id: tactic_id, team_id: team_id}
+	
+	$(document).on 'click',".publish-tactic-link", (e) ->
+		e.preventDefault()
+		tactic_id = $(this).data("tacticId")
+		$.ajax
+			type: "POST"
+			url: "/tasks/publish_tactic_task"
+			data: {tactic_id: tactic_id}
