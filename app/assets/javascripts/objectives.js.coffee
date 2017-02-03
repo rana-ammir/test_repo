@@ -21,8 +21,9 @@ $ ->
 			url: "/objectives/get_objective_users"
 			data: {objective_id: objective_id}
 			success: (data) ->
-				$(".user-objective-chkbox").bootstrapSwitch(
-					size: "mini")
+				$(document).ready ->
+					$(".user-objective-chkbox").bootstrapSwitch(
+						size: "mini")
 
 	$('#user-name-autocomplete').bind 'railsAutocomplete.select', (event, data) ->
 		$('.user-hf').val(data.item.key)
@@ -48,9 +49,10 @@ $ ->
 			url: "/objectives/destroy_user_objective"
 			data: {objective_id: objective_id, user_id: user_id}
 			success: (data) ->
-				$(".user-objective-chkbox").bootstrapSwitch(
-					size: "mini")
-				
+				$(document).ready ->
+					$(".user-objective-chkbox").bootstrapSwitch(
+						size: "mini")
+
 	$(document).on 'click',".delete-assigned-team", (e) ->
 		e.preventDefault()
 		objective_id = $(this).data("objectiveId")
@@ -97,17 +99,32 @@ $ ->
 	$(document).on 'switchChange.bootstrapSwitch',".user-objective-chkbox", (event, state) ->  
 	  owner_status = state
 	  user_objective_id = $(this).data("userObjectiveId")
+	  objective_id = $(this).data("objectiveId")
 	  $.ajax
 	  	type: "PUT"
 	  	url: "/objectives/update_objective_user"
-	  	data: {owner: owner_status, user_objective_id: user_objective_id}	
+	  	data: {owner: owner_status, user_objective_id: user_objective_id, objective_id: objective_id}	
 	  	success: (data) ->
-	  		$(".user-objective-chkbox").bootstrapSwitch(
-	  			size: "mini")
+	  		$(document).ready ->
+	  			$(".user-objective-chkbox").bootstrapSwitch(
+	  				size: "mini")
 
 	$(document).on 'hide.bs.modal',"#user-assign-modal-form", (e) ->
-	  if $(".user-objective-chkbox:not(:checked)").length > 1
-	  	e.preventDefault()
-	  	alert("Please make atleast one owner.")
-	  else
-	  	$(this).hide()	
+	  	if $(".user-objective-chkbox").length > 0
+		  	if $(".user-objective-chkbox:checked").length == 0
+		  		e.preventDefault()
+		  		alert("Please make one owner.")
+		  else
+		  	$(this).hide()
+
+	$(document).on 'submit',".user-objective-form", (e) ->
+		e.preventDefault()
+		_this = $(this)
+		$.ajax
+			type: "POST"
+			url: "/objectives/create_user_objective"
+			data: _this.serialize()
+			success: ->
+				$(document).ready ->
+					$(".user-objective-chkbox").bootstrapSwitch(
+						size: "mini")

@@ -190,7 +190,7 @@
                 </div>
               </div>
               <div class="row">
-                 <%= form_tag create_user_objective_path, remote: true, class: "form-horizontal" do %>
+                 <%= form_tag create_user_objective_path, class: "form-horizontal user-objective-form" do %>
                   <div class="form-group"><label class="col-lg-2 control-label">Name</label>
                     <div class="col-lg-10">
                       <%= text_field_tag :search, params[:search], data: { autocomplete: autocomplete_user_name_path }, id: "user-name-autocomplete", class: "form-control" %>
