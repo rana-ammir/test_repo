@@ -58,8 +58,13 @@ class StrategiesController < ApplicationController
   end
 
   def create_user_strategy
-    @user_strategy = UserStrategy.where(user_id: params[:user_id], strategy_id: params[:strategy_id]).first_or_create(user_id: params[:user_id], strategy_id: params[:strategy_id])
-    @users = @strategy.users
+    @strategy = Strategy.find(params[:strategy_id])
+    if @strategy.users.present?
+      @user_strategy = UserStrategy.existing_user_strategy(params[:user_id], params[:strategy_id]).first_or_create(user_id: params[:user_id], strategy_id: params[:strategy_id])
+    else
+      @user_strategy = UserStrategy.create(user_id: params[:user_id], strategy_id: params[:strategy_id], owner: true)
+    end
+    @users = @strategy.users.reload
     respond_to do |format|
       format.js
     end
@@ -70,6 +75,15 @@ class StrategiesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def update_strategy_user
+    @user_strategy = UserStrategy.find(params[:user_strategy_id])
+    @strategy = Strategy.find(params[:strategy_id])
+    @user_strategies = UserStrategy.where(strategy_id: @strategy.id)
+    @user_strategies.update_all(owner: false)
+    @user_strategy.update(owner: params[:owner])
+    @users = @strategy.users 
   end
 
   def create_team_strategy

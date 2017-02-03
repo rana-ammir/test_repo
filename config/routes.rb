@@ -77,6 +77,7 @@ Myapp::Application.routes.draw do
     post "create_team_strategy", to: "strategies#create_team_strategy", as: :create_team_strategy
     get "destroy_user_strategy", to: "strategies#destroy_user_strategy", as: :destroy_user_strategy
     get "destroy_team_strategy", to: "strategies#destroy_team_strategy", as: :destroy_team_strategy
+    put "update_strategy_user", to: "strategies#update_strategy_user", as: :update_strategy_user
   end
 
   scope :tactics do
