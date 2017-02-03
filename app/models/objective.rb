@@ -20,4 +20,17 @@ class Objective < ActiveRecord::Base
     on_going: {id: 1, name: 'On Going'},
     carry_forward: {id: 2, name: 'Carry Forward'}
   }
+
+  def requested_by_date= date
+  	if date.present?
+  		self[:requested_by_date] = parse_requested_by_date(date)
+  	else
+  		self[:requested_by_date] = nil
+  	end
+  end
+
+  def parse_requested_by_date(date)
+  	Date.strptime(date, "%m/%d/%Y")
+  end
+
 end

@@ -20,11 +20,13 @@ class ObjectivesController < ApplicationController
   end
 
   def create
-    params[:objective][:requested_by_date].length == 0 ? requested_by_date = params[:objective][:requested_by_date] = nil : 
-      requested_by_date = Date.strptime(params[:objective][:requested_by_date], "%m/%d/%Y")
-    @objective = Objective.new(objective_params.merge(requested_by_date: requested_by_date))
-    @plan_objective = PlanObjective.new(plan_id: params[:plan_id], objective_id: @objective.id)
-    if @objective.save and @plan_objective.save
+    @objective = Objective.new(objective_params)
+    @plan_objective = @objective.plan_objectives.new(plan_id: params[:plan_id])
+    if @objective.valid? && @plan_objective.valid?
+      Objective.transaction do
+        @objective.save
+        @plan_objective.save
+      end
     else
       flash[:alert] = "Objective can not be created."
     end
@@ -32,13 +34,7 @@ class ObjectivesController < ApplicationController
   end
 
   def update
-    if params[:objective][:requested_by_date].present?
-      params[:objective][:requested_by_date].length == 0 ? requested_by_date = params[:objective][:requested_by_date] = nil : 
-      requested_by_date = Date.strptime(params[:objective][:requested_by_date], "%m/%d/%Y")
-      @objective.update(objective_params.merge(requested_by_date: requested_by_date))
-    else
-      @objective.update(objective_params)
-    end
+    @objective.update(objective_params)
     objectives_redirect_path
   end
 
@@ -58,7 +54,7 @@ class ObjectivesController < ApplicationController
   def create_user_objective
     @objective = Objective.find(params[:objective_id])
     if @objective.users.present?
-      @user_objective = UserObjective.where(user_id: params[:user_id], objective_id: params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
+      @user_objective = UserObjective.existing_user_objective(params[:user_id], params[:objective_id]).first_or_create(user_id: params[:user_id], objective_id: params[:objective_id])
     else
       @user_objective = UserObjective.create(user_id: params[:user_id], objective_id: params[:objective_id], owner: true)
     end
