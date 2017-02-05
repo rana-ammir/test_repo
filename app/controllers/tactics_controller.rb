@@ -87,8 +87,13 @@ class TacticsController < ApplicationController
   end
 
   def create_user_tactic
-    @user_tactic = UserTactic.where(user_id: params[:user_id], tactic_id: params[:tactic_id]).first_or_create(user_id: params[:user_id], tactic_id: params[:tactic_id])
-    @users = @tactic.users
+    @tactic = Tactic.find(params[:tactic_id])
+    if @tactic.users.present?
+      @user_tactic = UserTactic.existing_user_tactic(params[:user_id], params[:tactic_id]).first_or_create(user_id: params[:user_id], tactic_id: params[:tactic_id])
+    else
+      @user_tactic = UserTactic.create(user_id: params[:user_id], tactic_id: params[:tactic_id], owner: true)
+    end
+    @users = @tactic.users.reload
     respond_to do |format|
       format.js
     end
@@ -99,6 +104,15 @@ class TacticsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def update_tactic_user
+    @user_tactic = UserTactic.find(params[:user_tactic_id])
+    @tactic = Tactic.find(params[:tactic_id])
+    @user_tactics = UserTactic.where(tactic_id: @tactic.id)
+    @user_tactics.update_all(owner: false)
+    @user_tactic.update(owner: params[:owner])
+    @users = @tactic.users 
   end
 
   def create_team_tactic

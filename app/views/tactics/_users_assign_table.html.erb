@@ -4,6 +4,7 @@
       <th>Email</th>
       <th>First Name</th>
       <th>Last Name</th>
+      <th>Owner</th>
       <th>Actions</th>
   </tr>
   </thead>
@@ -13,7 +14,11 @@
 			  <td><%= user.email %></td>
 			  <td><%= user.first_name %></td>
 			  <td><%= user.last_name%></td>
-			  <td>
+			  <% user_tactic = user.user_tactics.first %>
+        <td>
+          <%= check_box_tag 'UserTactic', "#{user_tactic.owner}", user_tactic.owner, data: { user_tactic_id: user_tactic.id, tactic_id: user_tactic.tactic_id }, class: 'user-tactic-chkbox'%>   
+        </td>
+        <td>
           <%= link_to "#", data: { tactic_id: params[:tactic_id], user_id: user.id}, class: "delete-assigned-user" do %>
             <i class="fa fa-remove" aria-hidden="true"></i> 
 			    <%end%>

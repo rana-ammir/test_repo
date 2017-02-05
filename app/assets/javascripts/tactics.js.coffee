@@ -42,6 +42,10 @@ $ ->
 			type: "GET"
 			url: "/tactics/get_tactic_users"
 			data: {tactic_id: tactic_id}
+			success: (data) ->
+				$(document).ready ->
+					$(".user-tactic-chkbox").bootstrapSwitch(
+						size: "mini")
 
 	$('#user-name-autocomplete').bind 'railsAutocomplete.select', (event, data) ->
 		$('.user-hf').val(data.item.key)
@@ -54,6 +58,10 @@ $ ->
 			type: "GET"
 			url: "/tactics/destroy_user_tactic"
 			data: {tactic_id: tactic_id, user_id: user_id}
+			success: (data) ->
+				$(document).ready ->
+					$(".user-tactic-chkbox").bootstrapSwitch(
+						size: "mini")
 
 	$(document).on 'click',".team-assign-link", (e) ->
 		e.preventDefault()
@@ -83,3 +91,38 @@ $ ->
 			type: "POST"
 			url: "/tasks/publish_tactic_task"
 			data: {tactic_id: tactic_id}
+
+	$(document).on 'shown.bs.modal',"#user-assign-modal-form", (e) ->
+	  $(".user-tactic-chkbox").bootstrapSwitch(size: "mini")
+
+	$(document).on 'switchChange.bootstrapSwitch',".user-tactic-chkbox", (event, state) ->  
+	  owner_status = state
+	  user_tactic_id = $(this).data("userTacticId")
+	  tactic_id = $(this).data("tacticId")
+	  $.ajax
+	  	type: "PUT"
+	  	url: "/tactics/update_tactic_user"
+	  	data: {owner: owner_status, user_tactic_id: user_tactic_id, tactic_id: tactic_id}	
+	  	success: (data) ->
+	  		$(document).ready ->
+	  			$(".user-tactic-chkbox").bootstrapSwitch(
+	  				size: "mini")
+
+	$(document).on 'hide.bs.modal',"#user-assign-modal-form", (e) ->
+	  	if $(".user-tactic-chkbox").length > 0
+		  	if $(".user-tactic-chkbox:checked").length == 0
+		  		e.preventDefault()
+		  		alert("Please make one owner.")
+		  else
+		  	$(this).hide()
+
+	$(document).on 'submit',".user-tactic-form", (e) ->
+		e.preventDefault()
+		_this = $(this)
+		$.ajax
+			type: "POST"
+			url: "/tactics/create_user_tactic"
+			data: _this.serialize()
+			success: ->
+				$(document).ready ->
+					$(".user-tactic-chkbox").bootstrapSwitch(size: "mini")
