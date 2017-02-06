@@ -51,7 +51,10 @@ class TasksController < ApplicationController
 
   def publish_tactic_task
     @tactic = Tactic.find(params[:tactic_id])
-    @task = Task.create(tactic_id: params[:tactic_id], due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.strategy.objective.id, type: "Strategic", status: "New")  
+    @task = Task.create(tactic_id: @tactic.id, due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.tactic_user_obj_owner.id, task_type: "SP", status: "New")  
+    respond_to do |format|
+      format.js { flash[:notice] = "Task published successfully."}
+    end
   end
 
   private
@@ -60,6 +63,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:tactic).permit(:tactic_id, :type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :actual_hours, :completion_date, :progress)
+      params.require(:task).permit(:tactic_id, :task_type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :actual_hours, :completion_date, :progress)
     end
 end

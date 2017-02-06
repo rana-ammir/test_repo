@@ -2,7 +2,7 @@ class CreateTasks < ActiveRecord::Migration
   def change
     create_table :tasks do |t|
     	t.integer :tactic_id
-    	t.string :type
+    	t.string :task_type
     	t.string :description
     	t.string :status
     	t.date :due_date

@@ -16,6 +16,10 @@ class Tactic < ActiveRecord::Base
   validates_numericality_of :percent_of_strategy, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
   validates_numericality_of :percent_complete, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
   
+  def tactic_user_obj_owner
+    self.strategy.objective.user_objectives.active_owner
+  end
+
   private
   
   def convert_days_to_hours_and_sum

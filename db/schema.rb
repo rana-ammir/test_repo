@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 20170205095331) do
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "tactic_id",       limit: 4
-    t.string   "type",            limit: 255
+    t.string   "task_type",       limit: 255
     t.string   "description",     limit: 255
     t.string   "status",          limit: 255
     t.date     "due_date"
