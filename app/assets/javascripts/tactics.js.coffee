@@ -92,9 +92,8 @@ $ ->
 			url: "/tasks/publish_tactic_task"
 			data: {tactic_id: tactic_id}
 			success: (data) ->
-				location.reload(true)
 				$("html, body").animate({ scrollTop: "0px" })
-
+				
 	$(document).on 'shown.bs.modal',"#user-assign-modal-form", (e) ->
 	  $(".user-tactic-chkbox").bootstrapSwitch(size: "mini")
 

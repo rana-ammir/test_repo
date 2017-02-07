@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  after_filter :discard_flash, only: :publish_tactic_task
 
   def index
     @tasks = Task.all
@@ -53,7 +54,7 @@ class TasksController < ApplicationController
     @tactic = Tactic.find(params[:tactic_id])
     @task = Task.create(tactic_id: @tactic.id, due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.tactic_user_obj_owner.id, task_type: "SP", status: "New")  
     respond_to do |format|
-      format.js { flash[:notice] = "Task published successfully."}
+      format.js { flash.now[:notice] = "Task published successfully."}
     end
   end
 
@@ -62,6 +63,10 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def discard_flash
+      flash.discard if request.xhr?
+    end
+    
     def task_params
       params.require(:task).permit(:tactic_id, :task_type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :actual_hours, :completion_date, :progress)
     end
