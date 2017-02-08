@@ -48,7 +48,7 @@
                     <tbody>
                       <% @tasks.each do |task| %>
                         <tr>
-                          <td><%= task.description.truncate(40) %></td>
+                          <td><%=link_to "#{task.description.truncate(40)}", task_path(id: task.id) %></td>
                           <td><span class="line"><%= task.task_type %></span></td>
                           <td><span class="line"><%= task.status %></span></td>
                           <td><%= task.due_date %></td>
