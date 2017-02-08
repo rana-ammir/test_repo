@@ -2,3 +2,4 @@ $(".alert-xhr").html('<div class="alert alert-success"><%= flash[:notice] %></di
 setTimeout((function() {
     $('.alert').slideUp();
   }), 5000);
+$(".publish-clicked-<%=@tactic.id%>").html("<%= escape_javascript (render partial: 'task_detail_button', locals: { task: @task }) %>");

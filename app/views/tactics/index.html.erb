@@ -169,9 +169,16 @@
                               <i class="fa fa-remove"></i> 
                             <%end%>
                           </td>
-                          <td>
-                            <%= link_to "Publish","#", class: "btn btn-sm btn-white publish-tactic-link", data: {tactic_id: tactic.id} %>
-                          </td>
+                          <% task_returned = tactic_task(tactic.id)%>
+                          <%if task_returned.present?%> 
+                            <td>
+                              <%= link_to "Task Detail", task_path(id: task_returned.id), class: "btn btn-sm btn-white" %>
+                            </td>
+                          <%else%>
+                            <td class= "publish-clicked-<%=tactic.id%>">
+                              <%= link_to "Publish","#", class: "btn btn-sm btn-white publish-tactic-link", data: {tactic_id: tactic.id} %>
+                            </td>
+                          <%end%>
                         </tr>                    
                       <%end%>
                     </tbody>
