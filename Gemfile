@@ -15,6 +15,8 @@ gem 'bootstrap-datepicker-rails'
 gem "paperclip", "~> 5.0.0"
 gem "cocoon"
 gem 'exception_notification'
+gem 'client_side_validations'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 
@@ -45,6 +47,10 @@ end
 group :development do
 	gem "letter_opener"
 	gem 'pry-rails'
+	gem 'awesome_print', require:"ap"
+	gem 'quiet_assets'
+	gem 'newrelic_rpm'
+	gem 'meta_request'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

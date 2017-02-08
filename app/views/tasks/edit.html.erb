@@ -1,6 +1,90 @@
-<h1>Editing Task</h1>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>Tasks</h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+        </li>
+        <li>
+          <%= link_to "Tasks", tasks_path %>
+        </li>
+        <li class="active">
+          <strong>
+            <%= link_to "Edit Task", "#" %>
+          </strong>
+        </li>
+    </ol>
+</div>
+<div class="col-lg-2">
+</div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+<div class="col-lg-1">
+</div>
+    <div class="col-lg-10">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>New Task</h5>
+                <div class="ibox-tools">
+                    <%= link_to tasks_path, style: "color:grey;" do %><i class="fa fa-remove"></i> 
+                    <%end%>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <%= form_for @task, url: task_path(id: @task.id) , method: "put", validate: true , html: {class: "form-horizontal"} do |f| %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Description</label>
+                    <div class="col-lg-10">
+                      <%= f.text_area :description , placeholder: "Enter description", class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="form-group"><label class="col-lg-2 control-label">Status</label>
+                    <div class="col-lg-10">
+                      <%= f.select :status, options_for_select([["New","New"],["In-Progress","In-Progress"],["Completed","Completed"]]), { prompt: "Select status" }, class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="form-group"><label class="col-lg-2 control-label">Assigned To</label>
+                    <div class="col-lg-10">
+                      <%= f.collection_select :assigned_to_id, @current_org_users, :id, :fullname, { prompt: 'Select user' }, { class: "form-control" } %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Due Date</label>
+                    <div class="col-lg-10">
+                      <div class="input-group m-b"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span> 
+                        <%= f.text_field :due_date, autocomplete: :off, class: "datepicker form-control", value: f.object.due_date ? f.object.due_date.strftime("%m/%d/%Y") : nil %>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Completed On</label>
+                    <div class="col-lg-10">
+                      <div class="input-group m-b"><span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>  
+                        <%= f.text_field :completion_date, autocomplete: :off, class: "datepicker form-control", value: f.object.completion_date ? f.object.completion_date.strftime("%m/%d/%Y") : nil%>
+                     </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Time On</label>
+                    <div class="col-lg-9">
+                      <%= f.number_field :actual_hours, class: "form-control", placeholder: "Enter actual hours", min: 0, max: "999.99", step: 0.01 %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">Progress</label>
+                    <div class="col-lg-9">
+                      <%= f.number_field :progress, class: "form-control", placeholder: "Enter progress %", min: 0, max: 100, step: 0.01 %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <%= f.submit class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

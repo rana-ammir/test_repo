@@ -54,7 +54,7 @@
                     <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours" %></li>
                 </ul>
             </li>
-            <li class="<%= is_active_controller('divisions') or is_active_controller('users') or is_active_controller('organizations') or is_active_controller('teams') or is_active_controller('areas') or is_active_controller('goals') or is_active_controller_action('plans','index') or is_active_controller_action('plans','new') or is_active_controller_action('plans','edit') %>">
+            <li class="<%= is_active_controller('divisions') or is_active_controller('users') or is_active_controller('organizations') or is_active_controller('teams') or is_active_controller('areas') or is_active_controller('goals') or is_active_controller('tasks')or is_active_controller_action('plans','index') or is_active_controller_action('plans','new') or is_active_controller_action('plans','edit') %>">
                 <a href=""><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.admin">Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('divisions') %>">
                     <li class="<%= is_active_controller_action('divisions','index') or is_active_controller_action('organizations','edit') %>"><%= link_to "Organization Setup" , organization_divisions_path(organization_id: current_user.organization.id) %></li>
@@ -65,6 +65,8 @@
                     <li class="<%= is_active_controller_action('goals','index') or is_active_controller_action('goals','edit') %>"><%= link_to "Goals", goals_path %></li>
                     <li>
                     <li class="<%= is_active_controller_action('plans','index') or is_active_controller_action('plans','edit') or is_active_controller_action('plans','new') %>"><%= link_to "Plans", plans_path %></li>
+                    <li>
+                    <li class="<%= is_active_controller_action('tasks','index') or is_active_controller_action('tasks','edit') or is_active_controller_action('tasks','new') %>"><%= link_to "Tasks", tasks_path %></li>
                     <li>
                         <a href="#">Utilities <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">

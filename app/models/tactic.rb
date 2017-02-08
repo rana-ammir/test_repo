@@ -17,7 +17,11 @@ class Tactic < ActiveRecord::Base
   validates_numericality_of :percent_complete, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
   
   def tactic_user_obj_owner
-    self.strategy.objective.user_objectives.active_owner
+    if user_obj_owner = self.strategy.objective.user_objectives.active_owner
+      user_obj_owner.user_id
+    else
+      nil
+    end
   end
 
   private
