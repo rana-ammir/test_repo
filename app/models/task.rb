@@ -3,9 +3,11 @@ class Task < ActiveRecord::Base
 	belongs_to :organization
 
 	scope :find_task, -> (tactic_id) { where(tactic_id: tactic_id) }
+	
 	validates :task_type, :description, :status, :due_date, :requestor_id,
 	  :assigned_to_id, :actual_hours, :completion_date, :progress, presence: true, if: :manual_task_entry_changed?
-
+	validates :task_type, :description, :status, :due_date, :requestor_id, presence: true, if: :publish_task_changed?
+	
 	def completion_date= date
 		if date.present? && date.is_a?(String)
 			self[:completion_date] = parse_date(date)
@@ -30,5 +32,9 @@ class Task < ActiveRecord::Base
 	
 	def manual_task_entry_changed?
 		task_type == "Manual Entry"
+	end
+	
+	def publish_task_changed?
+		task_type == "SP"
 	end
 end

@@ -1,5 +1,8 @@
-$(".alert-xhr").html('<div class="alert alert-success"><%= flash[:notice] %></div>');
+$(".alert-xhr").html("<%= escape_javascript (render partial: 'alert_messages') %>");
 setTimeout((function() {
     $('.alert').slideUp();
   }), 5000);
+
+<%if @task.valid?%>
 $(".publish-clicked-<%=@tactic.id%>").html("<%= escape_javascript (render partial: 'task_detail_button', locals: { task: @task }) %>");
+<%end%>

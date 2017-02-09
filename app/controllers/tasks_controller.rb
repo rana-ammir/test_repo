@@ -49,9 +49,14 @@ class TasksController < ApplicationController
 
   def publish_tactic_task
     @tactic = Tactic.find(params[:tactic_id])
-    @task = Task.find_task(@tactic.id).first_or_create(tactic_id: @tactic.id, due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.tactic_user_obj_owner, task_type: "SP", status: "New", organization_id: current_user.organization.id)  
+    @task = Task.find_task(@tactic.id).first_or_initialize(tactic_id: @tactic.id, due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.tactic_user_obj_owner, task_type: "SP", status: "New", organization_id: current_user.organization.id)  
     respond_to do |format|
-      format.js { flash.now[:notice] = "Task published successfully."}
+      if @task.valid?
+        @task.save
+        format.js { flash.now[:notice] = "Task published successfully."}
+      else
+        format.js { flash.now[:alert] = "Task could not be published."}
+      end
     end
   end
 
