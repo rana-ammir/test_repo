@@ -15,6 +15,7 @@
  *= require jquery-ui/datepicker
  *= require bootstrap-datepicker3
  *= require bootstrap-switch.css
+ *= require forms.css.scss
  */
 
 .fa-remove:hover {
@@ -51,4 +52,7 @@
 
 .bg-yellow{
 	background-color: yellow !important;
+}
+.irs-single{
+	background-color: #1ab394 !important;	
 }
