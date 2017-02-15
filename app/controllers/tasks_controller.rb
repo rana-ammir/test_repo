@@ -38,8 +38,8 @@ class TasksController < ApplicationController
       @task.update(task_params)
     end
     respond_to do |format|
-        format.js
-        format.html { redirect_to @task }
+      format.js
+      format.html { redirect_to @task }
     end
   end
 
