@@ -30,12 +30,16 @@ class TasksController < ApplicationController
   end
 
   def update
+    if params[:checked]== "true" || params[:task][:progress] == "100"
+      @task.update(task_params.merge(completion_date: Date.today, status: "Completed")) 
+    elsif params[:checked]== "false" || params[:task][:progress].to_i < 100
+      @task.update(task_params.merge(completion_date: nil, status: "In-Progress"))
+    else
+      @task.update(task_params)
+    end
     respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-      else
-        format.html { render action: 'edit' }
-      end
+        format.js
+        format.html { redirect_to @task }
     end
   end
 
@@ -49,7 +53,16 @@ class TasksController < ApplicationController
 
   def publish_tactic_task
     @tactic = Tactic.find(params[:tactic_id])
-    @task = Task.find_task(@tactic.id).first_or_initialize(tactic_id: @tactic.id, due_date: @tactic.end_on, description: @tactic.description, requestor_id: @tactic.tactic_user_obj_owner, task_type: "SP", status: "New", organization_id: current_user.organization.id)  
+    @task = Task.find_task(@tactic.id).first_or_initialize(
+      tactic_id: @tactic.id,
+      due_date: @tactic.end_on,
+      description: @tactic.description,
+      requestor_id: @tactic.tactic_user_obj_owner,
+      task_type: "SP",
+      status: "New",
+      progress: @tactic.percent_of_strategy,
+      organization_id: current_user.organization.id,
+      assigned_to_id: @tactic.tactic_user_owner)  
     respond_to do |format|
       if @task.valid?
         @task.save

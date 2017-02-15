@@ -6,11 +6,13 @@ class Task < ActiveRecord::Base
 	
 	validates :task_type, :description, :status, :due_date, :requestor_id,
 	  :assigned_to_id, :actual_hours, :completion_date, :progress, presence: true, if: :manual_task_entry_changed?
-	validates :task_type, :description, :status, :due_date, :requestor_id, presence: true, if: :publish_task_changed?
+	validates :task_type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :progress, presence: true, if: :publish_task_changed?
 	
 	def completion_date= date
 		if date.present? && date.is_a?(String)
 			self[:completion_date] = parse_date(date)
+		elsif date.present? && date.is_a?(Date)
+			self[:completion_date] = date
 		else
 			self[:completion_date] = nil
 		end

@@ -23,6 +23,13 @@ class Tactic < ActiveRecord::Base
     end
   end
 
+  def tactic_user_owner
+    user_tactics = self.user_tactics
+    if user_tactics.present?
+      user_tactics.active_owner ? user_tactics.active_owner.user_id : nil
+    end
+  end
+
   private
   
   def convert_days_to_hours_and_sum

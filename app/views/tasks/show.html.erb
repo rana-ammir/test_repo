@@ -76,8 +76,15 @@
         <dl class="dl-horizontal">
             <dt>Completed:</dt>
             <dd>
-                <div id="progress-slider"></div>
-                <small>Project completed in <strong>60%</strong>. Remaining close the project, sign a contract and invoice.</small>
+                <div class="slide-bar">
+                  <div id="progress-slider" data-task-id="<%= @task.id %>" data-progress="<%= @task.progress %>"></div>
+                </div>
+                <div class="progress-text">
+                    <small><strong><%= @task.progress.to_i %>%</strong> of this task has been completed.</small>
+                </div>
+                <br>                
+                <div class="checkbox-task-show">
+                </div>
             </dd>
         </dl>
     </div>
