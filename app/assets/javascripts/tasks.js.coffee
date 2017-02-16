@@ -34,3 +34,12 @@ $ ->
   		data: {task: {status: "In-Progress", completion_date: "", progress: 99.99}, checked: "false" }
   		success: (data) ->
   			$('#progress-slider').data('ionRangeSlider').update from: 99
+
+	$(document).on 'click',".asset-task-link", (e) ->
+	  e.preventDefault()
+	  console.log("okok")
+	  task_id = $(this).data("id")
+	  $.ajax
+  		type: "POST"
+  		url: "/tasks/new_task_attachment/"+task_id
+  		data: {id: task_id}

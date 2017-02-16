@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :new_task_attachment]
   after_filter :discard_flash, only: :publish_tactic_task
 
   def index
@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @tags = @task.tags
   end
 
   def new
@@ -21,6 +22,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     respond_to do |format|
+      @task.tag_list.add(params[:tag_list], parse: true) if params[:task][:tag_list].present?
       if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
       else
@@ -73,6 +75,14 @@ class TasksController < ApplicationController
     end
   end
 
+  def new_task_attachment
+    # binding.pry
+    @asset = @task.assets.build
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_task
       @task = Task.find(params[:id])
@@ -83,6 +93,8 @@ class TasksController < ApplicationController
     end
     
     def task_params
-      params.require(:task).permit(:tactic_id, :organization_id, :task_type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :actual_hours, :completion_date, :progress)
+      params.require(:task).permit(:tactic_id, :organization_id, :task_type, :description, :status,
+       :due_date, :requestor_id, :assigned_to_id, :actual_hours, :completion_date, :progress,
+        :tag_list, assets_attributes: [:id, :title, :asset, :_destroy])
     end
 end

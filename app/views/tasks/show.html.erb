@@ -29,7 +29,7 @@
         <div class="m-b-md">
             <h2><%= @task.description.truncate(40) %></h2>
         </div>
-        <dl class="dl-horizontal">
+        <dl class="dl-horizontal status-dl">
             <dt>Status:</dt>
             <dd><span class="label label-primary"><%=@task.status%></span></dd>
         </dl>
@@ -314,22 +314,28 @@
 </div>
 <div class="col-lg-3">
     <div class="wrapper wrapper-content project-manager">
-        <h4>Project description</h4>
-        <img src="<%= image_path('zender_logo.png') %>" class="img-responsive">
+        <%if @task.task_type == "SP" %>
+        <h4>Objective description</h4>
         <p class="small">
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look
-            even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing
+          <%= @task.objective.description %>   
         </p>
-        <p class="small font-bold">
-            <span><i class="fa fa-circle text-warning"></i> High priority</span>
+        <h4>Strategy description</h4>
+        <p class="small">
+          <%= @task.strategy.description %>
         </p>
-        <h5>Project tag</h5>
-        <ul class="tag-list" style="padding: 0">
-            <li><a href=""><i class="fa fa-tag"></i> Zender</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Lorem ipsum</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Passages</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Variations</a></li>
-        </ul>
+        <%end%>
+        <h4>Task description</h4>
+        <p class="small">
+          <%= @task.description %>
+        </p>
+        <%if @tags.present?%>
+          <h5>Task tag</h5>
+          <% @tags.each do |tag| %>
+            <ul class="tag-list" style="padding: 0">
+              <li><a href="#"><i class="fa fa-tag"></i><%= tag.name %></a></li>
+            </ul>
+          <%end%>
+        <%end%>
         <h5>Project files</h5>
         <ul class="list-unstyled project-files">
             <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
@@ -338,11 +344,28 @@
             <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
         </ul>
         <div class="text-center m-t-md">
-            <a href="#" class="btn btn-xs btn-primary">Add files</a>
-            <a href="#" class="btn btn-xs btn-primary">Report contact</a>
-
+            <a data-toggle="modal" data-id="<%= @task.id%>" href="#task-attachment-modal-form" class="btn btn-xs btn-primary">Add files
+            </a>
+            <!-- <a data-toggle="modal" data-id="<%= @task.id%>" href="#task-attachment-modal-form" class="btn btn-xs btn-primary asset-task-link">Add files
+            </a> -->
         </div>
     </div>
 </div>
 </div>
-
+<!-- tactic assets pop up -->
+<div id="tactic-attachment-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Tactic Files</h3>
+                </div>
+              </div>
+              <div class="row modal-tactic-attach-form"> 
+              </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->

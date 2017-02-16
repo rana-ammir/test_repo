@@ -1,5 +1,5 @@
 $(".progress-text").html("<small><strong><%= @task.progress.to_i %>%</strong> of this task has been completed.</small>");
-	
+$(".status-dl").html('<dt>Status:</dt><dd><span class="label label-primary"><%=@task.status%></span></dd>');	
 <%if params[:task][:request] == "slider" && @task.progress < 100 || params[:checked] == "false" %>
 	$(".checkbox-task-show").html('<div class="i-checks complete-checkbox" data-task-id="<%= @task.id %>"><label> <input type="checkbox" value=""> <i></i> Complete </label></div>');
 <%elsif params[:task][:request] == "slider" && @task.progress == 100 || params[:checked] == "true" %>

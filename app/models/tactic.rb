@@ -1,7 +1,6 @@
 class Tactic < ActiveRecord::Base
 	belongs_to :strategy
-	before_save :convert_days_to_hours_and_sum
-	
+  
   has_one :task
   
   has_many :team_tactics
@@ -10,6 +9,11 @@ class Tactic < ActiveRecord::Base
 	has_many :users, -> { uniq }, through: :user_tactics
   has_many :assets, as: :assetable, dependent: :destroy
   
+  before_save :convert_days_to_hours_and_sum
+  after_update :update_strategy
+  after_create :update_strategy
+  after_destroy :update_strategy
+
   accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
   
   validates_presence_of :description, :number, :end_on, :actual_days, :actual_hours, :days, :hours, :percent_of_strategy
@@ -42,5 +46,18 @@ class Tactic < ActiveRecord::Base
   	actual_days_hours = actual_days * organization_hours
   	actual_hours = self.actual_hours
   	self.total_actual_hours = actual_days_hours + actual_hours 
+  end
+
+  def update_strategy
+    strategy = self.strategy
+    strategy_tactics = strategy.tactics
+    totalhours = strategy_tactics.pluck(:totalhours).sum  
+    total_actual_hours = strategy_tactics.pluck(:total_actual_hours).sum
+    end_on_date = strategy_tactics.pluck(:end_on).max
+    tactics_count = strategy_tactics.count
+    tactics_percent_sum = strategy_tactics.pluck(:percent_of_strategy).sum
+    final_tactics_percent = tactics_percent_sum/tactics_count
+    strategy.update_attributes(totalhours: totalhours, actual_hours: total_actual_hours, end_on: end_on_date,
+     percent_complete: final_tactics_percent )
   end
 end

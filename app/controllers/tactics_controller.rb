@@ -31,7 +31,6 @@ class TacticsController < ApplicationController
       flash[:alert] = "Tactic can not be created."
     end
     tactics_redirect_path
-    tactic_strategy
   end
 
   def update
@@ -43,40 +42,11 @@ class TacticsController < ApplicationController
       @tactic.update(tactic_params)
     end
     tactics_redirect_path
-    tactic_strategy
   end
 
   def destroy
     @tactic.destroy
     tactics_redirect_path
-    tactic_strategy
-  end
-
-  def tactic_strategy
-    @strategy = Strategy.find(params[:strategy_id])
-    @strategy_tactics = @strategy.tactics
-    @totalhours = @strategy_tactics.pluck(:totalhours).sum
-    @total_actual_hours = @strategy_tactics.pluck(:total_actual_hours).sum
-    @end_on_date = @strategy_tactics.pluck(:end_on).max
-    @tactics_count = @strategy_tactics.count
-    @tactics_percent_sum =  @strategy_tactics.pluck(:percent_of_strategy).sum
-    @final_tactics_percent = @tactics_percent_sum/@tactics_count
-    @strategy.update_attributes(totalhours: @totalhours, actual_hours: @total_actual_hours, end_on: @end_on_date,
-     percent_complete: @final_tactics_percent )
-    tactic_strategy_objective
-  end
-
-  def tactic_strategy_objective
-    @objective = Objective.find(params[:objective_id])
-    @objective_strategies = @objective.strategies
-    @totalhours = @objective_strategies.pluck(:totalhours).sum
-    @actual_hours = @objective_strategies.pluck(:actual_hours).sum
-    @end_on_date = @objective_strategies.pluck(:end_on).max
-    @strategies_count = @objective_strategies.count
-    @strategies_percent_sum =  @objective_strategies.pluck(:percent_complete).sum
-    @final_stratgies_percent = @strategies_percent_sum/@strategies_count
-    @objective.update_attributes(totalhours: @totalhours, actual_hours: @actual_hours, end_on: @end_on_date,
-      percent_complete: @final_stratgies_percent )
   end
 
   def new_tactic_attachment

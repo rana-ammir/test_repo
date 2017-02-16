@@ -48,6 +48,7 @@ Myapp::Application.routes.draw do
   resources :tasks do
     collection do
       post "publish_tactic_task", to: "tasks#publish_tactic_task", as: :publish_tactic_task
+      get "new_task_attachment/:id", to: "tasks#new_task_attachment", as: :new_task_attachment
     end
   end
 
