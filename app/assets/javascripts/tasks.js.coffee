@@ -40,6 +40,6 @@ $ ->
 	  console.log("okok")
 	  task_id = $(this).data("id")
 	  $.ajax
-  		type: "POST"
+  		type: "GET"
   		url: "/tasks/new_task_attachment/"+task_id
   		data: {id: task_id}

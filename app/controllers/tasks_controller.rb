@@ -34,7 +34,7 @@ class TasksController < ApplicationController
   def update
     if params[:checked]== "true" || params[:task][:progress] == "100"
       @task.update(task_params.merge(completion_date: Date.today, status: "Completed")) 
-    elsif params[:checked]== "false" || params[:task][:progress].to_i < 100
+    elsif params[:checked]== "false" || params[:task][:progress].present? ? params[:task][:progress].to_i < 100 : false
       @task.update(task_params.merge(completion_date: nil, status: "In-Progress"))
     else
       @task.update(task_params)
@@ -76,7 +76,6 @@ class TasksController < ApplicationController
   end
 
   def new_task_attachment
-    # binding.pry
     @asset = @task.assets.build
     respond_to do |format|
       format.js
