@@ -8,6 +8,7 @@ class TasksController < ApplicationController
 
   def show
     @tags = @task.tags
+    @assets = @task.assets
   end
 
   def new

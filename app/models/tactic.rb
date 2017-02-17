@@ -56,7 +56,7 @@ class Tactic < ActiveRecord::Base
     end_on_date = strategy_tactics.pluck(:end_on).max
     tactics_count = strategy_tactics.count
     tactics_percent_sum = strategy_tactics.pluck(:percent_of_strategy).sum
-    final_tactics_percent = tactics_percent_sum/tactics_count
+    final_tactics_percent = tactics_percent_sum / (tactics_count == 0 ? 1 : tactics_count) 
     strategy.update_attributes(totalhours: totalhours, actual_hours: total_actual_hours, end_on: end_on_date,
      percent_complete: final_tactics_percent )
   end
