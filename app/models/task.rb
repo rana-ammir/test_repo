@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
 	belongs_to :tactic
 	belongs_to :organization
-
+	has_many :activities
 	has_many :assets, as: :assetable, dependent: :destroy
 	acts_as_taggable_on :tags
 	

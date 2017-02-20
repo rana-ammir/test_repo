@@ -9,6 +9,7 @@ class TasksController < ApplicationController
   def show
     @tags = @task.tags
     @assets = @task.assets
+    @activities = @task.activities
   end
 
   def new
