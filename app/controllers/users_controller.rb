@@ -22,8 +22,16 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		@user.update(user_params)
-		redirect_to members_path
+		if params[:user][:password].blank?
+      @user.update_without_password(user_params)
+    else
+      @user.update_attributes(user_params)
+    end
+    if @user.errors.blank?
+      redirect_to edit_member_path(id: @user.id), :notice => "User updated successfully."
+    else
+      render :edit
+    end
 	end
 
 	def destroy
