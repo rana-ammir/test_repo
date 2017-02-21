@@ -11,6 +11,8 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
+  resources :activities 
+  
   resources :assets do
     collection do
       get "download_asset", to: "assets#download_asset", as: :download_asset
