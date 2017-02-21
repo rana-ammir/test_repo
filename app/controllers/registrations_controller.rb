@@ -53,4 +53,8 @@ class RegistrationsController < Devise::RegistrationsController
     profile_path
   end
 
+  def update_resource(resource, params)
+    resource.update_without_password(params.except(:current_password))
+  end
+
 end 
