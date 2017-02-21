@@ -2,7 +2,8 @@ class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
   def index
-    @activities = Activity.all
+    @tasks = current_user.organization.tasks
+    # @activities = Activity.all
   end
 
   def show
