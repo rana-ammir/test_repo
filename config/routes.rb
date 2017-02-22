@@ -123,6 +123,7 @@ Myapp::Application.routes.draw do
    get "dashboards/dashboard_4"
    get "dashboards/dashboard_4_1"
    get "dashboards/dashboard_5"
+   get "dashboards/coming_soon"
 
    get "layoutsoptions/index"
    get "layoutsoptions/off_canvas"

@@ -19,4 +19,7 @@ class DashboardsController < ApplicationController
   def dashboard_5
   end
 
+  def coming_soon
+  end
+
 end
