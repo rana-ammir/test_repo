@@ -10,3 +10,16 @@ $ ->
 			type: "GET"
 			url: "/members/get_selected_division"
 			data: {division_id: division_id}
+
+	$('.i-checks').iCheck
+	  checkboxClass: 'icheckbox_square-green'
+	  radioClass: 'iradio_square-green'
+
+	$(document).on 'ifChanged',".member-active", (e) ->
+		e.preventDefault()
+		id = $(this).val()
+		active = $(this).prop("checked")
+		$.ajax
+			type: "PUT"
+			url: "/members/"+id
+			data: {id: id, user: {active: active}}

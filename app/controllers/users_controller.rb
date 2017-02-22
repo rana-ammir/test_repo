@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 	autocomplete :user, :first_name
 	
 	def index
-		@users = current_user.organization.users.not_organization_administrator
+		@organization = current_user.organization
+		@users = User.unscoped.not_organization_administrator.this_organization(@organization.id)
 	end
 
 	def new
@@ -17,20 +18,24 @@ class UsersController < ApplicationController
 
 	def edit
 		@array_of_roles = User::Role::DISPLAY_NAMES.to_a
-		@user = User.find(params[:id])
+		@user = User.unscoped.find(params[:id])
 	end
 
 	def update
-		@user = User.find(params[:id])
+		@user = User.unscoped.find(params[:id])
 		if params[:user][:password].blank?
       @user.update_without_password(user_params)
     else
       @user.update_attributes(user_params)
     end
-    if @user.errors.blank?
-      redirect_to edit_member_path(id: @user.id), :notice => "User updated successfully."
-    else
-      render :edit
+    respond_to do |format|
+      if @user.errors.blank?
+        format.js
+        format.html { redirect_to edit_member_path(id: @user.id), notice: "User updated successfully." }
+      else
+        format.js
+        format.html { render :edit }
+      end
     end
 	end
 
@@ -76,6 +81,6 @@ class UsersController < ApplicationController
 
 	private
 		def user_params
-      params.require(:user).permit(:role_id, :username, :current_password, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation, :avatar)
+      params.require(:user).permit(:role_id, :username, :current_password, :first_name, :last_name, :organization_id, :division_id, :department_id, :job_title, :email, :password, :password_confirmation, :active, :avatar)
     end
 end

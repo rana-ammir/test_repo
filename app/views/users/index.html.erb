@@ -37,6 +37,7 @@
                         <th>Last Name</th>
                         <th>Role</th>
                         <th>Email</th>
+                        <th>Active</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -48,6 +49,11 @@
                           <td><span class="line"><%= user.last_name %></span></td>
                           <td><%= User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9 a-z]/i, '') %></td>
                           <td><%= user.email%></td>
+                          <td>
+                            <div class="checkbox-member">  
+                              <%= check_box_tag 'active', user.id , user.active, class: 'i-checks member-active' %>
+                            </div>
+                          </td>
                           <td><%= link_to edit_member_path(id: user.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to member_path(id: user.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                           <%end%> </td>
                         </tr>

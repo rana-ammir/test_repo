@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   scope :not_organization_administrator, -> { where.not(role_id: 5) }
   default_scope  { where(active: true) }
-
+  scope :this_organization, -> (organization_id) { where(organization_id: organization_id)}
+  
   class << self
    def current_user=(user)
      Thread.current[:current_user] = user
