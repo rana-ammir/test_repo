@@ -33,6 +33,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Active</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -40,6 +41,11 @@
                       <% @teams.each do |team| %>
                         <tr>
                           <td><span class="line"><%= link_to "#{team.name}", team_path(id: team.id) %></span></td>
+                          <td>
+                            <div class="checkbox-team">  
+                              <%= check_box_tag 'active', team.id , team.active, class: 'i-checks team-active' %>
+                            </div>
+                          </td>
                           <td><%= link_to edit_team_path(id: team.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to team_path(id: team.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
                           <%end%> </td>
                         </tr>

@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
   autocomplete :team, :name
   
   def index
-    @teams = current_user.organization.teams.where(active: true)
+    @teams = current_user.organization.teams
   end
 
   def show
@@ -77,7 +77,7 @@ class TeamsController < ApplicationController
     end
 
     def team_params
-      params.require(:team).permit(:name, :organization_id)
+      params.require(:team).permit(:name, :organization_id, :active)
     end
     def team_user_params
       params.require(:team_user).permit(:user_id, :team_id)
