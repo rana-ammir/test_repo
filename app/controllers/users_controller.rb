@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	
 	def index
 		@organization = current_user.organization
-		@users = User.unscoped.not_organization_administrator.this_organization(@organization.id)
+		@users = User.unscoped.this_organization(@organization.id)
 	end
 
 	def new

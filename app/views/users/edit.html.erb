@@ -56,8 +56,12 @@
                     <div class="form-group">
                         <%= f.text_field :job_title, placeholder: "Job title",class: "form-control" %>
                     </div>
-                    <%= f.select(:role_id , options_for_select(@array_of_roles.map{ |u| [u.second, u.first] }, role_name.values_at(@user.role_id).to_s.gsub(/[^0-9 a-z]/i, '') ), {prompt: true  } , class: "form-control m-b")   %>
-                    <%= f.collection_select :division_id, @user.organization.divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
+                    <div class="form-group">
+                        <%= f.collection_select :role_id, @array_of_roles, :first, :last, { prompt: 'Select division' }, { class: "form-control m-b" } %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.collection_select :division_id, @user.organization.divisions, :id, :name, { prompt: 'Select division' }, { class: "form-control m-b division-select" } %>
+                    </div>
                     <div class= "department-select">
                         <%= f.collection_select :department_id, @user.division.departments, :id, :name, { prompt: 'Select department' }, { class: "form-control m-b edit-department" } %>
                     </div>
