@@ -14,6 +14,8 @@ class Task < ActiveRecord::Base
 	accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
 	
 	after_update :update_tactic
+
+		scope :filter_task, -> (status) { where(status: status) }
 	
 	def completion_date= date
 		if date.present? && date.is_a?(String)

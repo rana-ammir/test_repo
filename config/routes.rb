@@ -11,8 +11,11 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
-  resources :activities 
-  
+  resources :activities do 
+    collection do
+      get "get_filtered_tasks", to: "activities#get_filtered_tasks", as: :get_filtered_tasks
+    end  
+  end
   resources :assets do
     collection do
       get "download_asset", to: "assets#download_asset", as: :download_asset

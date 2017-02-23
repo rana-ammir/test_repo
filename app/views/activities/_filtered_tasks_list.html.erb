@@ -1,0 +1,11 @@
+<div id='external-events'>
+    <p>Drag a task and drop into callendar.</p>
+      <% @tasks.each do |task| %>
+        <div class='external-event navy-bg'>
+          <%= task.description%>
+        </div>
+      <% end %>
+    <p class="m-t">
+        <input type='checkbox' id='drop-remove' class="i-checks" checked /> <label for='drop-remove'>remove after drop</label>
+    </p>
+</div>

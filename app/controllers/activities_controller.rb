@@ -50,6 +50,13 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def get_filtered_tasks
+    @tasks = Task.filter_task(params[:status])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_activity
       @activity = Activity.find(params[:id])
