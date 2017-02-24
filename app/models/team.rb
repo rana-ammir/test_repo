@@ -11,4 +11,5 @@ class Team < ActiveRecord::Base
 	belongs_to :organization
 
 	validates :name, presence: true
+	scope :active_teams, -> { where(active: true) }
 end
