@@ -1,7 +1,7 @@
 <div id='external-events'>
     <p>Drag a task and drop into callendar.</p>
       <% @tasks.each do |task| %>
-        <div class='external-event navy-bg'>
+        <div class='external-event navy-bg' data-task-id="<%= task.id %>">
           <%= task.description%>
         </div>
       <% end %>

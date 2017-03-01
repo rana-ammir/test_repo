@@ -19,7 +19,6 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(activity_params)
-
     respond_to do |format|
       if @activity.save
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
@@ -65,6 +64,6 @@ class ActivitiesController < ApplicationController
 
     def activity_params
       params.require(:activity).permit(:activity_date, :start_time, :end_time, :hours, :created_by_user_id,
-       :updated_by_user_id, :description, :task_id)
+       :updated_by_user_id, :description, :task_id, :updated_at)
     end
 end

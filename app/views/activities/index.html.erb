@@ -38,7 +38,7 @@
                 <div id='external-events'>
                     <p>Drag a task and drop into callendar.</p>
                       <% @tasks.each do |task| %>
-                        <div class='external-event navy-bg'>
+                        <div class='external-event navy-bg' data-task-id="<%=task.id%>">
                           <%= task.description%>
                         </div>
                       <% end %>
@@ -63,15 +63,23 @@
 </div>
 </div>
 
+<!-- Update activity pop up -->
+<div id="activity-modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
 
 <% content_for :javascript do %>
 
 <script type="text/javascript">
-    var d, date, m, y;
-    date = new Date;
-    d = date.getDate();
-    m = date.getMonth();
-    y = date.getFullYear();
+    
 
     $('#calendar').fullCalendar({
       header: {
@@ -82,10 +90,33 @@
       editable: true,
       defaultView: 'agendaDay',
       droppable: true,
+      forceEventDuration: true,
       drop: function() {
         if ($('#drop-remove').is(':checked')) {
           $(this).remove();
         }
+        task_id = $(this).data("taskId")
+      },
+      eventRender: function(event, element) {
+            console.log(event)
+            console.log(element)
+            element.bind('dblclick', function() {
+              $('#activity-modal-form').modal('toggle');
+            });
+         },
+      eventReceive: function(event) {
+        var calendar_date, activity_date, start_time, end_time;
+        calendar_date = event.start
+        activity_date = calendar_date.toDate()
+        start_time = activity_date
+        end_time = event.end.toDate()
+        return $.ajax({
+          type: "POST",
+          url: "/activities",
+          data: {
+            activity: {activity_date: activity_date, start_time: start_time, end_time: end_time, hours: "calculate", created_by_user_id: "<%= current_user.id %>", updated_by_user_id: "<%= current_user.id %>", updated_at: "<%= DateTime.now%>", task_id: task_id }
+          }
+        });
       },
       events: [
         <% @activities.each do |activity| %>
@@ -93,9 +124,10 @@
               title: '<%= activity.description %>',
               <%if activity.activity_date.present? && activity.start_time.present? && activity.end_time.present? %>
                 start: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.start_time.strftime 'T%H:%M:%S'}" %>',
-                end: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.end_time.strftime 'T%H:%M:%S'}" %>'
+                end: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.end_time.strftime 'T%H:%M:%S'}" %>',
               <%end%>
-            }
+              task_id: <%= activity.task_id %>
+            },
         <%end%>
       ]
     });
