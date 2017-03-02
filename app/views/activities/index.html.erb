@@ -81,7 +81,7 @@
 <script type="text/javascript">
     
 
-    $('#calendar').fullCalendar({
+    window.full_calendar = $('#calendar').fullCalendar({
       header: {
         left: 'prev,next',
         center: 'title',
@@ -98,23 +98,38 @@
         task_id = $(this).data("taskId")
       },
       eventRender: function(event, element) {
-            console.log(event)
-            console.log(element)
-            element.bind('dblclick', function() {
-              $('#activity-modal-form').modal('toggle');
-            });
-         },
+        element.bind('dblclick', function() {
+          var id = event.activity_id;
+          // $('#activity-modal-form').modal('toggle');
+          $.ajax({
+            type: "GET",
+            url: "/activities/"+id+"/edit",
+            data: { id: id }
+          });
+        });
+      },
       eventReceive: function(event) {
         var calendar_date, activity_date, start_time, end_time;
         calendar_date = event.start
         activity_date = calendar_date.toDate()
         start_time = activity_date
         end_time = event.end.toDate()
-        return $.ajax({
+        $.ajax({
           type: "POST",
           url: "/activities",
+          dataType: 'json',
           data: {
             activity: {activity_date: activity_date, start_time: start_time, end_time: end_time, hours: "calculate", created_by_user_id: "<%= current_user.id %>", updated_by_user_id: "<%= current_user.id %>", updated_at: "<%= DateTime.now%>", task_id: task_id }
+          },
+          success: function(data){
+            source =  $('#calendar').fullCalendar( 'getEventSources' ).pop()
+            extra_sources = $('#calendar').fullCalendar( 'getEventSources' )
+            $('#calendar').fullCalendar( 'removeEventSources',  extra_sources)
+            events = source.events
+            events.push(data.activity)
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', events);
+            $('#calendar').fullCalendar('rerenderEvents' );  
           }
         });
       },
@@ -126,7 +141,9 @@
                 start: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.start_time.strftime 'T%H:%M:%S'}" %>',
                 end: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.end_time.strftime 'T%H:%M:%S'}" %>',
               <%end%>
-              task_id: <%= activity.task_id %>
+              task_id: <%= activity.task_id%>,
+              activity_id: <%= activity.id %>
+              
             },
         <%end%>
       ]

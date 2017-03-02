@@ -30,4 +30,14 @@ class Activity < ActiveRecord::Base
 			self[:updated_at] = utc_datetime
 		end
 	end
+
+	def calendar_json
+		{
+			title: self.description,
+			start: "#{self.activity_date.strftime '%Y-%m-%d'}#{self.start_time.strftime 'T%H:%M:%S'}",
+			end: "#{self.activity_date.strftime '%Y-%m-%d'}#{self.end_time.strftime 'T%H:%M:%S'}",
+			task_id: self.task_id,
+			activity_id: self.id
+		}
+	end
 end

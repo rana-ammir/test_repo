@@ -15,6 +15,7 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
+    # binding.pry
   end
 
   def create
@@ -22,7 +23,7 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       if @activity.save
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @activity }
+        format.json { render json: {activity: @activity.calendar_json}, action: 'show', status: :created, location: @activity}
       else
         format.html { render action: 'new' }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
