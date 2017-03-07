@@ -87,9 +87,7 @@
         task_id = $(this).data("taskId")
       },
       eventRender: function(event, element) {
-        if(event.icon){          
-          element.find(".fc-time").append("<span class='remove-activity' data-activity-id = "+event.activity_id+"><i class='fa fa-"+event.icon+"' style='float: right;'></i></span>");
-        }
+        element.find(".fc-time").append("<span class='remove-activity' data-activity-id = "+event.activity_id+"><i class='fa fa-times' style='float: right;'></i></span>");
         element.bind('dblclick', function() {
           var id = event.activity_id;
           $.ajax({
@@ -159,14 +157,13 @@
                 end: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.end_time.strftime 'T%H:%M:%S'}" %>',
               <%end%>
               task_id: <%= activity.task_id%>,
-              activity_id: <%= activity.id %>,
-              icon: "times"
+              activity_id: <%= activity.id %>
               
             },
         <%end%>
       ]
     });
-    $(".remove-activity").on( "click", function() {
+    $(document).on('click', ".remove-activity", function() {
       var result = confirm("Are you sure you want to delete this activity?");
       if (result == true) {
         var id = $(this).data('activityId')
@@ -175,20 +172,17 @@
           url: "/activities/"+id,
           dataType: 'json',
           data: { id: id }
-          // ,
-          // success: function(data){
-          //   debugger
-          //   source =  $('#calendar').fullCalendar( 'getEventSources' ).pop()
-          //   events = source.events
-          //   var result = $.grep(events, function(e){ return e.activity_id == data.id; });
-          //   events = jQuery.grep(events, function(value) {
-          //     // debugger resolve error from here i am getting empty array.
-          //     value.activity_id != result[0].activity_id;
-          //   });
-          //   $('#calendar').fullCalendar('removeEvents');
-          //   $('#calendar').fullCalendar('addEventSource', events);
-          //   $('#calendar').fullCalendar('rerenderEvents' );
-          // }       
+          ,
+          success: function(data){
+            source =  $('#calendar').fullCalendar( 'getEventSources' ).pop()
+            events = source.events
+            var result = $.grep(events, function(e){ return e.activity_id == data.id; });
+            deleted_event = result.pop()
+            events.splice( $.inArray(deleted_event, events), 1 );
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', events);
+            $('#calendar').fullCalendar('rerenderEvents' );
+          }       
         });
       }
     });
