@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220125835) do
+ActiveRecord::Schema.define(version: 20170307104315) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -35,10 +35,11 @@ ActiveRecord::Schema.define(version: 20170220125835) do
     t.decimal  "hours",                            precision: 5, scale: 2, default: 0.0
     t.integer  "created_by_user_id", limit: 4
     t.integer  "updated_by_user_id", limit: 4
-    t.datetime "created_at",                                                             null: false
-    t.datetime "updated_at",                                                             null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.text     "description",        limit: 65535
     t.integer  "task_id",            limit: 4
+    t.boolean  "completion_flag",                                          default: false
   end
 
   create_table "admin_users", force: :cascade do |t|

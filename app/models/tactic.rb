@@ -9,7 +9,7 @@ class Tactic < ActiveRecord::Base
 	has_many :users, -> { uniq }, through: :user_tactics
   has_many :assets, as: :assetable, dependent: :destroy
   
-  before_save :convert_days_to_hours_and_sum
+  before_create :convert_days_to_hours_and_sum
   after_update :update_strategy
   after_create :update_strategy
   after_destroy :update_strategy
@@ -37,7 +37,7 @@ class Tactic < ActiveRecord::Base
   private
   
   def convert_days_to_hours_and_sum
-  	organization_hours =  User.current_user.organization.hours_in_day
+    organization_hours =  User.current_user.organization.hours_in_day
   	days = self.days
   	days_hours = days * organization_hours
   	hours = self.hours

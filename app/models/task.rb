@@ -57,6 +57,14 @@ class Task < ActiveRecord::Base
 		self.tactic.strategy
 	end
 
+	def new_task?
+		self.status == "New"
+	end
+
+	def strategic?
+		self.task_type == "SP"	
+	end
+	
 	private
 
 	def update_tactic
