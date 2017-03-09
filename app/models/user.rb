@@ -11,12 +11,15 @@ class User < ActiveRecord::Base
   has_many :strategies, through: :user_strategies
   has_many :user_tactics
   has_many :tactics, through: :user_tactics
+  has_many :userboards
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: ActionController::Base.helpers.asset_path('default_person.png')
     validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+  
+  after_create :create_default_userboards
   
   ROLES = {
     member: {id: 1, name: 'Member'},
@@ -92,5 +95,17 @@ class User < ActiveRecord::Base
       Organization_Head =>  'Organization Head',
       Organization_Administrator => 'Organization Administrator'
     }
+  end
+
+  private
+
+  def create_default_userboards
+    user = self
+    type_t = user.userboards.build(name: "Today", userboard_type: "T", color: "C0ED92", status: "A")
+    type_o = user.userboards.build(name: "Today", userboard_type: "O", color: "C0ED92", status: "A")  
+    Userboard.transaction do
+      type_t.save
+      type_o.save
+    end
   end
 end
