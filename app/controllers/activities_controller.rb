@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
 
   def index
     @organization = current_user.organization
-    @tasks = @organization.tasks
+    @tasks = @organization.tasks.active_tasks
     @activities = @organization.activities
   end
 

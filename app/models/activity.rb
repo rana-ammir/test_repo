@@ -4,11 +4,11 @@ class Activity < ActiveRecord::Base
 	validates :activity_date, :start_time, :end_time, :hours, :created_by_user_id,
 	 :updated_by_user_id, :updated_at, :task_id, presence: true, on: :create
 	
-	after_update :update_task_progress, if: Proc.new { |activity| activity.completion_flag == true }
+	after_update :update_task_progress
 	after_create :update_task_status
-	after_create :add_actual_hours_in_tactic, if: Proc.new { |activity| activity.task.task_type == "SP" }
-	after_update :update_actual_hours_in_tactic, if: Proc.new { |activity| activity.task.task_type == "SP" }	
-	after_destroy :remove_actual_hours_in_tactic, if: Proc.new { |activity| activity.task.task_type == "SP" }
+	after_create :add_actual_hours_in_tactic, if: :strategic_plan_type?
+	after_update :update_actual_hours_in_tactic, if: :strategic_plan_type?	
+	after_destroy :remove_actual_hours_in_tactic, if: :strategic_plan_type?
 	
 	def start_time= time
 		if time.is_a?(String)
@@ -48,11 +48,22 @@ class Activity < ActiveRecord::Base
 		}
 	end
 
+	def strategic_plan_type?
+		self.task.task_type == "SP"
+	end
+
 	private
 
 	def update_task_progress
-		task = self.task
-		task.update_attributes(progress: 100)
+		activity = self
+		task = activity.task
+		if activity.completion_flag_changed?
+			if activity.completion_flag == true
+				task.update_attributes(progress: 100, status: "Completed", completion_date: Date.today)
+			elsif activity.completion_flag == false
+				task.update_attributes(progress: 99.99, status: "In-Progress", completion_date: nil)
+			end
+		end	
 	end
 
 	def update_task_status

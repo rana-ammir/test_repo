@@ -4,9 +4,7 @@ class Task < ActiveRecord::Base
 	has_many :activities
 	has_many :assets, as: :assetable, dependent: :destroy
 	acts_as_taggable_on :tags
-	
-	scope :find_task, -> (tactic_id) { where(tactic_id: tactic_id) }
-	
+		
 	validates :task_type, :description, :status, :due_date, :requestor_id,
 	  :assigned_to_id, :actual_hours, :completion_date, :progress, presence: true, if: :manual_task_entry_changed?, on: :create
 	validates :task_type, :description, :status, :due_date, :requestor_id, :assigned_to_id, :progress, presence: true, if: :publish_task_changed?
@@ -15,8 +13,10 @@ class Task < ActiveRecord::Base
 	
 	after_update :update_tactic
 
-		scope :filter_task, -> (status) { where(status: status) }
-	
+	scope :find_task, -> (tactic_id) { where(tactic_id: tactic_id) }
+	scope :filter_task, -> (status) { where(status: status) }
+	scope :active_tasks, -> { where.not(status: "Completed") }
+
 	def completion_date= date
 		if date.present? && date.is_a?(String)
 			self[:completion_date] = parse_date(date)
