@@ -11,6 +11,7 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
+  resources :userboards
   resources :activities do 
     collection do
       get "get_filtered_tasks", to: "activities#get_filtered_tasks", as: :get_filtered_tasks
