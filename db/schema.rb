@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309123853) do
+ActiveRecord::Schema.define(version: 20170310123802) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 20170309123853) do
     t.date     "end_on"
     t.date     "completed_on"
     t.decimal  "percent_complete",                  precision: 5,  scale: 2
-    t.decimal  "percent_of_strategy",               precision: 5,  scale: 2
+    t.decimal  "percent_of_strategy",               precision: 5,  scale: 2, default: 0.0
     t.integer  "assignee_id",         limit: 4
     t.string   "status",              limit: 255
     t.integer  "strategy_id",         limit: 4

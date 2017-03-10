@@ -27,6 +27,7 @@ class TacticsController < ApplicationController
       end_on = Date.strptime(params[:tactic][:end_on], "%m/%d/%Y")
     @tactic = Tactic.new(tactic_params.merge(end_on: end_on))
     if @tactic.save
+      flash[:notics] = "Tactic created sucessfully."
     else
       flash[:alert] = "Tactic can not be created."
     end

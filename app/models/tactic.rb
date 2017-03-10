@@ -16,7 +16,7 @@ class Tactic < ActiveRecord::Base
 
   accepts_nested_attributes_for :assets, reject_if: :all_blank, allow_destroy: true
   
-  validates_presence_of :description, :number, :end_on, :actual_days, :actual_hours, :days, :hours, :percent_of_strategy
+  validates_presence_of :description, :number, :end_on
   validates_numericality_of :percent_of_strategy, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
   validates_numericality_of :percent_complete, greater_than_or_equal_to: 0, less_than_or_equal_to: 100, allow_nil: true
   
@@ -55,7 +55,7 @@ class Tactic < ActiveRecord::Base
     total_actual_hours = strategy_tactics.pluck(:total_actual_hours).sum
     end_on_date = strategy_tactics.pluck(:end_on).max
     tactics_count = strategy_tactics.count
-    tactics_percent_sum = strategy_tactics.pluck(:percent_of_strategy).sum
+    tactics_percent_sum = strategy_tactics.pluck(:percent_of_strategy).compact.sum
     final_tactics_percent = tactics_percent_sum / (tactics_count == 0 ? 1 : tactics_count) 
     strategy.update_attributes(totalhours: totalhours, actual_hours: total_actual_hours, end_on: end_on_date,
      percent_complete: final_tactics_percent )

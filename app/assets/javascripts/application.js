@@ -17,12 +17,12 @@
 //= require peity/jquery.peity.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
+//= require appviews.js
 //= require cocoon
 //= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datepicker
 //= require rails.validations
 //= require forms.js
-//= require appviews.js
 
 $('document').ready(function() {
   setTimeout((function() {
