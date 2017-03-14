@@ -1,6 +1,62 @@
-<h1>Editing Userboard</h1>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Userboards</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+            </li>
+            <li>
+                <%= link_to "Userboards", userboards_path %>
+            </li>
+            <li class="active">
+                <strong>
+                    <%= link_to "Edit", edit_userboard_path(id: @userboard.id) %>
+                </strong>
+            </li>
+        </ol>
+    </div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @userboard %> |
-<%= link_to 'Back', userboards_path %>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+    <div class="col-lg-1">
+    </div>
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Edit Userboard</h5>
+                    <div class="ibox-tools">
+                        <%= link_to tasks_path, style: "color:grey;" do %><i class="fa fa-remove"></i> 
+                        <%end%>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                	<%= form_for @userboard, url: userboard_path(id: @userboard.id) , method: "put", validate: true , html: {class: "form-horizontal"} do |f| %>
+                	  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+                	    <div class="col-lg-10">
+                	      <%= f.text_field :name , placeholder: "Enter name", class: "form-control" %>
+                	    </div>
+                	  </div>
+                	  <div class="form-group"><label class="col-lg-2 control-label">Type</label>
+                	    <div class="col-lg-10">
+                	      <%= f.text_field :userboard_type , placeholder: "Enter type", class: "form-control" %>
+                	    </div>
+                	  </div>
+                	  <div class="form-group"><label class="col-lg-2 control-label">Color</label>
+                	    <div class="col-lg-2">
+                	      <%= f.color_field :color , class: "form-control" %>
+                	    </div>
+                	  </div>
+                	  <%= f.hidden_field :status, value: true %>
+                	  <%= f.hidden_field :user_id, value: current_user.id %>
+                	  <div class="form-group">
+                	    <div class="col-lg-offset-2 col-lg-10">
+                	      <%= f.submit class: "btn btn-sm btn-primary" %>
+                	    </div>
+                	  </div>
+                	<% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

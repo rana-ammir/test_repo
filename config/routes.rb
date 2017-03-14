@@ -11,7 +11,11 @@ Myapp::Application.routes.draw do
   end
   
   resources :plans
-  resources :userboards
+  resources :userboards do
+    collection do
+      get "my_board", to: "userboards#my_board", as: :my_board
+    end
+  end
   resources :activities do 
     collection do
       get "get_filtered_tasks", to: "activities#get_filtered_tasks", as: :get_filtered_tasks

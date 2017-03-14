@@ -1,0 +1,91 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-8">
+    <h2>Userboards</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+      </li>
+      <li>
+        <%= link_to "My Task", my_board_userboards_path %>
+      </li>
+      <li class="active">
+        <strong>
+          <%= link_to "Boards", my_board_userboards_path %>
+        </strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Userboards</h5>
+              </div>
+              <div class="ibox-content">
+                <%= form_for userboards_path, method: "get", html: {class: "form-horizontal"} do |f| %>
+                  <div class="form-group"><label class="col-lg-2 control-label">Status</label>
+                    <div class="col-lg-2">
+                      <%= f.select :status, options_for_select([["All","All"],["Not-Complete","Not-Complete"],["New","New"],["In-Progress","In-Progress"],["Completed","Completed"]]), { prompt: "Select status" }, class: "form-control userboard-status" %>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group"><label class="col-lg-2 control-label">Status</label>
+                    <div class="col-lg-2">
+                      <btn>hello</btn> <btn>hello</btn> <btn>hello</btn> <btn>hello</btn> <btn>hello</btn> <btn>hello</btn>
+                    </div>
+                  </div> -->
+                <% end %>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Simple FooTable with pagination, sorting and filter</h5>
+              </div>
+              <div class="ibox-content">
+                  <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                         placeholder="Search in table">
+
+                      <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+                      <thead>
+                      <tr>
+                          <th>Rendering engine</th>
+                          <th>Browser</th>
+                          <th data-hide="phone,tablet">Platform(s)</th>
+                          <th data-hide="phone,tablet">Engine version</th>
+                          <th data-hide="phone,tablet">CSS grade</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>Trident</td>
+                          <td>Internet
+                              Explorer 4.0
+                          </td>
+                          <td>Win 95+</td>
+                          <td class="center">4</td>
+                          <td class="center">X</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                          <td colspan="5">
+                              <ul class="pagination pull-right"></ul>
+                          </td>
+                      </tr>
+                      </tfoot>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

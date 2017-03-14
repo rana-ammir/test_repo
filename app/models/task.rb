@@ -1,8 +1,10 @@
 class Task < ActiveRecord::Base
 	belongs_to :tactic
 	belongs_to :organization
+	
 	has_many :activities
 	has_many :assets, as: :assetable, dependent: :destroy
+	has_many :userboards
 	acts_as_taggable_on :tags
 		
 	validates :task_type, :description, :status, :due_date, :requestor_id,

@@ -22,8 +22,8 @@
 //= require cocoon
 //= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datepicker
-//= require rails.validations
 //= require forms.js
+//= require rails.validations
 
 $('document').ready(function() {
   setTimeout((function() {

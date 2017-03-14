@@ -1,17 +1,24 @@
-<%= form_for(@userboard) do |f| %>
-  <% if @userboard.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@userboard.errors.count, "error") %> prohibited this userboard from being saved:</h2>
-
-      <ul>
-      <% @userboard.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_for @userboard, url: userboards_path , method: "post", validate: true , html: {class: "form-horizontal"} do |f| %>
+  <div class="form-group"><label class="col-lg-2 control-label">Name</label>
+    <div class="col-lg-10">
+      <%= f.text_field :name , placeholder: "Enter name", class: "form-control" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
+  </div>
+  <div class="form-group"><label class="col-lg-2 control-label">Type</label>
+    <div class="col-lg-10">
+      <%= f.text_field :userboard_type , placeholder: "Enter type", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group"><label class="col-lg-2 control-label">Color</label>
+    <div class="col-lg-2">
+      <%= f.color_field :color , class: "form-control" %>
+    </div>
+  </div>
+  <%= f.hidden_field :status, value: true %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+    </div>
   </div>
 <% end %>

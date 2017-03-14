@@ -17,51 +17,51 @@
 </div>
         </div>
 <div class="wrapper wrapper-content animated fadeInRight">
-<div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Users</h5>
-                <div class="ibox-tools">
-                    <%= link_to 'New User', new_member_path, class: "btn btn-sm btn-white", style: "color:grey;"%>
-                </div>
-            </div>
-            <div class="ibox-content">
+  <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+          <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                  <h5>Users</h5>
+                  <div class="ibox-tools">
+                      <%= link_to 'New User', new_member_path, class: "btn btn-sm btn-white", style: "color:grey;"%>
+                  </div>
+              </div>
+              <div class="ibox-content">
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Active</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <% @users.each do |user| %>
-                        <tr>
-                          <td><%= user.id%></td>
-                          <td><span class="line"><%= user.first_name %></span></td>
-                          <td><span class="line"><%= user.last_name %></span></td>
-                          <td><%= User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9 a-z]/i, '') %></td>
-                          <td><%= user.email%></td>
-                          <td>
-                            <div class="checkbox-member">  
-                              <%= check_box_tag 'active', user.id , user.active, class: 'i-checks member-active' %>
-                            </div>
-                          </td>
-                          <td><%= link_to edit_member_path(id: user.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to member_path(id: user.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
-                          <%end%> </td>
-                        </tr>
-                      <%end%>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Role</th>
+                          <th>Email</th>
+                          <th>Active</th>
+                          <th>Actions</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <% @users.each do |user| %>
+                          <tr>
+                            <td><%= user.id%></td>
+                            <td><span class="line"><%= user.first_name %></span></td>
+                            <td><span class="line"><%= user.last_name %></span></td>
+                            <td><%= User::Role::DISPLAY_NAMES.values_at(user.role_id).to_s.gsub(/[^0-9 a-z]/i, '') %></td>
+                            <td><%= user.email%></td>
+                            <td>
+                              <div class="checkbox-member">  
+                                <%= check_box_tag 'active', user.id , user.active, class: 'i-checks member-active' %>
+                              </div>
+                            </td>
+                            <td><%= link_to edit_member_path(id: user.id) do %><i class="fa fa-pencil-square-o"></i> <%end%> &nbsp&nbsp <%= link_to member_path(id: user.id), data: { confirm: 'Are you sure?' }, method: :delete do %><i class="fa fa-remove"></i> 
+                            <%end%> </td>
+                          </tr>
+                        <%end%>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
