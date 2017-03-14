@@ -296,11 +296,11 @@ ActiveRecord::Schema.define(version: 20170314084417) do
     t.string   "name",           limit: 255
     t.string   "userboard_type", limit: 255
     t.string   "color",          limit: 255
-    t.boolean  "status",                     default: true
     t.integer  "user_id",        limit: 4
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "task_id",        limit: 4
+    t.boolean  "status",                     default: true
   end
 
   create_table "users", force: :cascade do |t|
