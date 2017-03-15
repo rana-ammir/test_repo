@@ -1,7 +1,8 @@
 class Task < ActiveRecord::Base
 	belongs_to :tactic
 	belongs_to :organization
-	
+	belongs_to :user, foreign_key: :assigned_to_id
+
 	has_many :activities
 	has_many :assets, as: :assetable, dependent: :destroy
 	has_many :userboards

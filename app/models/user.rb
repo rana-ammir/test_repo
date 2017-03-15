@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :user_tactics
   has_many :tactics, through: :user_tactics
   has_many :userboards
+  has_many :tasks, foreign_key: :assigned_to_id
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

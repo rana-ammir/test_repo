@@ -115,7 +115,10 @@
             extra_sources = $('#calendar').fullCalendar( 'getEventSources' )
             $('#calendar').fullCalendar( 'removeEventSources',  extra_sources)
             events = source.events
-            events.push(data.activity)
+            var result = $.grep(events, function(e){ return e.activity_id == data.activity.activity_id; });
+            if (result.length == 0){
+              events.push(data.activity)
+            }
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', events);
             $('#calendar').fullCalendar('rerenderEvents' );  
