@@ -1,39 +1,40 @@
+<input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
 <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-  <thead>
-  <tr> 
-      <th>Status</th>
-      <th>Description</th>
-      <th>Due Date</th>
-      <th>Progress</th>
-      <th>Board</th>
-      <th data-hide="phone,tablet">Date</th>
-      <th data-hide="phone,tablet">Description</th>
-      <th data-hide="phone,tablet">Hours</th>
-  </tr>
-  </thead>
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-          <td><%= task.status %></td>
-          <td><%= task.description %></td>
-          <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
-          <td><%= task.progress %></td>
-          <td>Dropdown</td>
-          <% if task.activities.present? %>
-            <% task.activities.each do |activity| %>
-              <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
-              <td><%= activity.description %></td>
-              <td><%= activity.hours %></td>
+    <thead>
+    <tr> 
+        <th>Status</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Progress</th>
+        <th>Board</th>
+        <th data-hide="phone,tablet">Date</th>
+        <th data-hide="phone,tablet">Description</th>
+        <th data-hide="phone,tablet">Hours</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+            <td><%= task.status %></td>
+            <td><%= task.description %></td>
+            <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
+            <td><%= task.progress %></td>
+            <td>Dropdown</td>
+            <% if task.activities.present? %>
+              <% task.activities.each do |activity| %>
+                <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
+                <td><%= activity.description %></td>
+                <td><%= activity.hours %></td>
+              <%end%>
             <%end%>
-          <%end%>
-      </tr>
-    <%end%>
-  </tbody>
-  <tfoot>
-  <tr>
-      <td colspan="5">
-          <ul class="pagination pull-right"></ul>
-      </td>
-  </tr>
-  </tfoot>
+        </tr>
+      <%end%>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="5">
+            <ul class="pagination pull-right"></ul>
+        </td>
+    </tr>
+    </tfoot>
 </table>
