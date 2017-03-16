@@ -52,7 +52,20 @@ class UserboardsController < ApplicationController
 
   def my_board
     @userboards = current_user.userboards
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.active_tasks
+  end
+
+  def get_filtered_tasks
+    if params[:status] == "All"
+      @tasks = current_user.tasks
+    elsif params[:status] == "Not-Complete"
+      @tasks = current_user.tasks.active_tasks
+    else
+      @tasks = current_user.tasks.filter_task(params[:status])
+    end
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
