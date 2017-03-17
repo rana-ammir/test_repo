@@ -1,6 +1,7 @@
 class Userboard < ActiveRecord::Base
 	belongs_to :user
-	belongs_to :task
+	
+	has_many :tasks
 
 	validates :name, :userboard_type, :color, :user_id, presence: true
 	

@@ -56,6 +56,7 @@ class UserboardsController < ApplicationController
   end
 
   def get_filtered_tasks
+    @userboards = current_user.userboards
     if params[:status] == "All"
       @tasks = current_user.tasks
     elsif params[:status] == "Not-Complete"
@@ -68,6 +69,23 @@ class UserboardsController < ApplicationController
     end
   end
 
+  def assign_userboard_to_task
+    @task = Task.find(params[:task_id])
+    @task.update(userboard_id: params[:userboard_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_userboard_tasks
+    @userboard = Userboard.find(params[:userboard_id])
+    @userboards = current_user.userboards
+    @tasks = @userboard.tasks
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   private
     def discard_flash
       flash.discard if request.xhr?
@@ -78,6 +96,6 @@ class UserboardsController < ApplicationController
     end
 
     def userboard_params
-      params.require(:userboard).permit(:name, :userboard_type, :color, :status, :user_id, :task_id)
+      params.require(:userboard).permit(:name, :userboard_type, :color, :status, :user_id)
     end
 end

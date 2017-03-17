@@ -2,10 +2,11 @@ class Task < ActiveRecord::Base
 	belongs_to :tactic
 	belongs_to :organization
 	belongs_to :user, foreign_key: :assigned_to_id
-
+	belongs_to :userboard
+	
 	has_many :activities
 	has_many :assets, as: :assetable, dependent: :destroy
-	has_many :userboards
+	
 	acts_as_taggable_on :tags
 		
 	validates :task_type, :description, :status, :due_date, :requestor_id,

@@ -15,6 +15,8 @@ Myapp::Application.routes.draw do
     collection do
       get "my_board", to: "userboards#my_board", as: :my_board
       get "get_filtered_tasks", to: "userboards#get_filtered_tasks", as: :get_filtered_tasks
+      post "assign_userboard_to_task", to: "userboards#assign_userboard_to_task", as: :assign_userboard_to_task
+      get "get_userboard_tasks", to: "userboards#get_userboard_tasks", as: :get_userboard_tasks
     end
   end
   resources :activities do 

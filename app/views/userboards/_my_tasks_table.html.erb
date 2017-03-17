@@ -7,6 +7,7 @@
         <th>Due Date</th>
         <th>Progress</th>
         <th>Board</th>
+        <th>Detail View</th>
         <th data-hide="phone,tablet">Date</th>
         <th data-hide="phone,tablet">Description</th>
         <th data-hide="phone,tablet">Hours</th>
@@ -19,7 +20,9 @@
             <td><%= task.description %></td>
             <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
             <td><%= task.progress %></td>
-            <td>Dropdown</td>
+            <td><%= select_tag('userboard', options_from_collection_for_select(@userboards, 'id', 'name', task.userboard_id), prompt: "Select Userboard", class: "form-control assign-userboard", data: {task_id: task.id}) %>
+            </td>
+            <td><%= link_to "View", task_path(id: task.id), class: "btn btn-white" %></td>
             <% if task.activities.present? %>
               <% task.activities.each do |activity| %>
                 <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>

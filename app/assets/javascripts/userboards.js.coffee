@@ -23,3 +23,22 @@ $ ->
 			data: {status: status}
 			success: (data) ->
 				$('.footable').footable()
+	
+	$(document).on 'change',".assign-userboard", (e) ->
+		e.preventDefault()
+		userboard_id = $(this).val()
+		task_id = $(this).data("taskId")
+		$.ajax
+			type: "POST"
+			url: "/userboards/assign_userboard_to_task"
+			data: {userboard_id: userboard_id, task_id: task_id}
+
+	$(document).on 'click',".userboard-btn", (e) ->
+		e.preventDefault()
+		userboard_id = $(this).data('userboardId')
+		$.ajax
+			type: "GET"
+			url: "/userboards/get_userboard_tasks"
+			data: {userboard_id: userboard_id}		
+			success: (data) ->
+				$('.footable').footable()
