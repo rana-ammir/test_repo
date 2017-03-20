@@ -51,7 +51,7 @@ class UserboardsController < ApplicationController
   end
 
   def my_board
-    @userboards = current_user.userboards
+    @userboards = current_user.userboards.task_type
     @tasks = current_user.tasks.active_tasks
   end
 
