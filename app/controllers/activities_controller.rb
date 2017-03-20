@@ -22,7 +22,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = Activity.where(task_id: params[:activity][:task_id]).first_or_initialize(activity_params)
+    @activity = Activity.new(activity_params)
     respond_to do |format|
       if @activity.save
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }

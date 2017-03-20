@@ -8,9 +8,16 @@
         <th>Progress</th>
         <th>Board</th>
         <th>Detail View</th>
-        <th data-hide="phone,tablet">Date</th>
-        <th data-hide="phone,tablet">Description</th>
-        <th data-hide="phone,tablet">Hours</th>
+        <% @tasks.each do |task| %>
+          <% if task.activities.present? %>
+            <th data-hide="phone,tablet">Activity</th>
+            <% task.activities.each do |activity| %>
+              <th data-hide="phone,tablet">Date</th>
+              <th data-hide="phone,tablet">Description</th>
+              <th data-hide="phone,tablet">Hours</th>
+            <%end%>
+          <%end%>
+        <%end%>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +31,7 @@
             </td>
             <td><%= link_to "View", task_path(id: task.id), class: "btn btn-white" %></td>
             <% if task.activities.present? %>
+              <td></td>
               <% task.activities.each do |activity| %>
                 <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
                 <td><%= activity.description %></td>
