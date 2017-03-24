@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   
   after_create :create_default_userboards
   
+  scope :not_organization_administrator, -> { where.not(role_id: 5) }
+  default_scope  { where(active: true) }
+  scope :this_organization, -> (organization_id) { where(organization_id: organization_id)}
+  
   ROLES = {
     member: {id: 1, name: 'Member'},
     department_head: {id: 2, name: 'Department Head'},
@@ -30,9 +34,13 @@ class User < ActiveRecord::Base
     organization_administrator: {id: 5, name: 'Organization Administrator'}
   }
 
-  scope :not_organization_administrator, -> { where.not(role_id: 5) }
-  default_scope  { where(active: true) }
-  scope :this_organization, -> (organization_id) { where(organization_id: organization_id)}
+  FILTER_MEMBERS = {
+    member: {id: 1, name: 'Specific Member'},
+    team: {id: 2, name: 'Members of a Team'},
+    department: {id: 3, name: 'Members of a Department'},
+    division: {id: 4, name: 'Members of a Division'},
+    organization: {id: 5, name: 'Members of Organization'}
+  }
   
   class << self
    def current_user=(user)

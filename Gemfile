@@ -17,7 +17,8 @@ gem "cocoon"
 gem 'exception_notification'
 gem 'client_side_validations'
 gem 'acts-as-taggable-on', '~> 4.0'
-
+gem 'prawn'
+gem 'prawn-table'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 

@@ -53,11 +53,11 @@
                     <i class="fa fa-tag"></i> <span class="nav-label" data-i18n="nav.assign">Assign</span>
                 <% end %>
             </li>
-            <li class="<%= is_active_controller('reports') %>">
+            <li class="<%= is_active_controller('utilities') %>">
                 <a href=""><i class="fa fa-calculator"></i> <span class="nav-label" data-i18n="nav.reports">Reports</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('reports') %>">
                     <li class="<%= is_active_action('report_plan') %>"><%= link_to "Report Plan", dashboards_coming_soon_path %></li>
-                    <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours", dashboards_coming_soon_path %></li>
+                    <li class="<%= is_active_action('report_hours') %>"><%= link_to "Report Hours", report_hours_path %></li>
                 </ul>
             </li>
             <li class="<%= is_active_controller_action('userboards','index') or is_active_controller_action('userboards','new') or is_active_controller_action('userboards','edit') or is_active_controller('divisions') or is_active_controller('users') or is_active_controller('organizations') or is_active_controller('teams') or is_active_controller('areas') or is_active_controller('goals') or is_active_controller('tasks') or is_active_controller('plans') or is_active_controller('activities')  %>">

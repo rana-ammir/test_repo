@@ -1,0 +1,8 @@
+<div class="form-group report-for-dropdown"><label class="col-lg-2 control-label">Select Option</label>
+  <%if @options.present?%>
+  	<% class_name = @options.first.class.name%>
+  <%end%>
+  <div class="col-lg-9">
+    <%= select_tag 'report_for', options_for_select(report_for_dropdown(@options)), class: "form-control selected_option_dropdown", prompt: "Please select", data: { class_name: class_name } %>
+  </div>
+</div>
