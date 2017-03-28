@@ -3,7 +3,7 @@ class UtilitiesController < ApplicationController
 	
 	def report_hours
 		@member_filter = User::FILTER_MEMBERS.values.map{ |filter| [ filter[:name], filter[:id] ] }
-		@plans = current_user.organization_plans
+		@plans = current_user.organization_plans.active_plans
 	end
 
 	def get_filtered_members
