@@ -99,6 +99,6 @@ Myapp::Application.configure do
     :deliver_with => :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
     :email_prefix => "[PREFIX] ",
     :sender_address => %{"notifier" <ammar.nadeem@pikessoft.com>},
-    :exception_recipients => %w{ammar.nadeem@pikessoft.com farooq.naeem@pikessoft.com}
+    :exception_recipients => %w{ammar.nadeem@pikessoft.com}
   }
 end
