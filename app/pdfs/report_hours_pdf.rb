@@ -26,6 +26,9 @@ class ReportHoursPdf < Prawn::Document
 			end
 			move_down 10
 			table dynamic_data, width: bounds.width, column_widths: {0 => 50}
+			if user != @users.last
+				start_new_page
+			end
 		end
 	end
 
