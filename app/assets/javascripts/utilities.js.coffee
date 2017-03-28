@@ -8,7 +8,7 @@ $ ->
 		id = $(".selected_option_dropdown").val()
 		link = $(".generate_report_link")
 		if class_name != undefined && class_name.length != 0 && id != undefined && id.length != 0 && plan_id != undefined && plan_id.length != 0
-			link.attr("href", "/utilities/generate_report_hours?plan_id="+plan_id+"&class_name="+class_name+"&id="+id)
+			link.attr("href", "/utilities/generate_report_hours.pdf?plan_id="+plan_id+"&class_name="+class_name+"&id="+id)
 		else
 			link.attr("href", "#")
 		

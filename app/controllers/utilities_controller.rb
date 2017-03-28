@@ -19,6 +19,12 @@ class UtilitiesController < ApplicationController
 		@class = params[:class_name].constantize
 		@resource = @class.find(params[:id])
 		@users = get_users_for_hours_report(@plan, @resource)
+		respond_to do |format|
+			format.pdf do
+	    	pdf = ReportHoursPdf.new(@users)
+	     	send_data pdf.render, filename: "strategic_plan_members_report", type: "application/pdf", disposition: "inline"
+	   end
+		end
 	end
 
 end
