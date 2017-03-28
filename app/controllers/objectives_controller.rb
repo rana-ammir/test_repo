@@ -39,7 +39,10 @@ class ObjectivesController < ApplicationController
   end
 
   def destroy
-    @objective.destroy
+    Objective.transaction do
+      @objective.destroy
+      @objective.plan_objectives.first.destroy
+    end
     objectives_redirect_path  
   end
 
