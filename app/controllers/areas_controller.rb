@@ -10,7 +10,7 @@ class AreasController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     @division = Division.find(params[:division_id])
     @department = Department.find(params[:department_id])
-    @goals = @area.goals
+    @goals = @area.goals.sort_asc_goals
   end
 
   def new

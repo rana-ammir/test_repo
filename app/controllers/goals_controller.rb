@@ -64,7 +64,7 @@ class GoalsController < ApplicationController
 
   def get_selected_area_goals
     @area = Area.find(params[:area_id])
-    @goals = @area.goals
+    @goals = @area.goals.sort_asc_goals
     respond_to do |format|
       format.js
     end
