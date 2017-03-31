@@ -54,6 +54,7 @@ group :development do
 	gem 'quiet_assets'
 	gem 'newrelic_rpm'
 	gem 'meta_request'
+	gem 'byebug'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

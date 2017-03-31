@@ -96,9 +96,7 @@ class ObjectivesController < ApplicationController
     @user_objective = UserObjective.find(params[:user_objective_id])
     @objective = Objective.find(params[:objective_id])
     @user_objectives = UserObjective.where(objective_id: @objective.id)
-    @user_objectives.each do |user_objective|
-      user_objective.update(owner: false)
-    end  
+    @user_objectives.update_all(owner: false)
     @user_objective.update(owner: params[:owner])
     @users = @objective.users 
   end

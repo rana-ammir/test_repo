@@ -14,8 +14,8 @@
 			  <td><%= user.email %></td>
 			  <td><%= user.first_name %></td>
 			  <td><%= user.last_name%></td>
-        <% user_obj = user.user_objectives.first %>
-			  <td><%= check_box_tag 'UserObjective', "#{user_obj.owner}", user_obj.owner, data: { user_objective_id: user_obj.id, objective_id: user_obj.objective_id }, class: 'user-objective-chkbox'%>   
+        <% user_obj = user.user_objectives.where(objective_id: @objective.id).first %>
+        <td><%= check_box_tag 'UserObjective', "#{user_obj.owner}", user_obj.owner, data: { user_objective_id: user_obj.id, objective_id: user_obj.objective_id }, class: 'user-objective-chkbox'%>   
         </td>
         <td>
           <%= link_to "#", data: { objective_id: params[:objective_id], user_id: user.id}, class: "delete-assigned-user" do %>
