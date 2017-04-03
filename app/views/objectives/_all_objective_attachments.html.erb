@@ -1,0 +1,19 @@
+<div class="ibox-content">
+
+  <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Download</th>
+      </tr>
+      </thead>
+      <tbody>
+        <% @attchments.each do |attchment| %>
+          <tr>
+          	<td><%=attchment.title%></td>
+          	<td><%= link_to "#{attchment.asset_file_name}", download_asset_assets_path(id: attchment.id), class: "form-control"	%></td>
+          </tr>             
+        <%end%>
+      </tbody>
+  </table>
+</div>

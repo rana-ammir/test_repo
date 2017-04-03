@@ -121,6 +121,14 @@ class ObjectivesController < ApplicationController
     end
   end
 
+  def get_all_objective_attachments
+    objective = Objective.find(params[:objective_id])
+    @attchments = objective.assets
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def set_objective
       @objective = Objective.find(params[:id])

@@ -90,8 +90,17 @@ $ ->
 		area_id = $(this).data("areaId")
 		$.ajax
 			type: "GET"
-			url: "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/departments/"+department_id+"/areas/"+area_id+"/goals/"+goal_id+"/objectives/"+objective_id+"/edit"
+			url: "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/areas/"+area_id+"/goals/"+goal_id+"/objectives/"+objective_id+"/edit"
 			data: {request: "edit_objective_status", objective_id: objective_id, plan_id: plan_id, division_id: division_id, department_id: department_id, goal_id: goal_id, area_id: area_id}
+
+
+	$(document).on 'click',".asset-obj-all", (e) ->
+		e.preventDefault()
+		objective_id = $(this).data("objectiveId")
+		$.ajax
+			type: "GET"
+			url: "/objectives/get_all_objective_attachments"
+			data: { objective_id: objective_id }
 
 	$(document).on 'shown.bs.modal',"#user-assign-modal-form", (e) ->
 	  $(".user-objective-chkbox").bootstrapSwitch(size: "mini")

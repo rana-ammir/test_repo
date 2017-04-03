@@ -81,6 +81,7 @@ Myapp::Application.routes.draw do
     get "destroy_user_objective", to: "objectives#destroy_user_objective", as: :destroy_user_objective
     get "destroy_team_objective", to: "objectives#destroy_team_objective", as: :destroy_team_objective
     put "update_objective_user", to: "objectives#update_objective_user", as: :update_objective_user
+    get "get_all_objective_attachments", to: "objectives#get_all_objective_attachments", as: :get_all_objective_attachments
   end
 
   scope :strategies do

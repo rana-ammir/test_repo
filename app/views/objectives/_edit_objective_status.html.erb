@@ -4,7 +4,7 @@
   </div>
   <div class="ibox-content">
     <div class="row">
-      <%= form_for objective, url: plan_division_department_area_goal_objective_path(plan_id: @plan.id,goal_id: @goal.id, id: objective.id), method: "put", html: {class: "form-inline"} do |f| %>
+      <%= form_for objective, url: plan_division_area_goal_objective_path(plan_id: @plan.id,goal_id: @goal.id, id: objective.id), method: "put", html: {class: "form-inline"} do |f| %>
         <div class="form-group">
           <label class="control-label">On Going
             <i class="fa fa-circle-o" aria-hidden="true"></i>
