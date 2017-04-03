@@ -21,25 +21,22 @@
           </li>
           <li>
             <%= link_to "#{@division.name.titleize}", plan_division_path(plan_id: @plan.id, id: @division.id)%>
+          
+          <li>
+            <%= link_to "#{@area.description.titleize.truncate(25)}", plan_division_area_path(plan_id: @plan.id, division_id: @division.id, id: @area.id) %>
           </li>
           <li>
-            <%= link_to "#{@department.name.titleize}", plan_division_department_path(plan_id: @plan.id, division_id: @division.id, id: @department.id)%>
+              <a href="/strategic_plan/plans/<%=@plan.id%>/divisions/<%=@division.id%>/areas/<%=@area.id%>"><%= @goal.description.titleize.truncate(25) %></a>
           </li>
           <li>
-            <%= link_to "#{@area.description.titleize.truncate(25)}", plan_division_department_area_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, id: @area.id) %>
+            <%= link_to "Objectives", plan_division_area_goal_objectives_path(plan_id: @plan.id, division_id: @division.id, area_id: @area.id, goal_id: @goal.id) %>
           </li>
           <li>
-              <a href="/strategic_plan/plans/<%=@plan.id%>/divisions/<%=@division.id%>/departments/<%=@department.id%>/areas/<%=@area.id%>"><%= @goal.description.titleize.truncate(25) %></a>
-          </li>
-          <li>
-            <%= link_to "Objectives", plan_division_department_area_goal_objectives_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id) %>
-          </li>
-          <li>
-            <%= link_to "Strategies", plan_division_department_area_goal_objective_strategies_path(plan_id: @plan.id, division_id: @division.id, department_id: @department.id, area_id: @area.id, goal_id: @goal.id, objective_id: @objective.id) %>
+            <%= link_to "Strategies", plan_division_area_goal_objective_strategies_path(plan_id: @plan.id, division_id: @division.id, area_id: @area.id, goal_id: @goal.id, objective_id: @objective.id) %>
           </li>
           <li class="active">
             <strong>
-              <%= link_to "Tactics", plan_division_department_area_goal_objective_strategy_tactics_path %>
+              <%= link_to "Tactics", plan_division_area_goal_objective_strategy_tactics_path %>
             </strong>
           </li>
         </ol>
@@ -165,13 +162,13 @@
                             </a>
                           </td>
                           <td>
-                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#tactic-attachment-modal-form" class="asset-tactic-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#tactic-attachment-modal-form" class="asset-tactic-link">
                               <i class="fa fa-paperclip" aria-hidden="true"></i>
                             </a> 
-                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-department-id="<%= @department.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-tactic-link">
+                            <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>"href="#edit-modal-form" class="edit-tactic-link">
                               <i class="fa fa-pencil-square-o"></i>
                             </a>
-                            <%= link_to plan_division_department_area_goal_objective_strategy_tactic_path(id: tactic.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
+                            <%= link_to plan_division_area_goal_objective_strategy_tactic_path(id: tactic.id), data: { confirm: 'Are you sure?' }, method: :delete do %>
                               <i class="fa fa-remove"></i> 
                             <%end%>
                           </td>

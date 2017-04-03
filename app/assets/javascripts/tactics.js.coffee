@@ -11,7 +11,7 @@ $ ->
 		area_id = $(this).data("areaId")
 		$.ajax
 			type: "GET"
-			url: "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/departments/"+department_id+"/areas/"+area_id+"/goals/"+goal_id+"/objectives/"+objective_id+"/strategies/"+strategy_id+"/tactics/"+tactic_id+"/edit"
+			url: "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/areas/"+area_id+"/goals/"+goal_id+"/objectives/"+objective_id+"/strategies/"+strategy_id+"/tactics/"+tactic_id+"/edit"
 			data: {tactic_id: tactic_id, strategy_id: strategy_id, objective_id: objective_id, plan_id: plan_id, division_id: division_id, department_id: department_id, goal_id: goal_id, area_id: area_id}
 
 	$(document).on 'click',".datepicker", (e) ->

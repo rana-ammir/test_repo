@@ -1,4 +1,4 @@
-<%= form_for tactic, url: plan_division_department_area_goal_objective_strategy_tactic_path(id: tactic.id,strategy_id: strategy.id, objective_id: objective.id, plan_id: plan.id, division_id: division.id, department_id: department.id, area_id: area.id, goal_id: goal.id), method: "put", html: {class: "form-horizontal", multipart: true} do |f| %>
+<%= form_for tactic, url: plan_division_area_goal_objective_strategy_tactic_path(id: tactic.id,strategy_id: strategy.id, objective_id: objective.id, plan_id: plan.id, division_id: division.id, area_id: area.id, goal_id: goal.id), method: "put", html: {class: "form-horizontal", multipart: true} do |f| %>
 	<div class="form-group">
     <%= f.fields_for :assets do |ff| %>
       <%= render partial: 'asset_fields', locals: { f: ff } %>

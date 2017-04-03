@@ -6,8 +6,8 @@ $ ->
 		e.preventDefault()
 		plan_id = $(".plan-hf-in-division-show").val()
 		division_id = $(".division-hf-in-division-show").val()
-		department_id = $(this).val()
+		area_id = $(this).val()
 		if division_id.length == 0
 			$(".select-department-link").attr("href", "#")
 		else
-			$(".select-department-link").attr("href", "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/departments/"+department_id)		
+			$(".select-department-link").attr("href", "/strategic_plan/plans/"+plan_id+"/divisions/"+division_id+"/areas/"+area_id)		

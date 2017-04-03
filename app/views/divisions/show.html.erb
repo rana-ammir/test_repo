@@ -29,7 +29,7 @@
       <div class="col-lg-12">
           <div class="ibox float-e-margins">
               <div class="ibox-title">
-                  <h5>Select Department</h5>
+                  <h5>Select Area</h5>
                   <div class="ibox-tools">
                   </div>
               </div>
@@ -37,16 +37,16 @@
                 <div class="row">
                   <%= form_for plans_path, method: "get", html: {class: "form-horizontal"} do |f| %>
                     <div class="form-group">
-                      <label class="col-lg-2 control-label">Department</label>
+                      <label class="col-lg-2 control-label">Area</label>
                       <div class="col-lg-9">
-                        <%= f.collection_select :department_id, @division.departments, :id, :name, { prompt: 'Select department' }, { class: "form-control m-b department-select-field" } %> 
+                        <%= f.collection_select :area_id, @division.areas, :id, :description, { prompt: 'Select area' }, { class: "form-control m-b department-select-field" } %> 
                       </div>
                     </div>
                     <%= f.hidden_field :plan_id, value: @plan.id, class: "plan-hf-in-division-show"%>
                     <%= f.hidden_field :division_id, value: @division.id, class: "division-hf-in-division-show"%>
                     <div class="form-group">
                       <div class="col-lg-offset-2 col-lg-10">
-                        <%= link_to "Select department", '#', class: "btn btn-sm btn-primary select-department-link" %>
+                        <%= link_to "Select area", '#', class: "btn btn-sm btn-primary select-department-link" %>
                       </div>
                     </div>
                   <% end %>

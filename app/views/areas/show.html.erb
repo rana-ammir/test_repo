@@ -14,9 +14,7 @@
           <li>
             <%= link_to "#{@division.name.titleize}", plan_division_path(plan_id: @plan.id, id: @division.id)%>
           </li>
-          <li>
-            <%= link_to "#{@department.name.titleize}", plan_division_department_path(plan_id: @plan.id, division_id: @division.id, id: @department.id)%>
-          </li>
+          
           <li class="active">
             <strong>
               <%= link_to "#{@area.description.titleize.truncate(25)}" %>
@@ -51,7 +49,7 @@
                       <% @goals.each do |goal| %>
                         <tr>
                           <td><%= goal.number %></td>
-                          <td><%= link_to "#{goal.description}",plan_division_department_area_goal_objectives_path(area_id: @area.id, goal_id: goal.id)%></td>
+                          <td><%= link_to "#{goal.description}",plan_division_area_goal_objectives_path(area_id: @area.id, goal_id: goal.id)%></td>
                         </tr>
                       <%end%>
                     </tbody>

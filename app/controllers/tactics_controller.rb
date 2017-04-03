@@ -132,14 +132,13 @@ class TacticsController < ApplicationController
       @area = Area.find(params[:area_id]) 
       @plan = Plan.find(params[:plan_id])
       @division = Division.find(params[:division_id])
-      @department = Department.find(params[:department_id])
       @goal = Goal.find(params[:goal_id])
       @objective = Objective.find(params[:objective_id])
       @strategy = Strategy.find(params[:strategy_id])
     end
 
     def tactics_redirect_path
-      redirect_to plan_division_department_area_goal_objective_strategy_tactics_path(plan_id: params[:plan_id], 
+      redirect_to plan_division_area_goal_objective_strategy_tactics_path(plan_id: params[:plan_id], 
         division_id: params[:division_id], department_id: params[:department_id], area_id: params[:area_id], 
         goal_id: params[:goal_id], objective_id: params[:objective_id], strategy_id: params[:strategy_id])
     end

@@ -110,13 +110,11 @@ Myapp::Application.routes.draw do
   scope :strategic_plan do
     resources :plans, only: [:show] do
       resources :divisions, only: [:show] do
-        resources :departments, only: [:show] do
-          resources :areas, only: [:show] do
-            resources :goals do 
-              resources :objectives do
-                resources :strategies do
-                  resources :tactics
-                end
+        resources :areas, only: [:show] do
+          resources :goals do 
+            resources :objectives do
+              resources :strategies do
+                resources :tactics
               end
             end
           end

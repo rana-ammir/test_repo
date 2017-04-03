@@ -3,3 +3,4 @@ config/newrelic.yml
 log/
 /tmp
 /public
+.byebug_history

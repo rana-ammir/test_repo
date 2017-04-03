@@ -14,7 +14,7 @@
 			  <td><%= user.email %></td>
 			  <td><%= user.first_name %></td>
 			  <td><%= user.last_name%></td>
-			  <% user_tactic = user.user_tactics.first %>
+			  <% user_tactic = user.user_tactics.where(tactic_id: @tactic.id).first %>
         <td>
           <%= check_box_tag 'UserTactic', "#{user_tactic.owner}", user_tactic.owner, data: { user_tactic_id: user_tactic.id, tactic_id: user_tactic.tactic_id }, class: 'user-tactic-chkbox'%>   
         </td>

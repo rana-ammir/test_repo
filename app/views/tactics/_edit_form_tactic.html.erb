@@ -6,7 +6,7 @@
     </div>
     <div class="ibox-content">
       <div class="row">
-        <%= form_for tactic, url: plan_division_department_area_goal_objective_strategy_tactic_path(plan_id: plan.id,goal_id: goal.id, objective_id: objective.id, strategic_id: strategy.id, id: tactic.id ), method: "put", html: {class: "form-horizontal"} do |f| %>
+        <%= form_for tactic, url: plan_division_area_goal_objective_strategy_tactic_path(plan_id: plan.id,goal_id: goal.id, objective_id: objective.id, strategic_id: strategy.id, id: tactic.id ), method: "put", html: {class: "form-horizontal"} do |f| %>
           <div class="form-group">
             <label class="col-lg-2 control-label">Number</label>
             <div class="col-lg-9">
