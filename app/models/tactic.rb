@@ -34,6 +34,14 @@ class Tactic < ActiveRecord::Base
     end
   end
 
+  def calculate_budget_hours
+    organization_hours =  User.current_user.organization.hours_in_day.to_f
+    days = self.days.to_f
+    days_hours = days * organization_hours.to_f
+    hours = self.hours.to_f
+    budget_hours = days_hours + hours
+  end
+
   private
   
   def convert_days_to_hours_and_sum

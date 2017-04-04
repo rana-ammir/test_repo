@@ -34,6 +34,14 @@ $ ->
 			url: "/tactics/new_tactic_attachment/"+tactic_id
 			data: {tactic_id: tactic_id, strategy_id: strategy_id, objective_id: objective_id, plan_id: plan_id, division_id: division_id, department_id: department_id, goal_id: goal_id, area_id: area_id}
 
+	$(document).on 'click',".all-asset-tactic", (e) ->
+		e.preventDefault()
+		tactic_id = $(this).data("tacticId")
+		$.ajax
+			type: "GET"
+			url: "/tactics/get_all_tactic_attachments"
+			data: {tactic_id: tactic_id}
+
 	$(document).on 'click',".user-assign-link", (e) ->
 		e.preventDefault()
 		tactic_id = $(this).data("tacticId")

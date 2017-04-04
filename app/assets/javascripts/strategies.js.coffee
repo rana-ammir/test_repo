@@ -38,7 +38,7 @@ $ ->
 		strategy_id = $(this).data("strategyId")
 		$.ajax
 			type: "GET"
-			url: "/strategies/get_all_strategy_attachments"
+			url: "/tactics/get_all_tactic_attachments"
 			data: {strategy_id: strategy_id}
 
 	$(document).on 'click',".user-assign-link", (e) ->

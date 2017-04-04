@@ -105,6 +105,7 @@ Myapp::Application.routes.draw do
     get "destroy_user_tactic", to: "tactics#destroy_user_tactic", as: :destroy_user_tactic
     get "destroy_team_tactic", to: "tactics#destroy_team_tactic", as: :destroy_team_tactic
     put "update_tactic_user", to: "tactics#update_tactic_user", as: :update_tactic_user
+    get "get_all_tactic_attachments", to: "tactics#get_all_tactic_attachments", as: :get_tactic_attachments
   end
   
   get "strategic_plan", to: "plans#strategic_plan", as: :strategic_plan

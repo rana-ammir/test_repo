@@ -5,7 +5,8 @@ class TacticsController < ApplicationController
    :get_tactic_users, :create_team_tactic, :destroy_user_tactic, :destroy_team_tactic, :new_tactic_attachment]
 
   def index
-    @tactics = @strategy.tactics
+    byebug
+    @tactics = @strategy.tactics.order(:number)
     @tactic = Tactic.new
   end
 
@@ -114,6 +115,14 @@ class TacticsController < ApplicationController
     @team_tactic = TeamTactic.where(team_id: params[:team_id], tactic_id: params[:tactic_id]).first
     @team_tactic.destroy
     @teams = @tactic.teams
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_all_tactic_attachments
+    tactic = Tactic.find(params[:tactic_id])
+    @attchments = tactic.assets
     respond_to do |format|
       format.js
     end

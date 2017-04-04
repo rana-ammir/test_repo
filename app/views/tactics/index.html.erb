@@ -114,6 +114,7 @@
                       <th>Budgeted Days</th>
                       <th>Budgeted Hours</th>
                       <th>% Complete</th>
+                      <th>Owner</th>
                       <th>Assigned To</th>
                       <th>Actions</th>
                       <th>Publish Tactic</th>
@@ -123,12 +124,19 @@
                       <% @tactics.each do |tactic| %>
                         <tr>
                           <td><%= tactic.number %></td>
-                          <td><%= tactic.description %></td>
+                          <td>
+                            <% if  tactic.assets.present? %>
+                              <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" data-strategy-id="<%= @strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#tactic-attachments-modal" class="all-asset-tactic">
+                                <i class="fa fa-paperclip" aria-hidden="true"></i>
+                              </a>
+                            <%end%>
+                            <%= tactic.description %>
+                          </td>
                           <td><%= tactic.end_on ? tactic.end_on.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= tactic.actual_days %></td>
                           <td><%= tactic.actual_hours%></td>
                           <td><%= tactic.days %></td>
-                          <td><%= tactic.hours %></td>
+                          <td class="blah"><%= tactic.calculate_budget_hours %></td>
                           <td>
                             <%if tactic.end_on > Date.today%>
                               <div class="progress">
@@ -152,6 +160,9 @@
                                 </div>
                               </div>
                             <%end%>
+                          </td>
+                          <td>
+                            <%= tactic_owner_name(tactic)%>
                           </td>
                           <td>
                             <a data-toggle="modal" data-tactic-id="<%= tactic.id%>" href="#user-assign-modal-form" class="user-assign-link">
@@ -236,6 +247,25 @@
     </div>
 </div>
 <!-- end -->
+
+<!-- all tactic assets pop up -->
+<div id="tactic-attachments-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Tactic Files</h3>
+                </div>
+              </div>
+              <div class="row modal-tactic-attachments"> 
+              </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
+
 <!-- user assign pop up -->
 <div id="user-assign-modal-form" class="modal fade" aria-hidden="true">
     <div class="modal-dialog">
