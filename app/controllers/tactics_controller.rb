@@ -5,7 +5,6 @@ class TacticsController < ApplicationController
    :get_tactic_users, :create_team_tactic, :destroy_user_tactic, :destroy_team_tactic, :new_tactic_attachment]
 
   def index
-    byebug
     @tactics = @strategy.tactics.order(:number)
     @tactic = Tactic.new
   end
