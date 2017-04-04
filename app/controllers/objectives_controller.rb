@@ -2,7 +2,7 @@ class ObjectivesController < ApplicationController
   before_action :set_objective, only: [:show, :edit, :update, :destroy]
   before_action :set_objective_params, only: [:index, :new_objective_attachment, :edit] 
   def index
-    @objectives = @goal.objectives
+    @objectives = @goal.objectives.order(:number)
     @objective = Objective.new
   end
 

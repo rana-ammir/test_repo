@@ -93,6 +93,7 @@
                       <th>Actual Hours</th>
                       <th>Budgeted Hours</th>
                       <th>% Complete</th>
+                      <th>Owner</th>
                       <th>Assigned To</th>
                       <th>Actions</th>
                     </tr>
@@ -101,7 +102,13 @@
                       <% @strategies.each do |strategy| %>
                         <tr>
                           <td><%= strategy.number %></td>
-                          <td><%= link_to "#{strategy.description}", plan_division_area_goal_objective_strategy_tactics_path(strategy_id: strategy.id)%></td>
+                          <td>
+                            <% if strategy.assets.present?%>
+                              <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" data-objective-id="<%= @objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#strategy-attachments-modal" class="asset-strategy-all">
+                                <i class="fa fa-paperclip" aria-hidden="true"></i>
+                              </a>
+                            <%end%>
+                            <%= link_to "#{strategy.description}", plan_division_area_goal_objective_strategy_tactics_path(strategy_id: strategy.id)%></td>
                           <td><%= strategy.end_on ? strategy.end_on.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= strategy.actual_hours%></td>
                           <td><%= strategy.totalhours%></td>
@@ -123,6 +130,9 @@
                                 </div>
                               </div>
                             <%end%>
+                          </td>
+                          <td>
+                            <%= strategy_owner_name (strategy)%>
                           </td>
                           <td>
                             <a data-toggle="modal" data-strategy-id="<%= strategy.id%>" href="#user-assign-modal-form" class="user-assign-link">
@@ -191,6 +201,24 @@
                 </div>
               </div>
               <div class="row modal-strategy-attach-form"> 
+              </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end -->
+
+<!-- all strategy assets pop up -->
+<div id="strategy-attachments-modal" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <div class="row">
+                <div class="col-sm-6"><h3 class="m-t-none m-b">Strategy All Files</h3>
+                </div>
+              </div>
+              <div class="row modal-strategy-attachments"> 
               </div>              
             </div>
         </div>

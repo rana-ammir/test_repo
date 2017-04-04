@@ -93,6 +93,7 @@ Myapp::Application.routes.draw do
     get "destroy_user_strategy", to: "strategies#destroy_user_strategy", as: :destroy_user_strategy
     get "destroy_team_strategy", to: "strategies#destroy_team_strategy", as: :destroy_team_strategy
     put "update_strategy_user", to: "strategies#update_strategy_user", as: :update_strategy_user
+    get "get_all_strategy_attachments", to: "strategies#get_all_strategy_attachments", as: :get_all_strategy_attachments
   end
 
   scope :tactics do

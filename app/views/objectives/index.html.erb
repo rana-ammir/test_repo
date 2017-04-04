@@ -103,7 +103,7 @@
                           <td><%= objective.end_on ? objective.end_on.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= objective.actual_hours%></td>
                           <td><%= objective.totalhours%></td>
-                          <td><%= objective.budgeted_dollars.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse%>
+                          <td><%= objective.budgeted_dollars.round.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse%>
                             
                           </td>
                           <% overdue_passed = objective.tactics.where("tactics.end_on < (?) AND tactics.percent_of_strategy < (?)", Date.today, 100) %> 

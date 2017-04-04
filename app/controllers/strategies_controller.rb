@@ -5,7 +5,7 @@ class StrategiesController < ApplicationController
    :get_strategy_users, :create_team_strategy, :destroy_user_strategy, :destroy_team_strategy]
 
   def index
-    @strategies = @objective.strategies
+    @strategies = @objective.strategies.order(:number)
     @strategy = Strategy.new
   end
 
@@ -114,6 +114,14 @@ class StrategiesController < ApplicationController
     @team_strategy = TeamStrategy.where(team_id: params[:team_id], strategy_id: params[:strategy_id]).first
     @team_strategy.destroy
     @teams = @strategy.teams
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_all_strategy_attachments
+    strategy = Strategy.find(params[:strategy_id])
+    @attchments = strategy.assets
     respond_to do |format|
       format.js
     end

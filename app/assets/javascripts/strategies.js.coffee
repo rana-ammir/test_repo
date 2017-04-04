@@ -32,6 +32,15 @@ $ ->
 			url: "/strategies/new_strategy_attachment/"+strategy_id
 			data: {strategy_id: strategy_id, objective_id: objective_id, plan_id: plan_id, division_id: division_id, department_id: department_id, goal_id: goal_id, area_id: area_id}
 
+
+	$(document).on 'click',".asset-strategy-all", (e) ->
+		e.preventDefault()
+		strategy_id = $(this).data("strategyId")
+		$.ajax
+			type: "GET"
+			url: "/strategies/get_all_strategy_attachments"
+			data: {strategy_id: strategy_id}
+
 	$(document).on 'click',".user-assign-link", (e) ->
 		e.preventDefault()
 		strategy_id = $(this).data("strategyId")
