@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317120402) do
+ActiveRecord::Schema.define(version: 20170405081159) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20170317120402) do
     t.integer  "strategies_count",       limit: 4,                              default: 0
     t.date     "requested_by_date"
     t.integer  "on_going_carry_forward", limit: 2,                              default: 0
-    t.decimal  "budgeted_dollars",                     precision: 15, scale: 2
+    t.decimal  "budgeted_dollars",                     precision: 15, scale: 2, default: 0.0
     t.decimal  "actual_hours",                         precision: 5,  scale: 2, default: 0.0
     t.datetime "created_at",                                                                  null: false
     t.datetime "updated_at",                                                                  null: false
@@ -320,7 +320,7 @@ ActiveRecord::Schema.define(version: 20170317120402) do
     t.string   "username",               limit: 255
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.string   "organization_id",        limit: 255
+    t.integer  "organization_id",        limit: 4
     t.integer  "division_id",            limit: 4
     t.integer  "department_id",          limit: 4
     t.string   "job_title",              limit: 255

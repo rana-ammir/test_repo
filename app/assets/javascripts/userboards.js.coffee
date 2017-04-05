@@ -42,3 +42,5 @@ $ ->
 			data: {userboard_id: userboard_id}		
 			success: (data) ->
 				$('.footable').footable()
+
+	$(".footable-toggle").css({ "font-size": "9px" });

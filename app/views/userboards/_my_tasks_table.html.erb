@@ -10,11 +10,11 @@
         <th>Detail View</th>
         <% @tasks.each do |task| %>
           <% if task.activities.present? %>
-            <th data-hide="phone,tablet">Activity</th>
             <% task.activities.each do |activity| %>
-              <th data-hide="phone,tablet">Date</th>
-              <th data-hide="phone,tablet">Description</th>
-              <th data-hide="phone,tablet">Hours</th>
+              <th data-hide="phone,tablet,desktop">Activity</th>
+              <th data-hide="phone,tablet,desktop">Date</th>
+              <th data-hide="phone,tablet,desktop">Description</th>
+              <th data-hide="phone,tablet,desktop">Hours</th>
             <%end%>
           <%end%>
         <%end%>
@@ -26,13 +26,13 @@
             <td><%= task.status %></td>
             <td><%= task.description %></td>
             <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
-            <td><%= task.progress %></td>
+            <td><%= task.progress %>%</td>
             <td><%= select_tag('userboard', options_from_collection_for_select(@userboards, 'id', 'name', task.userboard_id), prompt: "Select Userboard", class: "form-control assign-userboard", data: {task_id: task.id}) %>
             </td>
             <td><%= link_to "View", task_path(id: task.id), class: "btn btn-white" %></td>
             <% if task.activities.present? %>
-              <td></td>
               <% task.activities.each do |activity| %>
+                <td></td>
                 <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
                 <td><%= activity.description %></td>
                 <td><%= activity.hours %></td>
