@@ -33,7 +33,9 @@ $ ->
 			type: "GET"
 			url: "/activities/get_userboard_tasks"
 			data: {userboard_id: userboard_id}
-
+			success: (data) ->
+				initializeDraggableElement()
+				initializeIcheck()
 
 	initializeDraggableElement()
 	initializeIcheck()

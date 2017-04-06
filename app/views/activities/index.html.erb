@@ -156,7 +156,7 @@
       events: [
         <% @activities.each do |activity| %>
             {
-              title: '<%= activity.description %>',
+              title: '[<%=activity.task.id%>]<%= activity.description %>',
               <%if activity.activity_date.present? && activity.start_time.present? && activity.end_time.present? %>
                 start: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.start_time.strftime 'T%H:%M:%S'}" %>',
                 end: '<%= "#{activity.activity_date.strftime '%Y-%m-%d'}#{activity.end_time.strftime 'T%H:%M:%S'}" %>',
