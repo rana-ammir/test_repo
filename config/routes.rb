@@ -22,6 +22,7 @@ Myapp::Application.routes.draw do
   resources :activities do 
     collection do
       get "get_filtered_tasks", to: "activities#get_filtered_tasks", as: :get_filtered_tasks
+      get "get_userboard_tasks", to: "activities#get_userboard_tasks", as: :get_userboard_tasks
     end  
   end
   resources :assets do

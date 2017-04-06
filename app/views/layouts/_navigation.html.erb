@@ -41,6 +41,8 @@
                 <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label" data-i18n="nav.forms">My Tasks</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse <%= is_active_controller('forms') %>">
                     <li class="<%= is_active_controller_action('userboards','my_board') %>"><%= link_to "Boards", my_board_userboards_path %></li>
+                    <li class="<%= is_active_controller_action('activities','index') or is_active_controller_action('activities','edit') or is_active_controller_action('activities','new') or is_active_controller_action('activities','show') %>"><%= link_to "Activities", activities_path %></li>
+                    
                 </ul>
             </li>
             <li class="<%= is_active_controller('searchs') %>">
@@ -74,7 +76,7 @@
                     <li>
                     <li class="<%= is_active_controller_action('tasks','index') or is_active_controller_action('tasks','edit') or is_active_controller_action('tasks','new') or is_active_controller_action('tasks','show') %>"><%= link_to "Tasks", tasks_path %></li>
                     <li>
-                    <li class="<%= is_active_controller_action('activities','index') or is_active_controller_action('activities','edit') or is_active_controller_action('activities','new') or is_active_controller_action('activities','show') %>"><%= link_to "Activities", activities_path %></li>
+                    
                     <li class="<%= is_active_controller_action('userboards','index') or is_active_controller_action('userboards','new') or is_active_controller_action('userboards','edit') %>"><%= link_to "Userboards", userboards_path %></li>
                     <li>
                         <a href="#">Utilities <span class="fa arrow"></span></a>

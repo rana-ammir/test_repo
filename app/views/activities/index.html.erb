@@ -34,11 +34,16 @@
                 </div>
             </div>
             <div class="ibox-content">
+              <% @userboards.each do |userboard| %>
+                <div class="btn btn-primary userboard-btn" style="background-color: <%=userboard.color%>; border: none; font-size: 12px;" data-userboard-id="<%= userboard.id%>"> <%= userboard.name %>
+                </div>
+              <%end%>
               <div class= "filtered-tasks">
                 <div id='external-events'>
                     <p>Drag a task and drop into callendar.</p>
                       <% @tasks.each do |task| %>
                         <div class='external-event navy-bg' data-task-id="<%=task.id%>">
+                          [<%= task.id%>]
                           <%= task.description%>
                         </div>
                       <% end %>

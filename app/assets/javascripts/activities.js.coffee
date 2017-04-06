@@ -26,6 +26,15 @@ $ ->
 				initializeDraggableElement()
 				initializeIcheck()
 
+	$(document).on 'click',".userboard-btn", (e) ->
+		e.preventDefault()
+		userboard_id = $(this).data('userboardId')
+		$.ajax
+			type: "GET"
+			url: "/activities/get_userboard_tasks"
+			data: {userboard_id: userboard_id}
+
+
 	initializeDraggableElement()
 	initializeIcheck()
 	

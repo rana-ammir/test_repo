@@ -3,8 +3,9 @@ class ActivitiesController < ApplicationController
 
   def index
     @organization = current_user.organization
-    @tasks = @organization.tasks.active_tasks
+    @tasks = @organization.tasks.active_tasks.where(assigned_to_id: current_user.id)
     @activities = @organization.activities
+    @userboards = current_user.userboards.task_type
   end
 
   def show
@@ -55,7 +56,16 @@ class ActivitiesController < ApplicationController
   end
 
   def get_filtered_tasks
-    @tasks = Task.filter_task(params[:status])
+    @tasks = current_user.tasks.filter_task(params[:status])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_userboard_tasks
+    @userboard = Userboard.find(params[:userboard_id])
+    @userboards = current_user.userboards
+    @tasks = @userboard.tasks
     respond_to do |format|
       format.js
     end
