@@ -27,7 +27,7 @@
             <td></td>
             <td><%= task.status %></td>
             <td><%= link_to "#{task.id}", task_path(id: task.id) %></td>
-            <td><%= truncate(task.description, :length => 0) %></td>
+            <td><%= truncate(task.description, :length => 80) %></td>
             <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
             <td><%= task.progress %>%</td>
             <td><%= select_tag('userboard', options_from_collection_for_select(@userboards, 'id', 'name', task.userboard_id), prompt: "Select Userboard", class: "form-control assign-userboard", data: {task_id: task.id}) %>
