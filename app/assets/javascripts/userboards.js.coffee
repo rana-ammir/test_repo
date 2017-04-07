@@ -44,3 +44,4 @@ $ ->
 				$('.footable').footable()
 
 	$(".footable-toggle").css({ "font-size": "9px" });
+	$(".sort-remove span").remove();
