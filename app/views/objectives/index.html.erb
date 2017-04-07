@@ -74,14 +74,13 @@
                       <th>Status</th>
                       <th>Description</th>
                       <th>Requested By Date</th>
-                      <th>Target Date</th>
+                      <th class="space-manage">Target Date</th>
                       <th>Actual Hours</th>
-                      <th>Budgeted Hours</th>
-                      <th>Budgeted Dollars</th>
+                      <th>Budget Hours</th>
+                      <th class="space-td">Budget Dollars</th>
                       <th>% Complete</th>
                       <th>Owner</th>
-                      <th>Assigned To</th>
-                      <th>Actions</th>
+                      <th class="space-manage">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -103,7 +102,7 @@
                           <td><%= objective.end_on ? objective.end_on.strftime("%m-%d-%Y") : "" %></td>
                           <td><%= objective.actual_hours%></td>
                           <td><%= objective.totalhours%></td>
-                          <td><%= objective.budgeted_dollars.round.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse%>
+                          <td class="value-manage"><%= objective.budgeted_dollars.round.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse%>
                             
                           </td>
                           <% overdue_passed = objective.tactics.where("tactics.end_on < (?) AND tactics.percent_of_strategy < (?)", Date.today, 100) %> 
@@ -127,14 +126,12 @@
                           </td>
                           <td><%=objective_owner_name(objective)%></td>
                           <td>
-                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#user-assign-modal-form" class="user-assign-link">
+                            <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#user-assign-modal-form" class="user-assign-link space-margin">
                               <i class="fa fa-user"></i>
                             </a> &nbsp&nbsp
                             <a data-toggle="modal" data-objective-id="<%= objective.id%>" href="#team-assign-modal-form" class="team-assign-link">
                               <i class="fa fa-users"></i>
                             </a>
-                          </td>
-                          <td>
                             <a data-toggle="modal" data-objective-id="<%= objective.id%>" data-plan-id="<%= @plan.id%>" data-division-id="<%= @division.id%>" data-area-id="<%= @area.id%>" data-goal-id="<%= @goal.id%>" href="#obj-attachment-modal-form" class="asset-obj-link">
                               <i class="fa fa-paperclip" aria-hidden="true"></i>
                             </a> 
