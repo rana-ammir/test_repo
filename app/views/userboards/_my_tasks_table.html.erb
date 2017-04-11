@@ -1,56 +1,67 @@
 <input type="text" class="form-control input-sm m-b-xs" id="filter" placeholder="Search in table">
-<table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
-    <thead>
-    <tr> 
-        <th class="sort-remove"></th>
-        <th class="task-status">Status</th>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Due Date</th>
-        <th>Progress</th>
-        <th>Board</th>
-        <% @tasks.each do |task| %>
-          <% if task.activities.present? %>
-            <th data-hide="phone,tablet,desktop">Activity</th>
-            <% task.activities.each do |activity| %>
-              <th data-hide="phone,tablet,desktop">Date</th>
-              <th data-hide="phone,tablet,desktop">Description</th>
-              <th data-hide="phone,tablet,desktop">Hours</th>
-              <th data-hide="phone,tablet,desktop"></th>
-            <%end%>
-          <%end%>
-        <%end%>
-    </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-        <tr>
-            <td></td>
-            <td><%= task.status %></td>
-            <td><%= link_to "#{task.id}", task_path(id: task.id) %></td>
-            <td><%= truncate(task.description, :length => 80) %></td>
-            <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
-            <td><%= task.progress %>%</td>
-            <td><%= select_tag('userboard', options_from_collection_for_select(@userboards, 'id', 'name', task.userboard_id), prompt: "Select Userboard", class: "form-control assign-userboard", data: {task_id: task.id}) %>
-            </td>
-            <% if task.activities.present? %>
-              <td></td>
-              <% task.activities.each do |activity| %>
-                
-                <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
-                <td><%= activity.description %></td>
-                <td><%= activity.hours %></td>
-                <td style="border-top: 1px solid #c3c3c3;">&nbsp;</td>
-              <%end%>
-            <%end%>
-        </tr>
-      <%end%>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="5">
-            <ul class="pagination pull-right"></ul>
+<table class="table table-hover footable table table-stripped" data-page-size="8" data-filter=#filter>
+  <thead>
+    <th class="sort-remove"></th>
+    <th class="task-status">Status</th>
+    <th>ID</th>
+    <th>Description</th>
+    <th>Due Date</th>
+    <th>Progress</th>
+    <th>Board</th>
+  </thead>
+  
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td data-toggle="collapse" data-target="#<%= task.id %>" class="clickable"><span class="glyphicon glyphicon-plus glyphicon-icon" id="aa<%= task.id%>"></span></td>
+        <td><%= task.status %></td>
+        <td><%= link_to "#{task.id}", task_path(id: task.id) %></td>
+        <td><%= truncate(task.description, :length => 80) %></td>
+        <td><%= task.due_date.strftime("%m-%d-%Y") if task.due_date.present? %></td>
+        <td><%= task.progress %>%</td>
+        <td><%= select_tag('userboard', options_from_collection_for_select(@userboards, 'id', 'name', task.userboard_id), prompt: "Select Userboard", class: "form-control assign-userboard", data: {task_id: task.id}) %>
         </td>
+      </tr>
+    
+      <tr>
+        <td colspan="12" class="activity-padding">
+          <div id="<%= task.id %>" class="collapse">
+            <table class="footable table table-stripped" data-page-size="8" data-filter=#filter>
+              <thead>
+                <th>
+                  Activity
+                </th>
+                <th>
+                  Date
+                </th>
+                <th>
+                  Descripyion
+                </th>
+                <th>Hour</th>
+              </thead>
+              <tbody>
+                <% if task.activities.present? %>
+                  <% task.activities.each do |activity| %>
+                    <tr>
+                      <td>1</td>
+                      <td><%= activity.activity_date.strftime("%m-%d-%Y") if activity.activity_date.present? %></td>
+                      <td><%= activity.description %></td>
+                      <td><%= activity.hours %></td>
+                    </tr>
+                  <%end%>
+                <%end%>         
+              </tbody>
+            </table>
+          </div>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="5">
+        <ul class="pagination pull-right"></ul>
+      </td>
     </tr>
-    </tfoot>
+  </tfoot>
 </table>

@@ -45,3 +45,12 @@ $ ->
 
 	$(".footable-toggle").css({ "font-size": "9px" });
 	$(".sort-remove span").remove();
+
+	$('.clickable').click ->
+	  span = $(this).find('span')
+	  $(this).find('.footable-toggle').remove()
+	  if span.hasClass('glyphicon-plus') == true
+	    span.removeClass('glyphicon-plus').addClass 'glyphicon-minus'
+	  else
+	    span.removeClass('glyphicon-minus').addClass 'glyphicon-plus'
+	  return
