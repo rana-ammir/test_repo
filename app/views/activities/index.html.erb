@@ -98,7 +98,35 @@
           $.ajax({
             type: "GET",
             url: "/activities/"+id+"/edit",
-            data: { id: id }
+            data: { id: id },
+            success: function(data){
+              var from_range, task_id;
+
+              from_range = parseInt($('#progress-slider').data("progress"));
+              task_id = $('#progress-slider').data("taskId");
+
+              $('#progress-slider').ionRangeSlider({
+                min: 0,
+                max: 100,
+                from: from_range,
+                type: 'single',
+                step: 5,
+                postfix: '%',
+                grid: true,
+                onFinish: function(data) {
+                  return $.ajax({
+                    type: "PUT",
+                    url: "/tasks/" + task_id,
+                    data: {
+                      task: {
+                        progress: data.from,
+                        request: "slider"
+                      }
+                    }
+                  });
+                }
+              });
+            }
           });
         });
       },

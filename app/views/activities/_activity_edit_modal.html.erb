@@ -25,9 +25,24 @@
 	            	          		<div class="i-checks">
 	            	          			<%= f.check_box :completion_flag %>
 	            	          			<i></i>
+	            	          			<div class="slide-bar">
+								                  <div id="progress-slider" data-task-id="<%= activity.task.id %>" data-progress="<%= activity.task.progress %>"></div>
+								                </div>
 	            	          		</div>
 	            	          	</div>
 	            	          </div>
+	            	          <div class="row">
+												    <div class="col-lg-12">
+												        <dl class="dl-horizontal">
+												            <dt>Completed:</dt>
+												            <dd>
+												                <div class="progress-text">
+												                    <small><strong><%= activity.task.progress.to_i %>%</strong> of this task has been completed.</small>
+												                </div>
+												            </dd>
+												        </dl>
+												    </div>
+													</div>
 	            	          <div class="form-group">
 	            	            <div class="col-lg-offset-2 col-lg-10">
 	            	              <%= f.submit "Submit" , class: "btn btn-sm btn-primary" %>
