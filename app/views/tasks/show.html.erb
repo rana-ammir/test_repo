@@ -77,7 +77,7 @@
             <dt>Completed:</dt>
             <dd>
                 <div class="slide-bar">
-                  <div id="progress-slider" data-task-id="<%= @task.id %>" data-progress="<%= @task.progress %>"></div>
+                	<input type="text" id="progress-slider" name="example_name" value="" data-task-id="<%= @task.id %>" data-progress="<%= @task.progress %>"/>
                 </div>
                 <div class="progress-text">
                     <small><strong><%= @task.progress.to_i %>%</strong> of this task has been completed.</small>

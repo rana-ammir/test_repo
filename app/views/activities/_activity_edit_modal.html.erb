@@ -26,7 +26,8 @@
 	            	          			<%= f.check_box :completion_flag %>
 	            	          			<i></i>
 	            	          			<div class="slide-bar">
-								                  <div id="progress-slider" data-task-id="<%= activity.task.id %>" data-progress="<%= activity.task.progress %>"></div>
+
+	            	          				<input type="text" id="progress-slider" name="example_name" value="" data-task-id="<%= activity.task.id %>" data-progress="<%= activity.task.progress %>"/>
 								                </div>
 	            	          		</div>
 	            	          	</div>
